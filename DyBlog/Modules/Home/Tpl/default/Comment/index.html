@@ -1,0 +1,134 @@
+<include file="Public:header" />
+
+<div class="contaier wp">
+    <div class="channel-left">
+        <div class="ident">留言</div>
+        <div class="think-search cf">
+            <form action="" method="post">
+                <input class="text" name="name" placeholder="搜索暂不提供" type="text"><input class="submit" value="搜索" type="submit">
+                <input name="type" value="6" type="hidden">
+                <input value="0" name="time" type="hidden">
+            </form>
+        </div>
+
+		<div class="think-review">
+			<div class="trhead">
+			<a name="review"></a>
+			<strong>留言：</strong>
+			<empty name="list">
+			</div>
+				本篇文章暂无评论。
+			<else />
+			共<span class="review-count">{$count}</span>条
+			</div>
+				<div class="trbody">
+					<div class="review-users">
+					<volist name="list" id="data">
+					<eq name="data.pid" value="0"><div class="item" id="{$data.id}"></eq>
+					<a id="{$data.id}"></a>
+					<a class="avatar" href="#">
+					<img src="../Public/Images/36_36.png"></a>
+					<span class="name">{$data.userName}</span>
+						<span class="date">{$data.createTime|toDate}</span>
+						<br>
+						{$data.content}
+						<a class="reply-link" href="javascript:;" reply="{$data.id}">回复</a>
+						</div>
+						<notempty name="data.pcomment"><volist name="data.pcomment" id="pdata"><div class="item reply" id="{$pdata.id}">
+							<a id="{$pdata.id}"></a>
+							<a class="avatar" href="#">
+							<img src="../Public/Images/36_36.png"></a>
+							<span class="name">{$pdata.userName}</span>
+							<span class="date">{$pdata.createTime|toDate}</span>
+							<br>
+							{$pdata.content}</div></volist></notempty>
+					
+					</volist>
+
+					</div>
+				</div>
+			<div style="display: block;" class="review-more">
+				{$page}
+			</div>
+			</empty>
+			<div style="display: block;" class="review-form cf">
+            <form action="{:U('Home/Comment/insert')}" method="post">
+                <span class="textarea"><textarea name="content"></textarea></span>
+ 
+				<input type="hidden" name="type" value="1" />
+				<input type="hidden" name="fromId" value="0" />
+				<input value="0" name="pid" type="hidden">
+				<input type="hidden" name="userId" value="{$Think.session.authId}" />
+				<table>
+                <tbody>
+					<tr>
+                    <th>昵 称:</th>
+                        <td><input value="<notempty name="Think.session.loginUserName">{$Think.session.loginUserName}</notempty>" class="text" name="userName" type="text"></td>
+
+                    <th>邮 箱:</th>
+                        <td><input value="<notempty name="Think.session.email">{$Think.session.email}</notempty>" class="text" name="email" type="text"></td>
+                    
+					<th>主 页:</th>
+                        <td><input value="" class="text" name="url" type="text"></td>
+                    </tr>
+				</tbody></table>
+                <input class="submit" value="评论" type="submit">
+
+                <span class="strleng">请文明用语</span>
+                <!-- <span class="syn">同步到：<a href="#">新浪微博</a><a href="#">腾讯微博</a></span> -->
+            </form>
+        </div>
+		</div>
+	</div>
+	<div class="channel-right">
+		<a href="{:U('Home/Comment/leave')}" class="upload-link"><strong>留言</strong>支持开发</a>
+		<div class="think-sort">
+			<ul class="cf">
+				<li class="selected"><a href="#">全部(82)</a></li>
+				<li><a href="#">分类功能暂未开通</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="Qrcode" class="Qrcode"></div>
+</div>
+		<script charset="utf-8" src="__PUBLIC__/Js/editor/kindeditor-all-min.js"></script>
+		<script charset="utf-8" src="__PUBLIC__/Js/editor/lang/zh_CN.js"></script>
+<script type="text/javascript">
+    //实例化编辑器
+	//		$(function() {
+	//			var editor = KindEditor.create('textarea[name="content"]');
+	//		});
+			var editor;
+			KindEditor.ready(function(K) {
+				editor = K.create('textarea[name="content"]', {
+					allowFileManager : true
+				});
+			});
+
+</script>
+<script type="text/javascript">
+	var form = $('.review-form');
+    //插入回复表单
+    $('.review-users').delegate('.reply-link','click',function(event){
+		KindEditor.remove('textarea[name="content"]');
+        var parent = $(this).closest('.item');
+        //写入对应回复ID
+        form.find(':hidden[name=pid]').val($(this).attr('reply'));
+        parent.append(form).find('textarea').focus();
+		
+        event.stopPropagation();
+		var editor = KindEditor.create('textarea[name="content"]');
+    })
+    $('.review-users').delegate('.item','click',function(event){
+		KindEditor.remove('textarea[name="content"]');
+        $(this).has('form').length && event.stopPropagation();
+		var editor = KindEditor.create('textarea[name="content"]');
+    })
+    $(document).click(function(){
+		KindEditor.remove('textarea[name="content"]');
+        $('.review-more').after($('.review-users').find('.review-form'));
+        form.find(':hidden[name=pid]').val(0);
+		var editor = KindEditor.create('textarea[name="content"]');
+    })
+</script>
+<include file="Public:footer" />

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<empty name="html.title"><title>小雨 博客 - Powered by Xiaoyu</title><else/><title>{$html.title} - Powered by Xiaoyu</title></empty>
+		
+		<empty name="html.keywords"><meta name="keywords" content="小雨,XyBlog,小雨,3.0,博客"><else/><meta name="keywords" content="{$html.keywords}"></empty>
+		
+		<empty name="html.description"><meta name="description" content="小雨的博客,博客,时间api,www.dingxiaoyu.com"><else/><meta name="description" content="{$html.description}"></empty>
+		
+		<meta content="all" name="robots" />
+		<meta name="author" content="霡霂,小雨,614422099@qq.com" />
+		<meta name="generator" content="Xiaoyu  Api 3" />
+		<meta name="Copyright" content="www.dingxiaoyu.com,版权所有,Copyright (c) 2013 dingxiaoyu.com" />
+		<link rel="stylesheet" type="text/css" href="../Public/css/prettify.css">
+		<link href="../Public/Images/favicon.gif" rel="shortcut icon">
+		<link rel="shortcut icon" href="__PUBLIC__/Images/favicon.gif" type="image/gif" />
+		<load href='../Public/Css/concision.css' />
+		<load href='../Public/Css/xiaoyu.css' />
+		<load href="__PUBLIC__/Js/Jquery/jquery.min.js" />
+		<load href="__PUBLIC__/Js/Jquery/jquery.qrcode.min.js" />
+		<load href="__PUBLIC__/Js/Jquery/jquery.form.js" />
+		<load href="__PUBLIC__/Js/ueditor/uparse.js" />
+	</head>
+
+<body>
+	<div class="header">
+		<div class="header-wrap wp cf">
+			<h3 class="think-logo"><img src="../Public/Images/app.png" title="Dy API" align="bottom" height="60" width="60">Xy Blog</h3>
+			<ul class="think-navg">
+				<li class="title"><a class="show" href="/">主页</a></li>
+				<volist name="headMenu" id="data">
+				<li class="title"><a class="show" href="{:U($data['group'].'/'.$data['model'].'/'.$data['action'])}">{$data['title']}</a></li>
+				</volist>
+				<li class="title"><a class="show" href="http://xyapi.sinaapp.com/">小雨API</a></li>
+				<li class="title"><a class="show" href="http://614422099.qzone.qq.com">QQ空间</a></li>
+			</ul>
+		    <script type="text/javascript">
+				jQuery(function(){
+					//导航选中
+					var url = location.pathname, navg = $('.think-navg li');
+					if(url == '/' || url == '/index'){
+						navg.eq(0).addClass('selected');
+					}else if(!url.indexOf('/blog') || !url.indexOf('/home/blog')){
+						navg.eq(1).addClass('selected');
+					}else if(!url.indexOf('/comment')|| !url.indexOf('/home/comment')){
+						navg.eq(2).addClass('selected');
+					}else if(!url.indexOf('/info')){
+						if(!url.indexOf('/info/document.html') || !url.indexOf('/info/add/cate_id/36')){
+							navg.eq(4).addClass('selected');
+						}else{
+							navg.eq(7).addClass('selected');
+						}
+					}
+					var ele = document.URL;//'http://{$Think.server.SERVER_NAME}__ACTION__'
+						jQuery('#Qrcode').qrcode({
+							text	: ele,
+							width	: 110,
+							height	: 110,
+						});
+				})
+            </script>
+		<script type="text/javascript" src="{:U('Admin/Public/getInfo')}"></script>
+		</div>
+	</div>

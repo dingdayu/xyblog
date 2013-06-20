@@ -1,0 +1,55 @@
+<script type="text/javascript">
+    $(function(){
+        //首页布局
+        var _lw = $('.home-left').css('max-width');
+        var _rw = $('.home-right').css('width');
+        $(window).resize(function(){
+            if($(this).width() < 980){
+                $('.home-left').css('max-width','100%');
+                $('.home-right').css('width','100%');
+            }else{
+                $('.home-left').css('max-width',_lw);
+                $('.home-right').css('width' , _rw);
+            }
+        }).resize();
+        var title,url;
+        $('.share a').live('click', function(){
+            var ele = $(this).closest('.think-info').find('.tihead h3 a');
+            title = encodeURIComponent(ele.text());
+            url   = encodeURIComponent('http://' + document.domain + ele.attr('href'));
+            window.open( eval($(this).attr('class') + '()') , "_blank" ,"width=680,height=430,scrollbars=no,location=no" ) ;
+        });
+    });
+</script>
+    <div class="footer">
+        <div class="wp">
+            <p class="copy">©Xiaoyu 2012</p>
+            <p class="navg">
+				<a href="http://www.dingxiaoyu.com">关于我们</a>
+				<a href="http://me.alipay.com/dingdayu">捐赠我们</a>
+				<a href="{:U('Blog/2')}">更新列表</a>
+				<a href="#">BUG反馈</a>
+				<a href="#">功能建议</a>
+				<a href="#like">友情链接</a>
+				<p class="links"><a href="http://me.alipay.com/dingdayu">捐赠</a>
+				<a href="#">订阅</a>
+				<a href="http://t.qq.com/dingxiaoyu2099">腾讯微博</a>
+				<a href="http://weibo.com/dingdayu">新浪微博</a>
+				<a href="http://thinkphp.cn">Tpl By ThinkPHP</a>
+			</p>
+        </div>
+    </div>
+	
+<div style="display:none">
+    <script src="http://s4.cnzz.com/stat.php?id=4224582&web_id=4224582&show=pic2" language="JavaScript"></script>
+    <script type="text/javascript">
+		var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+		document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fecfc00f676dc44c666c391b6359231c0' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=24669633" charset="UTF-8"></script>
+            
+				
+</div>
+<a></a>
+</body></html>

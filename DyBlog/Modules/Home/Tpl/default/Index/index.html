@@ -1,0 +1,171 @@
+<include file="Public:header" />
+
+<div class="contaier wp">
+    <div class="ident">小雨作品</div>
+    <div class="home-wrap cf">
+        <div style="max-width: 684px;" class="home-left">
+            <div><p style="font-size:20px;">一个热爱生活，喜爱计算机的小男孩。</p></div>
+            
+			<div class="think-recome ">
+				<span class="recome">[ 置顶 ] </span><a href="http://xgdd.sinaap.com/" style="font-size:20px" target="_blank">仙国大帝更新项目</a>
+			</div>
+			<volist name="top" id="data">
+			<div class="think-recome ">
+				<span class="recome">[ 置顶 ] </span><a href="{:U('Blog/'.$key)}" style="font-size:20px" target="_blank">{$data}</a>
+			</div>
+			</volist>
+		
+	    <div class="think-slogan"><p>个人介绍 <a href="http://www.thinkphp.cn/info/index.html">More</a></p></div>
+			<div>
+            <table width="680" height="177" border="0">
+  			<tr>
+    		<td width="175" rowspan="5" align="center" valign="middle"><img src="../Public/Images/tou.gif" title="Dy API">&nbsp;</td>
+    		<td width="495" height="58" valign="bottom">昵称： 小雨</td>
+  			</tr>
+  			<tr>
+  			  <td>性别： 男</td>
+			  </tr>
+  			<tr>
+  			  <td>邮箱： 614422099@qq.com</td>
+			  </tr>
+  			<tr>
+  			  <td>QQ： 614422099</td>
+			  </tr>
+  			<tr>
+  			  <td>&nbsp;</td>
+			  </tr>
+			</table>
+		  </div>
+            
+			<div class="think-slogan"><p>项目 <a href="#">More</a></p></div>
+			<div class="think-recome ">
+				<span class="cate">[ 独立原创 ]</span>
+            	<a href="http://api.dingxiaoyu.com/" target="_blank">Dy API</a><span class="date">11-29 </span>
+			</div>
+            <div class="think-recome ">
+				<span class="cate">[ 独立原创 ]</span>
+            	<a href="http://xgdd.sinaap.com/" target="_blank">仙国大帝</a> <span class="date">11-05 </span>
+			</div>
+            <div class="think-recome ">
+				<span class="cate">[ 团队合作 ]</span>
+            	<a href="https://github.com/dingdayu/Z-QQRobotPort" target="_blank">机器人接口</a> <span class="num"> Z-QQRobot </span> 小雨 <span class="date">11-05 </span>
+			</div>
+
+			<div class="think-slogan"><p>最新博文 <a href="{:U('Home/Blog/index')}">More</a></p></div>
+			<volist name="last" id="data">
+			<div class="think-recome ">
+				<!--
+            	<a href="{:U('Blog/'.$data['id'])}" target="_blank">{$data}</a> <span class="num">(评论数量)</span> 作者 <span class="date">11-29 </span>
+				-->
+				<a href="{:U('Blog/'.$key)}" target="_blank">{$data['title']}</a> <span class="num"> ({$data.pcount}) </span> <span class="date">{$data.createTime|toDate} </span>
+			</div>
+			</volist>
+				<div class="think-more">
+				</div>
+			</div> 
+        <div class="home-right1">
+		<!--置顶模块-->
+		    <div class="think-toper">
+                <dl>
+    				<dt>搜索<sub>Search</sub></dt>
+    				<dd>	
+                        <div class="search-form">
+            				<form method="post" action="/Search/">
+            					<input class="text" style="width:125px" name="name" type="text">
+            					<select name="type">
+            						<option selected="selected" value="0">博客</option>
+            						<option value="1">附件</option>
+            						<option value="2">讨论</option>
+            					</select>
+								<input name="time" value="0" type="hidden">
+            					<input class="submit" value="搜索" type="submit">
+            				</form>
+                        </div>
+                    </dd>
+				</dl>
+                <dl class="attent">
+                    <dt>关注<sub>Attention</sub></dt>
+                    <dd class="cf">
+                        <a class="tencen" href="http://t.qq.com/dingxiaoyu2099" target="_blank">腾讯微博</a>
+						<a class="sina" href="http://weibo.com/dingdayu" target="_blank">新浪微博</a>
+                    </dd>
+                </dl>
+				<dl>
+                    <dt>推广<sub>Popularize</sub></dt>
+                    <dd>
+                        <ul>
+                            <li>原创项目：
+							<a href="http://xyapi.sinaapp.com" target="_blank">小雨API</a> <br>
+							合作项目： 
+							<a href="#" target="_blank">机器人接口</a>
+							</li>
+                        </ul>
+                    </dd>
+                </dl>
+                
+				<!-- <div class="think-7year">
+                    <a class="blessing-link" href="#">Thinkphp7周年,7年相伴，奉献传承</a>
+                    <div class="blessing-total">已收到 <span>3</span><span>2</span><span>5</span><span>4</span><span>3</span> 条祝福</div>
+                </div>-->
+            </div>
+            <!--/显眼模块-->
+			
+            <div class="think-fast">
+				<dl>
+                    <dt>留言<sub>Leave</sub></dt>
+                    <dd>
+                        <a href="{:U('Home/Comment')}" target="_blank">点击</a>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>捐赠<sub>Donate</sub></dt>
+                    <dd>
+                        <a href="http://me.alipay.com/dingdayu" target="_blank">捐赠我们</a>
+						<a href="#" target="_blank">捐赠列表</a>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>订阅<sub>Subscribe</sub></dt>
+                    <dd class="rss-form">
+                        <form method="post" target="_blank" action="http://list.qq.com/cgi-bin/qf_compose_send">
+                            <input value="qf_booked_feedback" name="t" type="hidden">
+                            <input value="2180b1ddf37dd53f17d439b44f3ea544584a7b48ed73e2e5" name="id" type="hidden">
+                            <input class="text" placeholder="请输入邮件地址..." name="to" id="to" type="text">
+                            <input class="submit" value="订阅" type="submit">
+                        </form>
+                    </dd>
+					<dd>
+                        <a class="rss" href="http://dingxiaoyu.com/Rss" target="_blank">RSS订阅</a>
+                        <a href="http://xyblog.sinaapp.com/blog/8.html" target="_blank">什么是RSS？</a>
+                    </dd>
+                </dl>
+            </div>
+            <!--合作伙伴-->
+<!--            <div class="think-cooperate">
+                <dl>
+                    <dt>合作<sub>Cooperate</sub></dt>
+                    <dd class="banner"><a href="#" title=""><img src="/Public/common/bg_image_28.jpg" alt="" /></a></dd>
+                    <dd class="more"><a href="#">点击了解详情</a></dd>
+                </dl>
+            </div>-->
+            <!--/合作伙伴-->
+            <!--think微信-->
+            <div class="think-weixin">
+                <div class="head">小雨 微信</div>
+                <div class="body"><img src="__PUBLIC__/Images/mmqrcode.png" width="180" height="180" alt="dingxiaoyu_ddy"></div>
+            </div>
+            <!--/think微信-->
+        </div>
+    </div>
+    <div class="think-coop">
+	<a name="like" id="like"></a>
+        <div class="head">合作伙伴：</div>
+        <div class="body">
+            <span class="title"><a target="_blank" href="http://614422099.qzone.qq.com/">小雨QQ空间</a></span>&nbsp;
+			<span class="title"><a target="_blank" href="http://blog.dingxiaoyu.com/">Dy BLOG</a></span>&nbsp;
+			<span class="title"><a target="_blank" href="http://xgdd.sinaapp.com/">仙国大帝更新</a></span>&nbsp;
+		</div>
+    </div>
+	<div id="Qrcode" class="Qrcode"></div>
+</div>
+<include file="Public:footer" />

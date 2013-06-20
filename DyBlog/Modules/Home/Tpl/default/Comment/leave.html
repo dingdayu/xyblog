@@ -1,0 +1,105 @@
+<include file="Public:header" />
+
+		<script charset="utf-8" src="__PUBLIC__/Js/editor/kindeditor-all-min.js"></script>
+		<script charset="utf-8" src="__PUBLIC__/Js/editor/lang/zh_CN.js"></script>
+<script type="text/javascript">
+    //实例化编辑器
+		var editor;
+		KindEditor.ready(function(K) {
+			K.create('textarea[name="content"]', {
+				minWidth : 533,
+				items : ['source', '|', 'undo', 'redo', '|','bold','|','code','|','paste','|','anchor', 'link', 'unlink',]
+			});
+		});
+
+	function simple() {
+        if(ue){
+            ue.setContent("");
+            ue.reset();
+        }
+    }
+	function getPid(i){
+		pid=document.getElementById('pid');
+		pid.value=i;
+	}
+</script>
+
+<div class="contaier wp">
+    <div class="think-add">
+	<div class="ident">留言</div>
+        <div class="body think-form">
+            <form action="{:U('Home/Comment/insert')}" method="post">
+                <table>
+                    <tbody>
+					<tr>
+                        <th>昵　　称</th>
+                        <td><input value="<notempty name="Think.session.loginUserName">{$Think.session.loginUserName}</notempty>" class="text" name="userName" type="text"></td>
+                    </tr>
+					<tr>
+                        <th>邮　　箱</th>
+                        <td><input value="<notempty name="Think.session.email">{$Think.session.email}</notempty>" class="text" name="email" type="text"></td>
+                    </tr>
+					<tr>
+                        <th>主页</th>
+                        <td><input value="" class="text" name="url" type="text"></td>
+                    </tr>
+                    <tr>
+                        <th>评论类型</th>
+                        <td>
+                        <select class="select" name="type">
+							<option selected="selected" value="1">留言</option>
+							<option value="2">反馈</option>
+							</select>　　
+						来　　源
+					    <select class="select" name="fromType">
+							<option selected="selected" value="1">QQ空间</option>
+                            <option value="2">ThinkPHP</option>
+                            <option value="3">Z-QQRobot</option>
+                            <option value="4">贴吧</option>
+                            <option value="5">其他</option>
+                        </select>
+                        </td>
+					</tr>
+					<tr>
+						<th>内　　容</th>
+						<td>
+							<div class="think-editor">
+							<div class="enter">
+								<textarea name="content" style="width:533px;"></textarea>
+							</div>
+							</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <td>
+							<input type="hidden" name="pid" value="0" id="pid">
+							<input type="hidden" name="fromId" value="0" />
+							<input type="hidden" name="userId" value="{$Think.session.authId}" />
+                            <input class="submit" value="提交" type="submit">
+                        </td>
+                    </tr>
+                </tbody></table>
+            </form>
+        </div>
+    </div>
+	<div class="home-right">
+	<div class="think-fast">
+		<dl>
+			<dt>留言类型<sub>LeaveType</sub></dt>
+			<dd>捧场的朋友请选择留言，测试的朋友请选择反馈。</dd>
+		</dl>
+		<dl>
+			<dt>来源类型<sub>SourceType</sub></dt>
+			<dd>请朋友选择在哪里得到消息而来的，仅用于统计，谢谢。</dd>
+		</dl>
+		<dl>
+			<dt>快捷键<sub>Keyboard</sub></dt>
+			<dd>选中文字内容后使用键盘快捷键<br>CTRL+B ：字体加粗<br>CTRL+Y ：重新执行上次操作<br>CTRL+Z ：撤销上一次操作</dd>
+		</dl>
+
+	</div>
+	</div>
+	<div id="Qrcode" class="Qrcode"></div>
+</div>
+<include file="Public:footer" />
