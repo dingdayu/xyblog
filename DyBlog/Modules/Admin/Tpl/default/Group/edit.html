@@ -15,21 +15,12 @@
 <form method='post' id="form1" name="form1"action="__URL__/update"  enctype="multipart/form-data">
 <table cellpadding=3 cellspacing=3 >
 <tr>
-	<td class="tRight" width="10%">昵称：</td>
-	<td class="tLeft" ><input type="text" class="huge bLeftRequire" name="userName" value="{$vo.userName}"></td>
+	<td class="tRight" width="10%">标题：</td>
+	<td class="tLeft" ><input type="text" class="huge bLeftRequire" name="title" value="{$vo.title}"></td>
 </tr>
 <tr>
-	<td class="tRight" width="10%">邮箱：</td>
-	<td class="tLeft" ><input type="text" class="huge bLeftRequire" name="email" value="{$vo.email}"></td>
-</tr>
-<tr>
-	<td class="tRight" width="10%">类型：</td>
-	<td class="tLeft" >
-		<select class="select" name="type">
-		<eq name="vo['type']" value="1"><option selected="selected" value="1">留言</option><option value="2">反馈</option></eq>
-		<eq name="vo['type']" value="2"><option value="1">留言</option><option selected="selected" value="2">反馈</option></eq>
-		</select>
-	</td>
+	<td class="tRight" width="10%">SEO Url：</td>
+	<td class="tLeft" ><input type="text" class="huge bLeftRequire" name="url" value="{$vo.url}"></td>
 </tr>
 <tr>
 	<td class="tRight tTop">内容：</td>

@@ -70,6 +70,33 @@ class UploadAction extends BaseAction {
 		S('Config',NULL);//清空缓存
 	}
 	
+	public function upload(){
+        if (!empty($_FILES)) {
+            import("ORG.Util.UploadFile",LIB_PATH);
+            import("ORG.Util.Image",LIB_PATH);
+            $upload = new UploadFile(); // 实例化上传类
+            $upload->maxSize = 500000; // 设置附件上传大小
+            $upload->saveRule = 'uniqid';
+			$upload->uploadReplace = true;
+            $upload->allowExts = array('jpg', 'gif', 'png', 'jpeg'); // 设置附件上传类型
+            $upload->savePath = './Upload/'; // 设置附件上传目录
+            if (!$upload->upload()) { // 上传错误提示错误信息
+				$error['message'] = $upload->getErrorMsg();
+                $error['status'] = 0;
+				/*echo '<script type="text/javascript">alert("'.$error['message'].'");</script>';*/
+			    echo json_encode($error);
+                exit;
+            } else {
+                // 上传成功 获取上传文件信息
+                $info = $upload->getUploadFileInfo();
+                $info[0]['file'] = trim($info[0]['savepath'].$info[0]['savename'],'.');
+                echo json_encode($info[0]);
+				//echo '<script>parent.set('.json_encode($info[0]).')</script>';
+                exit;
+            }
+        }
+	}
+	
 	/*
 	  +----------------------------------------------------------
      * 更新数据操作

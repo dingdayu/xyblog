@@ -30,5 +30,19 @@ class UserModel extends CommonModel {
 		array('update_time','time',2,'function'),
 		array('password','pwdHash',3,'callback'),
         );
-
+	
+	/**
+     +----------------------------------------------------------
+     * 对post来的password数据进行pwdHash加密，函数位于项目函数文件
+     +----------------------------------------------------------
+     * @return string
+     +----------------------------------------------------------
+     */	
+	protected function pwdHash() {
+		if(isset($_POST['password'])) {
+			return pwdHash($_POST['password']);
+		}else{
+			return false;
+		}
+	}
 }
