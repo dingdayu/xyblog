@@ -629,5 +629,5 @@ CREATE TABLE IF NOT EXISTS `dy_user` (
 --
 
 INSERT INTO `dy_user` (`id`, `username`, `nickname`, `password`, `last_login_time`, `last_login_ip`, `login_count`, `email`, `qq`, `remark`, `create_time`, `create_ip`, `update_time`, `status`) VALUES
-(1, 'admin', '管理员', 'abb7d91718e42a0508c97d8ebc208d91', 1371737923, '106.33.63.27', 58, '614422099@qq.com', 614422099, '', 1362651445, '127.0.0.1', 0, 1),
+(1, 'admin', '管理员', '21232f297a57a5a743894a0e4a801fc3', 1371737923, '106.33.63.27', 58, '614422099@qq.com', 614422099, '', 1362651445, '127.0.0.1', 0, 1),
 (2, 'test', '11', 'e10adc3949ba59abbe56e057f20f883e', 1370801240, '222.217.118.187', 81, 'xyblog@dingxiaoyu.com', 0, '', 0, NULL, 1369651678, 1);
