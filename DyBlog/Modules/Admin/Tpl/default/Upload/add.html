@@ -1,0 +1,102 @@
+<include file="Public:header" />
+<div id="main" class="main" >
+<div class="content">
+<div class="title">添加数据 [ <a href="__URL__">返回列表</a> ]</div>
+<div id="result" class="result none"></div>
+		<script charset="utf-8" src="__PUBLIC__/Js/editor/kindeditor-all-min.js"></script>
+		<script charset="utf-8" src="__PUBLIC__/Js/editor/lang/zh_CN.js"></script>
+<script type="text/javascript">
+	$(function() {
+		var editor = KindEditor.create('textarea[name="content"]');
+	});
+</script>
+<script>
+	$(function(){
+		$("#upload").uploadify({
+			'queueSizeLimit' : 1,
+			'swf'           : '__PUBLIC__/Js/uploadify/uploadify.swf',
+			'uploader'      : '{:U("Admin/Upload/upload")}',
+			'cancelImg'		: 'cancel.png',//单个取消上传的图片
+			'buttonText'	  : '选择',
+			'auto'		  : true,
+			'displayData': 'speed',//进度条的显示方式
+			'removeCompleted': false,
+			'height'        : 30,
+			'width'         : 120,
+			onUploadSuccess: function(file, data, response) {
+				$('#progress').hide();
+				var result = $.parseJSON(data);
+				//错误处理。。。
+				if(result.status == 0){
+					alert(result.message);
+					return false;
+				}
+				//上传成功
+				var id = Math.random().toString();
+				id = id.replace('.','_'); //生成唯一标示
+				var html = '<li class="imageitem" id="'+id+'">';
+					html+= '<input type="hidden" name="file[]" value="'+result.file+'">'; //隐藏域，是为了把图片地址入库。。
+					html+= '<img height="160" width="160" src="'+result.file+'" />';
+					html+=  '<span class="txt">';
+					html+=  '<a title="删除" href=javascript:remove("'+result.file+'","'+id+'");><img src="__PUBLIC__/Js/uploadify/remove.png" /></a>';
+					html+=  '<a title="移动" href=javascript:toremove("'+result.file+'");><img src="__PUBLIC__/Js/uploadify/right.png" /></a>';
+					html+=  '</span>';
+					html+=  '<em><textarea style=" height:20px;width:155px;">'+file.name+'</textarea></em>';
+					html+=  '</li>';
+				$('#image_result').append(html);
+			},
+			onUploadStart: function(){
+				$('#progress').text('上传中...');  //用户等待提示。
+			},
+			onInit: function (){  
+				$("#upload-queue").hide(); //隐藏上传队列                
+			}		
+		});
+	})
+	function remove(file,id){
+		alert('方法写这里了，逻辑自己写。。'+"\r\n"+file);
+		$('#'+id).remove();
+	}
+	function toremove(file){
+		alert('方法写这里了，逻辑自己写。。'+"\r\n"+file);
+	}
+</script>
+<form method='post' id="form1" name="form1" action="__URL__/insert"  enctype="multipart/form-data">
+<table cellpadding=3 cellspacing=3 >
+<tr>
+	<td class="tRight" width="10%">标题：</td>
+	<td class="tLeft" ><input type="text" class="huge bLeftRequire" name="title"></td>
+</tr>
+<tr>
+	<td class="tRight" width="10%">附件：</td>
+	<td class="tLeft" >                <div class="even">
+                    <div style="width:150px; float:left; margin-top:15px;"><a style="float:right" id="upload"></a></div>
+                    <pre id="progress" style="margin-top:20px; float:left;"></pre>
+                </div>
+                <div style="clear:both"></div>
+                <div style=" margin-left:30px;">
+                    <p>
+						<ul class="imagelist" id="image_result"></ul>
+                    </p>
+                </div>
+                <div class="clear"></div></td>
+</tr>
+<tr>
+	<td class="tRight tTop">内容：</td>
+	<td class="tLeft">
+	<textarea id="content" name="content" style="width:700px;height:300px;"></textarea>
+	</td>
+</tr>
+
+<tr>
+	<td></td>
+	<td class="center"><div style="width:85%;margin:5px">
+	<input type="hidden" name="status" value="1">
+    <input type="hidden" name="userId" value="<?php echo $_SESSION[C('USER_AUTH_KEY')] ?>">
+	<input type="submit" value="保 存"  class="button small"> <input type="reset" class="button small" value="重 置" >
+	</div></td>
+</tr>
+</form>
+</table>
+</div>
+</div>

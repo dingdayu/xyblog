@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<empty name="html.title"><title>小雨 博客 - Powered by Xiaoyu</title><else/><title>{$html.title} - Powered by Xiaoyu</title></empty>
+		
+		<empty name="html.keywords"><meta name="keywords" content="小雨,XyBlog,小雨,3.0,博客"><else/><meta name="keywords" content="{$html.keywords}"></empty>
+		
+		<empty name="html.description"><meta name="description" content="小雨的博客,博客,时间api,www.dingxiaoyu.com"><else/><meta name="description" content="{$html.description}"></empty>
+		
+		<meta content="all" name="robots" />
+		<meta name="author" content="霡霂,小雨,614422099@qq.com" />
+		<meta name="generator" content="Xiaoyu  Api 3" />
+		<meta name="Copyright" content="www.dingxiaoyu.com,版权所有,Copyright (c) 2013 dingxiaoyu.com" />
+		<link rel="alternate" type="application/rss+xml" title="RSS" href="/home/rss" />
+		<link rel="shortcut icon" href="__PUBLIC__/Images/favicon.gif" type="image/gif" />
+		<load href='__PUBLIC__/Css/xiaoyu.css' />
+		<load href="__PUBLIC__/Css/base.css" />
+		<load href="__PUBLIC__/Css/header.css" />
+		<load href="__PUBLIC__/Css/module.css" />
+		<load href="__PUBLIC__/Js/Think/ThinkBox/style.css" />
+		<load href="__PUBLIC__/Css/img.css" />
+		<load href="__PUBLIC__/Js/prettify/src/prettify.css" />
+		<load href="__PUBLIC__/Js/Jquery/jquery.min.js" />
+		<load href="__PUBLIC__/Js/prettify/src/prettify.js" />
+		<load href="__PUBLIC__/Js/ZeroClipboard/ZeroClipboard.min.js" />
+		<load href="__PUBLIC__/Js/Think/ThinkBox/jquery.ThinkBox.js" />
+		<load href="__PUBLIC__/Js/Jquery/jquery.qrcode.min.js" />
+		<load href="__PUBLIC__/Js/Validform_v5.js" />
+		<load href="__PUBLIC__/Js/Jquery/jquery.Masonry.js" />
+		<script type="text/javascript">
+			$(function(){
+			//翻页快捷键
+				$(document).keyup(function(event){
+					if(event.keyCode == 37){
+						$('.prev span').click();
+				}else if(event.keyCode == 39){
+					$('.next span').click();
+				}
+			});
+
+			//阻止事件的冒泡
+			$(':text,textarea').keyup(function(event){
+				event.stopPropagation();
+			});
+			
+			$("#header-search").hover(function(){
+				$("#search-sort-list").show();
+			},function(){
+				$("#search-sort-list").hide();
+			});
+			//搜索选项选择
+			$("#search-sort-list li").click(function(){
+				var curTxt = $(this).text();
+				var type = $(this).val();
+				$('#search').val(type);
+				$(this).addClass("current").siblings().removeClass("current");
+				$(this).parent().siblings(".search-sort-txt").text(curTxt);
+				$(this).parent().hide();
+			});
+			
+			//入口图标菜单
+			$(".entrance").hover(function(){
+				$(this).children(".user-menu").show();
+			},function(){
+				$(this).children(".user-menu").hide();
+			});
+		
+			//返回顶部
+			function gotoTop(min_height){
+				//预定义返回顶部的html代码，它的css样式默认为不显示
+				var gotoTop_html = '<div id="gotoTop">返回顶部</div>';
+				//将返回顶部的html代码插入页面上id为page的元素的末尾 
+				$("body").append(gotoTop_html);
+				$("#gotoTop").click(//定义返回顶部点击向上滚动的动画
+					function(){ $('html,body').animate({scrollTop:0},700);
+				}).hover(//为返回顶部增加鼠标进入的反馈效果，用添加删除css类实现
+					function(){ $(this).addClass("hover");},
+					function(){ $(this).removeClass("hover");
+				});
+	
+		    //获取页面的最小高度，无传入值则默认为600像素
+		    min_height ? min_height = min_height : min_height = 600;
+		    //为窗口的scroll事件绑定处理函数
+		    $(window).scroll(function(){
+		        //获取窗口的滚动条的垂直位置
+		        var s = $(window).scrollTop();
+		        //当窗口的滚动条的垂直位置大于页面的最小高度时，让返回顶部元素渐现，否则渐隐
+		        if( s > min_height){
+		            $("#gotoTop").fadeIn(100);
+		        }else{
+		            $("#gotoTop").fadeOut(200);
+		        };
+		    });
+		};
+		gotoTop();
+		//代码高亮
+		$('code').each(function(){
+	        $(this).data('think-source', (this.innerText || this.textContent).replace(/ /g, ' '));
+	    });
+	    prettyPrint();
+		/*
+	    $('code').each(function(){
+	        var self = $(this);
+	        var copy = $('<div><span>复制代码</span></div>')
+	            .addClass('think-copy')
+	            .appendTo(self)
+	            .zclip({
+	                'path':'/Public/Js/ZeroClipboard/ZeroClipboard.swf',
+	                'afterCopy' : function(){
+	                    $.ThinkBox.success('复制成功');
+	                },
+	                'copy': function(){
+	                    return self.closest('code').data('think-source');
+	                }
+	            });
+	    });
+		*/
+	})
+	</script>
+	<load href="__PUBLIC__/Js/common.js" />
+</head>
+
+<body>
+	<!-- 头部 -->
+	<div class="header">
+		<div class="hd-main cf">
+			<!-- logo -->
+			<h3 class="logo"><a href="/" title="返回首页"></a></h3>
+			<!-- /logo -->
+			<!-- 主导航 -->
+			<ul class="main-nav">
+				<li class="title"><a href="/">主页</a></li>
+				<volist name="headMenu" id="data">
+				<li class="title"><a href="{:U('/'.$data['model'])}">{$data['title']}</a></li>
+				</volist>
+			</ul>
+		    <script type="text/javascript">
+				jQuery(function(){
+					//导航选中
+					var url = location.pathname, navg = $('.main-nav li');
+					if(url == '/' || url == '/index'){
+						navg.eq(0).addClass('current');
+					}else if(!url.indexOf('/blog') || !url.indexOf('/home/blog') || !url.indexOf('/Blog')){
+						navg.eq(1).addClass('current');
+					}else if(!url.indexOf('/share')|| !url.indexOf('/home/share')  || !url.indexOf('/Share')){
+						navg.eq(2).addClass('current');
+					}else if(!url.indexOf('/project')|| !url.indexOf('/home/project')  || !url.indexOf('/Project')){
+						navg.eq(3).addClass('current');
+					}
+					
+					var ele = document.URL;//'http://{$Think.server.SERVER_NAME}__ACTION__'
+						jQuery('#Qrcode').qrcode({
+							text	: ele,
+							width	: 110,
+							height	: 110,
+						});
+				})
+            </script>
+			<!-- /主导航 -->
+			<div class="header-bar">
+				<!-- 搜索 -->
+				<form action="/Search/" method="post" class="search cf">
+					<div id="header-search" class="search-sort">
+						<span class="search-sort-txt">全部</span><em></em>						
+						<input type="hidden" name="type" id="search" value="10"/>
+						<ul id="search-sort-list" class="search-sort-list">
+							<li value="1">博客</li>
+							<li value="2">文档</li>
+							<li value="3">项目</li>
+						</ul>
+					</div>
+					<input type="hidden" name="time" value="0">					
+					<input type="text" name="name" class="search-input" x-webkit-speech>
+					<a class="search-btn" onclick="$(this).parent().submit();">搜索</a>
+				</form>
+				<!-- /搜索 -->
+				<script type="text/javascript" src="{:U('Admin/Public/getInfo')}"></script>
+			</div>
+		</div>
+	</div>

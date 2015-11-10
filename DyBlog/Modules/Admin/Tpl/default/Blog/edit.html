@@ -1,0 +1,236 @@
+<include file="Public:header" />
+<div id="main" class="main" >
+<div class="content">
+<div class="title">编辑数据 [ <a href="__URL__">返回列表</a> ]</div>
+<div id="result" class="result none"></div>
+<load href="__PUBLIC__/Js/uploadify/uploadify.css" />
+<load href="__PUBLIC__/Js/uploadify/jquery.uploadify.min.js" />
+<load href="__PUBLIC__/Js/Jquery/jquery.shortcuts.js" />
+
+<form method='post' id="form1" name="form1" action="__URL__/update" class="think-form" enctype="multipart/form-data">
+<table cellpadding=3 cellspacing=3 >
+<tr>
+	<td class="tRight" width="10%">标题：</td>
+	<td class="tLeft" ><input type="text" class="huge bLeftRequire" name="title" value="{$vo.title}" datatype="mix" data-length="50" nullmsg="标题不能为空" errormsg="长度太长"></td>
+</tr>
+<tr>
+	<td class="tRight" width="10%">分组：</td>
+	<td class="tLeft" >
+	<select name="groupId" datatype="*" nullmsg="分类不能为空">
+	<volist name="Grouplist" id="data">
+		<option <if condition="$data['id']==$vo['groupId']">selected </if>value="{$data.id}">{$data.title}</option>
+	</volist>
+	</select>
+	</td>
+</tr>
+<tr>
+	<td class="tRight tTop">内容：</td>
+	<td class="tLeft">
+		<div class="think-editor">
+			<div class="tool">
+				<a class="fullscreen fr" href="javascript:;">全屏</a>
+				<a class="bold" href="javascript:;" title="加粗">加粗</a>
+				<a class="link" href="javascript:;" title="链接">链接</a>
+				<a class="code" href="javascript:;" title="代码">代码</a>
+				<a class="upload" href="javascript:;" title="图片"><input id="editor_img" type="file" name="editor_img" /></a>
+			</div>
+			<div class="enter">
+				<textarea name="content" datatype="*" nullmsg="描述/内容不能为空">{$vo.content}</textarea>
+			</div>
+			<span class="Validform_checktip"></span>
+		</div>
+<script type="text/javascript">
+    $(function(){
+        $('.think-editor .bold').click(function(){
+            $(this).closest('.think-editor').find('textarea').insertContent('[b]'+ $(this).closest('.think-editor').find('textarea').selectionRange() +'[/b]'); 
+        });
+        $('.think-editor .italic').click(function(){
+            $(this).closest('.think-editor').find('textarea').insertContent('[i]'+ $(this).closest('.think-editor').find('textarea').selectionRange() +'[/i]'); 
+        });
+        $('.think-editor .underline').click(function(){
+            $(this).closest('.think-editor').find('textarea').insertContent('[u]'+ $(this).closest('.think-editor').find('textarea').selectionRange() +'[/u]'); 
+        });
+        $('.think-editor .link').click(function(){
+            $(this).closest('.think-editor').find('textarea').insertContent('[url]'+ $(this).closest('.think-editor').find('textarea').selectionRange() +'[/url]'); 
+        });
+        $('.think-editor .code').click(function(){
+            $(this).closest('.think-editor').find('textarea').insertContent('[code]'+ $(this).closest('.think-editor').find('textarea').selectionRange() +'[/code]'); 
+        });
+        $('.think-editor .fullscreen').click(function(){
+            var self = $(this).closest('.think-editor');
+            if(self.data('fullscreen')){ //取消全屏
+                self.removeAttr("style").find('textarea').removeAttr("style");
+                $('body').css("overflow", "auto");
+                self.data("fullscreen", 0);
+            } else {
+                $('body').css("overflow", "hidden");
+                self.css({
+                    "position": "fixed",
+                    "left"    : 0,
+                    "top"     : 0,
+                    "background-color":"#FFF",
+                    "width"   : $(window).width()-2,
+                    "height"  : $(window).height()-2,
+                    "z-index" : 999999
+                });
+                self.find('textarea').height($(window).height()-36);
+                self.data("fullscreen", 1);
+            }
+        });
+
+        $(window).resize(function(){
+            var self = $('.think-editor');
+            if(self.data('fullscreen')){
+                self.css({
+                    "position": "fixed",
+                    "left"    : 0,
+                    "top"     : 0,
+                    "background-color":"#FFF",
+                    "width"   : $(window).width()-2,
+                    "height"  : $(window).height()-2,
+                    "z-index" : 999999
+                });
+                self.find('textarea').height($(window).height()-36);
+            }
+        });
+
+        $('#editor_img').uploadify({
+            'swf'             : '/Public/Js/uploadify/uploadify.swf',
+            'uploader'        : '{:U("/Home/Public/editorUpload/")}',
+            'fileObjName'     : $('#editor_img').attr('name'),
+            'buttonClass'     : 'upload-image',
+            'fileTypeExts'    : '*.gif; *.jpg; *.png',
+            'width'           : 28,
+            'height'          : 28,
+            'onUploadSuccess' : function(file, data, response) {
+                data = $.parseJSON(data);
+                data.status ? $('.think-editor textarea').insertContent('[img]' + data.data + '[/img]') : $.ThinkBox.error(data.error);
+            }
+
+        });
+        $('textarea').shortcuts();
+    });
+</script>
+	</td>
+</tr>
+<tr>
+	<td class="tRight" width="10%">封面：</td>
+	<td class="tLeft" >
+		<input id="upload_img" type="file" name="case_img" />
+		<div id="img">
+		<input type="hidden" name="img" value=""/>
+		</div>
+		<span class="Validform_checktip"></span>
+	</td>
+	<notempty name="vo.imgId"><td class="" width="25%">
+		<div class="queuen-wrap">
+			<img src="/{$vo.imgId|getImgDown}" style="max-width:500px;"/>
+				<a href="javascript:void(0)" onclick="delete_pic(this)">删除</a>
+				<input type="hidden" name="imgId" value="{$vo.imgId}" datatype="*" nullmsg="LOGO不能为空"/>
+		</div>
+	</td></notempty>
+</tr>
+<tr>
+	<td class="tRight" width="10%">附件：</td>
+
+	<td class="tLeft" >
+		<input id="upload_file" type="file" name="attachment" />
+	</td>
+	<notempty name="vo.fileId"><td class="" width="25%">
+	<span id="attachment">{$vo.fileId|getAttachmentName}
+		<a href="javascript:void(0)" onclick="delete_attachment(this);">删除</a>
+		<input type="hidden" name="attachment" value="{$vo.fileId}" /></span>
+	</td></notempty>
+</tr>
+<tr>
+	<td class="tRight" width="10%">标签：</td>
+	<td class="tLeft" >
+		<input class="text" type="text" name="tags" value="{$vo.tag|toTag}" />
+        <span class="Validform_checktip">用空格分隔</span>
+	</td>
+</tr>
+<tr>
+	<td></td>
+	<td class="center"><div style="width:85%;margin:5px">
+	<input type="hidden" name="status" value="1">
+	<input type="hidden" name="id" value="{$vo.id}">
+    <input type="hidden" name="userId" value="<?php echo $_SESSION[C('USER_AUTH_KEY')] ?>">
+	<input type="submit" value="保 存"  class="button small"> <input type="reset" class="button small" value="重 置" >
+	</div></td>
+</tr>
+</form>
+</table>
+</div>
+</div>
+<!-- 上传脚本 -->
+
+    <script type="text/javascript">
+        $(function(){
+            $('#upload_img').uploadify({
+                'swf'             : '/Public/Js/uploadify/uploadify.swf',
+                'uploader'        : '{:U("/Home/Public/blogUpload/")}',
+                'fileObjName'     : $('#upload_img').attr('name'),
+                'buttonClass'     : 'upload-case',
+                'width'           : 588,
+                'height'          : 30,
+                'removeTimeout'   : 1,
+                'buttonText'      : '上传图片',
+                'fileTypeExts'    : '*.gif; *.jpg; *.png',
+                'fileTypeDesc'    : '允许文件类型：gif,jpg,png',
+                'onUploadSuccess' : function(file, data, response) {
+                    data = $.parseJSON(data);
+					//alert(data.error);
+                    if(data.status){
+                    	var html = '<div class="queuen-wrap"><img src="' + data.img + '" style="max-width:500px;"/>';
+				        html += '<a href=\"javascript:void(0)\" onclick=\"delete_pic(this)\">删除</a>';
+				        html += '<input type="hidden" name="imgId" value="'+data.data+'" datatype="*" nullmsg="LOGO不能为空"/></div>'
+		                $('#img').html(html);
+                    } else {
+                        $.ThinkBox.error(data.error);
+                    }
+                },
+            });
+		$('#upload_file').uploadify({
+        	'queueSizeLimit' : 1,
+            'swf'             : '/Public/Js/uploadify/uploadify.swf',
+            'uploader'        : '{:U("/Home/Public/attachmentUpload/")}',
+            'fileObjName'     : $('#upload_file').attr('name'),
+            'buttonClass'     : 'upload-case',
+            'width'           : 588,
+            'height'          : 30,
+            'removeTimeout'   : 1,
+            'buttonText'      : '<i></i><b>上传附件</b><em>(只支持ZIP和RAR压缩文件)</em>',
+            'fileTypeExts'    : '*.gz; *.7z; *.tar; *.zip; *.rar; *.gif; *.jpg; *.png',
+            'onUploadSuccess' : function(file, data, response) {
+                data = $.parseJSON(data);
+                if(data.status){
+                	var html = '<span id="attachment">'+ file.name ;
+                	html += '<a href="javascript:void(0)" onclick="delete_attachment(this);">删除</a>';
+                    html += '<input type="hidden" name="attachment" value="'+data.data+'" /></span>';
+                    $('#upload_file').after(html);
+                } else {
+                    $.ThinkBox.error(data.error);
+                }
+            },
+            'onSelect' : function(file) {
+            	var length = $('#attachment').length;
+                if(length > 0){
+                	$('#upload_file').uploadify('cancel')
+                	$('#upload_file').uploadify('stop');
+                    $.ThinkBox.error('附件只允许上传一个');
+                }
+            }
+
+        });
+        
+        $('#form_base_add').Validform({
+        	tiptype:function(msg,o,cssctl){
+        		var objtip = $('#error_msg_show');
+        		cssctl(objtip,o.type);
+        		objtip.text(msg);
+        	}
+        });
+    });
+</script>
+
+<!-- 上传脚本 -->

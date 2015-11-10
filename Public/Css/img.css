@@ -1,0 +1,111 @@
+/* 广告css */
+
+/* 主体两边对联广告(已去掉) */
+.a1,.a2 {
+	display: none;
+	position: absolute;
+	width: 125px;
+	height: 260px;
+	overflow: hidden;
+}
+.a1 img, .a2 img {
+	width: 125px;
+	height: 260px;
+} 
+.a1 {
+	left: -145px;
+}
+.a2 {
+	right: -145px;
+}
+
+/* 720px宽度下的一行三列广告 */
+.a3-wrap {
+	margin: 0 -9px 10px 0;
+	overflow: hidden;
+}
+.a3-wrap:before,.a3-wrap:after {
+	display: table;
+	line-height:0;
+	content:"";
+}
+.a3-wrap:after {
+	clear: both;
+}
+.a3-wrap {
+	*zoom: 1;
+}
+.a3 {
+	float: left;
+	margin-right: 10px;
+	width: 231px;
+	height: 78px;
+	overflow: hidden;
+	text-align: center;
+	border: 1px solid #D4D4D4;
+}
+.a3 img {
+	width: 231px;
+	height: 78px;
+}
+
+/* 横幅广告 */
+.aw720,.aw270,.a7-wrap {
+	margin-bottom: 10px;
+	overflow: hidden;
+	text-align: center;
+	border: 1px solid #D4D4D4;
+	background-color: #fff;
+}
+.aw720 {	
+	width: 718px;
+}
+.aw720 img {
+	max-width: 718px;
+}
+.aw270 {
+	width: 268px;
+}
+.aw270 img {
+	max-width: 268px;
+}
+
+/* 微信下面的广告(已去掉) */
+.a6 {
+	margin: 0 8px 0 9px;
+	width: 251px;
+	height: 258px;
+	overflow: hidden;
+	border: 1px solid #D4D4D4;
+}
+.a6 img {
+	width: 251px;
+	height: 258px;
+}
+
+/* 边栏多图广告 */
+.a7-wrap {
+	padding: 10px;
+	width: 248px;
+}
+.a7-wrap a {
+	display: block;
+	margin-bottom: 10px;
+}
+.a7-wrap a:last-child {
+	margin-bottom: 0;
+}
+.a7-wrap img {
+	max-width: 248px;
+}
+
+/* 广告高度 */
+.h60,.h60 img {
+	height: 60px;
+}
+.h80,.h80 img {
+	height: 80px;
+}
+.h100,.h100 img {
+	height: 100px;
+}

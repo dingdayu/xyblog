@@ -1,0 +1,118 @@
+<include file="Public:header" />
+<!-- 主体 -->
+	<div class="main cf">
+		<div class="ident">共享</div>
+		<!-- 分类 -->
+		<div class="box sort-box">
+			<span class="sort-labs"><i></i></span>
+			<a href="{:U('Share/index')}" class="item current">全部&nbsp;&nbsp;<em class="st-num">{$blogcount1}</em></a>
+			<volist name="Grouplist" id="data">
+			<a href="{:U('Share/index?groupId='.$data['id'])}" class="item ">{$data.title}&nbsp;&nbsp;<em class="st-num">{$data.count}</em></a>
+			</volist>
+		</div>
+		<!-- /分类 -->
+		<!-- 左边 -->
+		<div class="wrapper ">
+			<!-- 博客列表 -->
+			<!-- 置顶 -->
+			<notempty name="top">
+			<div class="box top-tutorials">
+				<ul>
+				<!-- 置顶列表项 -->
+				<volist name="top" id="top2">
+					<li>
+						<span class="fr">{$top2.updateTime|toDate}</span>
+						<a href="{:U('Share/'.$top2['id'])}">{$top2.title}</a>
+					</li> 
+				</volist>
+				</ul>
+			<span class="tips tips-ding"></span>
+			</div>
+			</notempty>
+			<!-- /置顶 -->
+			<div class="box extend">
+				<ul class="ext-list topiclist">
+					<volist name="list" id="data">
+					<li><a class="avatar"><img src="{$data.userId|getAvatar}" alt="{$data.userId|getUserName}"></a>
+						<div class="hd">
+							<a href="{:U('Share/index?groupid='.$data.groupId)}">[&nbsp;{$data.group}&nbsp;]</a>
+							<a href="{:U('/Share/'.$data['id'])}" title="{$data.title}">{$data.title}</a>
+							<eq name="data.isTop" value="1"><span style="color:red">[ 置顶 ]</span></eq>
+							<notempty name="data.fileId"><img src="/Public/Images/common.gif" alt="附件" style="margin-top:10px" align="" border="0" height="16" width="16"></notempty>
+						</div>
+						<div class="ft">
+							<span class="related-info fr">{$data.createTime|toDate}</span>
+							<span class="related-info">{$data.userId|getUserName}</span>
+							<span class="related-info">浏览：{$data.count}</span>
+							<a class="related-info" href="{:U('/Share/'.$data['id'])}#comment">评论：{$data.pcount}</a>
+						</div>
+					</li>
+					</volist>
+				</ul>
+			</div>
+			<!-- /博客列表 -->
+
+			<!-- 分页 -->
+			<div class="page">
+				{$page}
+			</div>
+			<!-- /分页 -->
+		</div>
+		<!-- /左边 -->
+
+		<!-- 边栏 -->
+		<div class="sidebar">
+			<!-- 发布代码 -->
+			<a href="{:U('/Share/add')}" class="upload-app"><i></i>共享文档</a>
+			<!-- /发布代码 -->
+			
+			<!-- 栏目介绍 -->
+			<div class="box ranking topic">
+				<div class="index-hd">
+					<div class="title"> 
+						<i class="t-icon"></i><em>栏目介绍</em>
+					</div>
+				</div>
+				<ul class="bd ellipsis">
+					<li>这里是栏目介绍</li>
+				</ul>
+			</div>
+			<!-- /栏目介绍 -->
+			
+			<!-- 分享到 -->
+			<div class="box share">
+				<div class="bshare-custom icon-medium-plus">
+					<a title="分享到QQ空间" class="bshare-qzone"></a>
+					<a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+					<a title="分享到QQ好友" class="bshare-qqim" href="javascript:void(0);"></a>
+					<a title="分享到开心网" class="bshare-kaixin001" href="javascript:void(0);"></a>
+					<a title="分享到人人网" class="bshare-renren" href="javascript:void(0);"></a>
+				</div>
+			</div>
+			<!-- /分享到 -->
+			
+			<!-- 热门推荐 -->
+			<div class="box ranking hot-rec">
+				<div class="index-hd">
+					<div class="title"> 
+						<i class="t-icon"></i><em>热门推荐</em>
+					</div>
+				</div>
+				<ul class="bd ellipsis">
+				<empty name="count"><li>暂无热门推荐</li><else />
+				<volist name="count" id="top2">
+					<li <elt name="i" value="3">class="top3"</elt>><i>{$i}</i><a title="{$top2.title}" href="{:U('/Share/'.$top2['id'])}">{$top2.title}</a></li>
+				</volist></empty>
+				</ul>
+			</div>
+			<!-- /热门推荐 -->
+		</div>
+		<!-- /边栏 -->
+	</div>
+	<!-- /主体 -->
+	
+	<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=3&amp;lang=zh"></script>
+	<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+
+	<div id="Qrcode" class="Qrcode"></div>
+<include file="Public:footer" />

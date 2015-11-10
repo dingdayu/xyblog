@@ -1,0 +1,27 @@
+<script type="text/javascript">
+	jQuery(function(){
+	//二维码显示
+	var ele = document.URL;//'http://{$Think.server.SERVER_NAME}__ACTION__'
+		jQuery('#Qrcode').qrcode({
+			text	: ele,
+			width	: 280,
+			height	: 280,
+		});
+	})
+</script>
+
+	<div data-role="page" id="erweima" data-close-btn="right">
+		<div data-role="header" data-position="fixed">
+			<a data-rel="back" data-icon="arrow-l">后退</a>
+			<h1>二维码页 - Powered by Xiaoyu</h1>
+			<a href="#home" data-icon="home">首页</a>
+		</div><!-- /header -->
+
+		<div data-role="content" class="Qrcode">
+			    <div id="Qrcode" class="Qrcode"></div>
+				<p><h3>用手机扫一扫二维码分享你的网页。</h3></p>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h4>Copyright 2013 Xiaoyu</h4>
+		</div><!-- /jqm-footer -->
+	</div>

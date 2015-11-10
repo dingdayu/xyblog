@@ -1,0 +1,77 @@
+<include file="Public:header" />
+<link rel="stylesheet" href="__PUBLIC__/Css/useraccount.css?v1.002">
+<div class="main">
+	<!-- 头部 -->
+	<div class="user-header">
+		<div class="profile-cover"> 
+			<img src="__PUBLIC__/Images/default_bg.jpg" alt=""> 
+			<a href="javascript:;" class="edit-bg-btn" title="点击更换背景图片（未开放）"><i class="icon-setting"></i></a>
+		</div>
+		<div class="profile-info cf">
+			<!-- <a class="edit-info-btn" href="javascript:;" title="点击编辑个人资料"><i class="icon-setting"></i></a> -->
+			<div class="pf-left">
+				<div class="pf-avatar"><img src="{$user.id|getAvatar=3}" alt="{$user.nickname}"></div>
+			</div>
+			<div class="pf-data">
+				<div>
+					<strong class="pf-name">{$user.nickname}</strong>
+					<i class="icon-star" title="明星用户"></i>
+				</div>
+				<div>
+					<span class="mr">注册：{$user.create_time|toDate='Y-m'}</span>
+					<span class="mr">用户名：{$user.username}</span>
+					
+				</div>
+				<div>
+					<p class="intro-text"><empty name="user.intro">该用户很懒什么都没留下！<else />{$user.intro}</empty></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="user-body">
+		<!-- 选项卡导航 -->
+		<div class="user-navbox cf">
+			<ul class="user-tabnav">
+				<li class="current"><a href="{:U('/User/'.$user['id'])}">他的文章</a></li>
+				<li ><a href="{:U('/User/review/'.$user['id'])}">他的评论</a></li>
+			</ul>
+			<div class="right-func cf">
+				<div class="fl">所在分类：</div>
+				<div class="dropdown fl">
+					<i class="arrow"></i>
+					<span class="dp-txt" title="选择模块"></span>
+					<ul class="dp-menu">
+						<li <eq name="type" value="1">class="selected"</eq>> <a href="{:U('/User/'.$user['id'].'?type=1')}"><i></i>博客</a></li>
+						<li <eq name="type" value="2">class="selected"</eq>> <a href="{:U('/User/'.$user['id'].'?type=2')}"><i></i>文档</a></li>
+						<li <eq name="type" value="3">class="selected"</eq>> <a href="{:U('/User/'.$user['id'].'?type=3')}"><i></i>项目</a></li>
+					</ul>
+					<script type="text/javascript">
+					$(function(){
+						$('.dp-txt').text($('.dp-menu').find('.selected').text());
+					})
+					</script>
+				</div>
+			</div>
+		</div>
+
+		<!-- 列表 -->
+		<ul class="art-list">
+		<empty name="list"><li class="cf"><div class="fl">主人好懒哦！</div></li><else/>
+		<volist name="list" id="data"><li class="cf">
+			<div class="fl">
+			<if condition="$type eq 1"><a href="{:U('/Blog/'.$data['id'])}" target="_blank" title="{$data.title}">{$data.title}</a>
+			<elseif condition="$type eq 2"/><a href="{:U('/Share/'.$data['id'])}" target="_blank" title="{$data.title}">{$data.title}</a>
+			<elseif condition="$type eq 3"/><a href="{:U('/Project/'.$data['id'])}" target="_blank" title="{$data.title}">{$data.title}</a>
+			</if>
+			</div>
+			<div class="related-info"> {$data.createTime|toDate='m-d'} </div>
+		</li>
+		</volist></empty>
+		</ul>
+	</div>
+	<div class="page">
+	{$page}
+    </div>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,268 @@
+<include file="Public:header" />
+
+<load href="__PUBLIC__/Js/uploadify/uploadify.css" />
+<load href="__PUBLIC__/Js/uploadify/jquery.uploadify.min.js" />
+<load href="__PUBLIC__/Js/Jquery/jquery.shortcuts.js" />
+
+<div class="main cf">
+	<div class="ident">发起项目</div>
+    <!-- 左边发布表单 -->
+    <div class="wrapper">
+        <form id="form" action="{:U('Project/insert')}" method="post" class="think-form">
+            <!-- 头部用户信息 -->
+            <div class="hd">
+                <div class="avatar"><img src="{$Think.session.authId|getAvatar}" alt=""></div>
+                <div class="hd-info">
+                    <strong>{$Think.session.loginUserName}</strong>
+                    <span class="time">{$Think.session.lastLoginTime|toDate}</span>
+                </div>
+                <div class="hd-title">发起项目</div>
+            </div>
+            <!-- /头部用户信息 -->
+            
+            <!-- 表单项 -->
+            
+    <table id="form-item" class="bd">
+        <tr>
+            <th><i class="must">*</i>名称</th>
+            <td class="cols-in"><input class="text" type="text" name="title" datatype="mix" data-length="50" nullmsg="标题不能为空" errormsg="长度太长"/></td>
+            <td><span class="Validform_checktip"></span></td>
+        </tr>
+        <tr>
+            <th><i class="must">*</i>分类</th>
+            <td>
+                <select name="groupId" datatype="*" nullmsg="分类不能为空">
+                    <option value="">选择分类</option>
+					<volist name="Grouplist" id="data">
+                    <option value="{$data.id}">{$data.title}</option>
+					</volist>
+				</select>
+            </td>
+            <td><span class="Validform_checktip"></span></td>
+        </tr>
+		<tr>
+        <th><i class="must">*</i>摘要</th>
+            <td colspan="2">
+				<div class="enter">
+					<textarea name="description" datatype="*" nullmsg="摘要不能为空"></textarea>
+				</div>
+				<span class="Validform_checktip"></span>
+            </td>
+        </tr>
+		<tr>
+            <th><i class="must">*</i>LOGO</th>
+            <td colspan="2">
+                <input id="upload_img" type="file" name="case_img" />
+                <div id="img">
+                    <input type="hidden" name="img" value="" datatype="*" nullmsg="LOGO不能为空"/>
+                </div>
+                <span class="Validform_checktip"></span>
+            </td>
+        </tr>
+        <tr>
+        <th><i class="must">*</i>内容</th>
+            <td colspan="2">
+                <div class="think-editor">
+		<div class="tool">
+        <a class="fullscreen fr" href="javascript:;">全屏</a>
+        <a class="bold" href="javascript:;" title="加粗">加粗</a>
+        <a class="link" href="javascript:;" title="链接">链接</a>
+        <a class="code" href="javascript:;" title="代码">代码</a>
+        <a class="upload" href="javascript:;" title="图片"><input id="editor_img" type="file" name="editor_img" /></a>
+    </div>
+    <div class="enter">
+        <textarea name="content" datatype="*" nullmsg="描述/内容不能为空"></textarea>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $('.think-editor .bold').click(function(){
+            $(this).closest('.think-editor').find('textarea').insertContent('[b]'+ $(this).closest('.think-editor').find('textarea').selectionRange() +'[/b]'); 
+        });
+        $('.think-editor .italic').click(function(){
+            $(this).closest('.think-editor').find('textarea').insertContent('[i]'+ $(this).closest('.think-editor').find('textarea').selectionRange() +'[/i]'); 
+        });
+        $('.think-editor .underline').click(function(){
+            $(this).closest('.think-editor').find('textarea').insertContent('[u]'+ $(this).closest('.think-editor').find('textarea').selectionRange() +'[/u]'); 
+        });
+        $('.think-editor .link').click(function(){
+            $(this).closest('.think-editor').find('textarea').insertContent('[url]'+ $(this).closest('.think-editor').find('textarea').selectionRange() +'[/url]'); 
+        });
+        $('.think-editor .code').click(function(){
+            $(this).closest('.think-editor').find('textarea').insertContent('[code]'+ $(this).closest('.think-editor').find('textarea').selectionRange() +'[/code]'); 
+        });
+        $('.think-editor .fullscreen').click(function(){
+            var self = $(this).closest('.think-editor');
+            if(self.data('fullscreen')){ //取消全屏
+                self.removeAttr("style").find('textarea').removeAttr("style");
+                $('body').css("overflow", "auto");
+                self.data("fullscreen", 0);
+            } else {
+                $('body').css("overflow", "hidden");
+                self.css({
+                    "position": "fixed",
+                    "left"    : 0,
+                    "top"     : 0,
+                    "background-color":"#FFF",
+                    "width"   : $(window).width()-2,
+                    "height"  : $(window).height()-2,
+                    "z-index" : 999999
+                });
+                self.find('textarea').height($(window).height()-36);
+                self.data("fullscreen", 1);
+            }
+        });
+
+        $(window).resize(function(){
+            var self = $('.think-editor');
+            if(self.data('fullscreen')){
+                self.css({
+                    "position": "fixed",
+                    "left"    : 0,
+                    "top"     : 0,
+                    "background-color":"#FFF",
+                    "width"   : $(window).width()-2,
+                    "height"  : $(window).height()-2,
+                    "z-index" : 999999
+                });
+                self.find('textarea').height($(window).height()-36);
+            }
+        });
+
+        $('#editor_img').uploadify({
+            'swf'             : '/Public/Js/uploadify/uploadify.swf',
+            'uploader'        : '{:U("/Home/Public/editorUpload/")}',
+            'fileObjName'     : $('#editor_img').attr('name'),
+            'buttonClass'     : 'upload-image',
+            'fileTypeExts'    : '*.gif; *.jpg; *.png',
+            'width'           : 28,
+            'height'          : 28,
+            'onUploadSuccess' : function(file, data, response) {
+                data = $.parseJSON(data);
+                data.status ? $('.think-editor textarea').insertContent('[img]' + data.data + '[/img]') : $.ThinkBox.error(data.error);
+            }
+
+        });
+        $('textarea').shortcuts();
+    });
+</script>
+                <span class="Validform_checktip"></span>
+            </td>
+        </tr>
+
+        <tr>
+            <th>标签</th>
+            <td><input class="text" type="text" name="tags" value="" /></td>
+            <td><span class="Validform_checktip">用空格分隔</span></td>
+        </tr>
+		<tr>
+            <th>附件</th>
+            <td colspan="2">
+                <label class="file"><input id="upload_file" type="file" name="download_attach" /></label>
+            </td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td colspan="2"><input class="submit" type="submit" value="提交" /></td>
+        </tr>
+    </table>
+
+            <!-- /表单项 --> 
+        </form>
+    </div>
+    <!-- /左边发布表单 -->
+    
+    <!-- 边栏 -->
+    <div class="sidebar">
+        
+    <div class="box key">
+        <div class="hd">发布项目</div>
+        <ul class="bd">
+            <li>在确认提交案例前，请检查案例名称和网址是否已填写完整，截图是否上传，并且为案例选择了恰当的分类；</li>
+            <li>案例需经过审核后才能显示，提交后请耐心等待，不要重复提交。</li>
+            <li>项目内容健康向上</li>
+            <li>发布后24小时内审核，逢节假日则延长至工作日</li>
+        </ul>
+    </div>
+
+        
+        <!-- 快捷键小贴士 -->
+        <div class="box key">
+            <div class="hd">快捷键小贴士</div>
+            <div class="bd">
+                <div class="remind">选中文字后使用键盘快捷键</div>
+                <div>Ctrl+B：字体加粗</div>
+                <div>Alt+U：添加超链接</div>
+                <div>Alt+C：添加代码</div>
+            </div>
+        </div>
+        <!-- /快捷键小贴士 -->
+    </div>
+    <!-- /边栏 -->
+</div>
+
+<!-- 上传脚本 -->
+
+    <script type="text/javascript">
+        $(function(){
+            $('#upload_img').uploadify({
+                'swf'             : '/Public/Js/uploadify/uploadify.swf',
+                'uploader'        : '{:U("/Home/Public/blogUpload/")}',
+                'fileObjName'     : $('#upload_img').attr('name'),
+                'buttonClass'     : 'upload-case',
+                'width'           : 588,
+                'height'          : 30,
+                'removeTimeout'   : 1,
+                'buttonText'      : '上传图片',
+                'fileTypeExts'    : '*.gif; *.jpg; *.png',
+                'fileTypeDesc'    : '允许文件类型：gif,jpg,png',
+                'onUploadSuccess' : function(file, data, response) {
+                    data = $.parseJSON(data);
+                    if(data.status){
+                    	var html = '<div class="queuen-wrap"><img src="' + data.img + '" style="max-width:500px;"/>';
+				        html += '<a href=\"javascript:void(0)\" onclick=\"delete_pic(this)\">删除</a>';
+				        html += '<input type="hidden" name="imgId" value="'+data.data+'" datatype="*" nullmsg="LOGO不能为空"/></div>'
+		                $('#img').html(html);
+                    } else {
+                        $.ThinkBox.error(data.error);
+                    }
+                },
+            });
+		$('#upload_file').uploadify({
+        	'queueSizeLimit' : 1,
+            'swf'             : '/Public/Js/uploadify/uploadify.swf',
+            'uploader'        : '/Home/Public/attachmentUpload.html',
+            'fileObjName'     : $('#upload_file').attr('name'),
+            'buttonClass'     : 'upload-case',
+            'width'           : 588,
+            'height'          : 30,
+            'removeTimeout'   : 1,
+            'buttonText'      : '<i></i><b>上传附件</b><em>(只支持ZIP和RAR压缩文件)</em>',
+            'fileTypeExts'    : '*.gz; *.7z; *.tar; *.zip; *.rar; *.gif; *.jpg; *.png',
+            'onUploadSuccess' : function(file, data, response) {
+                data = $.parseJSON(data);
+                if(data.status){
+                	var html = '<span id="attachment">'+ file.name ;
+                	html += '<a href="javascript:void(0)" onclick="delete_attachment(this);">删除</a>';
+                    html += '<input type="hidden" name="attachment" value="'+data.data+'" /></span>';
+                    $('#upload_file').after(html);
+                } else {
+                    $.ThinkBox.error(data.error);
+                }
+            },
+            'onSelect' : function(file) {
+            	var length = $('#attachment').length;
+                if(length > 0){
+                	$('#upload_file').uploadify('cancel')
+                	$('#upload_file').uploadify('stop');
+                    $.ThinkBox.error('附件只允许上传一个');
+                }
+            }
+
+        });
+    });
+    </script>
+
+<!-- 上传脚本 -->
+<div id="Qrcode" class="Qrcode"></div>
+<include file="Public:footer" />

@@ -1,0 +1,93 @@
+<include file="Public:header" />
+
+<div id="main" class="main" >
+<!-- 主体内容  -->
+<div class="content" >
+<div class="title">邮箱配置</div>
+
+	<form name="form1" method="post" autocomplete="off" action="__URL__/update" id="form1" enctype="multipart/form-data">
+		<table id="checkList" class="list" cellpadding=0 cellspacing=0 >
+		<tr>
+			<td class="tRight" width="8%">SMTP服务器:&nbsp;&nbsp;</td>
+			<td class="tLeft"><input name="email_smtpHost" value="{$conf.email_smtpHost.value}" type="text" class="huge"/></td>
+			<td class="vtop tips2" s="1">{$conf.email_smtpHost.remark}</td>
+		</tr>
+		<tr>
+			<td class="tRight" width="8%">SMTP端口:&nbsp;&nbsp;&nbsp;</td>
+			<td class="tLeft"><input name="email_smtpPort" value="{$conf.email_smtpPort.value}" type="text" class="huge"/></td>
+			<td class="vtop tips2" s="1">{$conf.email_smtpPort.remark}
+			</td>
+		</tr>
+		<tr>
+			<td class="tRight" width="8%"> SMTP用户名:&nbsp;&nbsp;&nbsp;</td>
+			<td class="tLeft"><input name="eamil_smtpUser" value="{$conf.eamil_smtpUser.value}" type="text" class="huge"/></td>
+			<td class="vtop tips2" s="1">{$conf.eamil_smtpUser.remark}
+			</td>
+		</tr>
+		<tr>
+			<td class="tRight" width="8%"> SMTP 密码:&nbsp;&nbsp;&nbsp;</td>
+			<td class="tLeft"><input name="email_smtpPass" value="{$conf.email_smtpPass.value}" type="text" class="huge"/></td>
+			<td class="vtop tips2" s="1">{$conf.email_smtpPass.remark}
+			</td>
+		</tr>
+		<tr>
+			<td class="tRight" width="8%"> 发件人EMAIL:&nbsp;&nbsp;&nbsp;</td>
+			<td class="tLeft"><input name="email_fromEmail" value="{$conf.email_fromEmail.value}" type="text" class="huge"/></td>
+			<td class="vtop tips2" s="1">{$conf.email_fromEmail.remark}
+			</td>
+		</tr>
+		<tr>
+			<td class="tRight" width="8%"> 发件人昵称:&nbsp;&nbsp;&nbsp;</td>
+			<td class="tLeft"><input name="email_fromName" value="{$conf.email_fromName.value}" type="text" class="huge"/></td>
+			<td class="vtop tips2" s="1">{$conf.email_fromName.remark}
+			</td>
+		</tr>
+		<tr>
+			<td class="tRight" width="8%"> 回复EMAIL:&nbsp;&nbsp;&nbsp;</td>
+			<td class="tLeft"><input name="email_replyEmail" value="{$conf.email_replyEmail.value}" type="text" class="huge"/></td>
+			<td class="vtop tips2" s="1">{$conf.email_replyEmail.remark}
+			</td>
+		</tr>
+				<tr>
+			<td class="tRight" width="8%"> 回复人昵称:&nbsp;&nbsp;&nbsp;</td>
+			<td class="tLeft"><input name="email_smtpPass" value="{$conf.email_replyName.value}" type="text" class="huge"/></td>
+			<td class="vtop tips2" s="1">{$conf.email_replyName.remark}
+			</td>
+		</tr>
+		<tr>
+			<td class="tRight" width="8%">开启评论验证:&nbsp;&nbsp;&nbsp;</td>
+			<td class="vtop rowform">
+				<ul>
+					<li><input type="radio" name="commentAudit" value="1" id="commentAudit_0" <eq name="conf.commentAudit.value" value="1">checked</eq>>开启</li>
+					<li><input type="radio" name="commentAudit" value="0" id="commentAudit_1"<eq name="conf.commentAudit.value" value="0">checked</eq>>关闭</li>
+				</ul>
+			</td>
+			<td class="vtop tips2" s="1">是否开启评论审核
+			</td>
+		</tr>
+		<tr>
+			<td class="tRight" width="8%">评论/留言 邮件通知:&nbsp;</td>
+			<td class="vtop rowform">
+				<ul>
+					<li><input type="radio" name="commentEmailInform" value="1" id="commentEmailInformt_0" <eq name="conf.commentEmailInform.value" value="1">checked</eq>>开启</li>
+					<li><input type="radio" name="commentEmailInform" value="0" id="commentEmailInform_1"<eq name="conf.commentEmailInform.value" value="0">checked</eq>>关闭</li>
+				</ul>
+			</td>
+			<td class="vtop tips2" s="1">评论/留言 邮件通知
+			</td>
+		</tr>
+		<tr>
+			<td colspan="15">
+				<div class="fixsel">
+					<input type="submit" class="button small" id="submit" name="settingsubmit" title="按 Enter 键可随时提交您的修改" value="提交" />
+				</div>
+			</td>
+		</tr>
+		<script type="text/JavaScript">_attachEvent(document.documentElement, 'keydown', function (e) { entersubmit(e, 'settingsubmit'); });
+		</script>
+	</table>
+	</form>
+
+</div>
+<!-- 主体内容结束 -->
+</div>

@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /Home/
+Allow: /Mobile/
+

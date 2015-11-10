@@ -1,0 +1,138 @@
+<include file="Public:header" />
+<load href="__PUBLIC__/Js/case.js" />
+<div class="main cf">
+	<!-- 主体 -->
+    <!--<div class="ident">小雨作品</div>-->
+	<!-- 左边 -->
+    <div class="wrapper ">
+		<!-- 案例列表 -->
+		<div id="container" class="container">
+			<volist name="last" id="data">
+			<!-- 一个完整的案例 -->
+				<div class="item" id="{$key}">
+					<!-- 标题 -->
+					<div class="title"><a href="{:U('Blog/'.$key)}" target="_blank">{$data['title']}</a></div>
+					<!-- /标题 -->
+					<notempty name="data['imgId']"><!-- 图片  -->
+					<a  class="img" href="{:U('Blog/'.$key)}" target="_blank"><img src="{$data.imgId|getImgDown}" alt="{$data['title']}"></a>
+					<!-- /图片 --></notempty>
+					<!-- 简介 -->
+					<div class="intro"><empty name="data['description']">{$data['content']|ubb|strip_tags|msubstr=0,100}<else />{$data['description']}</empty>
+					</div>
+					<!-- /简介 -->
+					
+					<!-- 浏览及评论数量 -->
+					<div class="opt-info">
+						<span><em>{$data['count']}</em>浏览</span>
+						<span><em>{$data['pcount']}</em>评论</span>
+					</div>
+					<!-- /浏览及评论数量 -->
+					
+					<!-- 评论 -->
+					<div class="cmt-box">
+						<!-- 一条评论 -->
+						<div class="cmt-item">
+							<span class="avatar"><img src="{$data.userId|getAvatar}" alt="{:getUserName($data['userId'])}"></span>
+							<div class="comment-hd">
+								<span class="username">{:getUserName($data['userId'])}</span><br>{$data.createTime|toDate} 发布
+							</div>
+						</div>
+						<!-- /一条评论 -->
+
+						<!-- 一条评论 -->
+						<!-- 
+						<div class="cmt-item">
+							<a class="avatar" href="javascript:;">
+								<img src="/avatar/44_44.png" alt="jeljam">
+							</a>
+							<div class="comment-hd">
+								<a class="username" href="javascript:;">jeljam</a>敢问，你这个淘客网还能用多少天啊，7月1号就封API了哦～							</div>
+						</div>						 -->
+						<!-- /一条评论 -->
+					</div>
+					<!-- /评论 -->
+
+					<!-- 标签 -->
+					<!-- <span class="tips"></span> -->
+					<!-- /标签 -->
+				</div>
+			<!-- /一个完整的案例 -->
+			</volist>
+		</div>
+		<!-- /案例列表 -->
+	</div>
+	<!-- /左边 -->
+	
+	<!-- 边栏 -->
+	<div class="sidebar">
+			
+			<!--手机版二维码-->
+            <div class="think-toper think-weixin">
+                <div class="head">用手机扫描二维码浏览本站 <!--<sub><a href="/Mobile.html">进入</a></sub>--></div>
+                <div class="body"><img src="/Public/Images/mobile.png" width="180" height="180" alt="dingxiaoyu_ddy"></div>
+            </div>
+            <!--/手机版二维码-->
+			
+			
+
+			<!-- 热门推荐 -->
+			<div class="box ranking hot-rec">
+				<div class="index-hd">
+					<div class="title"> 
+						<i class="t-icon"></i><em>热门推荐</em>
+					</div>
+				</div>
+				<ul class="bd ellipsis">
+				<empty name="count"><li>暂无热门推荐</li><else />
+				<volist name="count" id="top2">
+					<li <elt name="i" value="3">class="top3"</elt>><i>{$i}</i><a title="{$top2.title}" href="{:U('Blog/'.$top2['id'])}">{$top2.title}</a></li>
+				</volist></empty>
+				</ul>
+			</div>
+			<!-- /热门推荐 -->
+			
+			<!-- 站点信息 -->
+			<div class="box ranking friends-link">
+				<div class="index-hd">
+					<div class="title"> 
+						<i class="t-icon"></i><em>关于我们</em>
+					</div>
+				</div>
+				<ul class="bd ellipsis">
+					<div style="border-bottom: 1px dashed #D4D4D4;"><div class="guanyu">&nbsp; &nbsp; &nbsp; &nbsp;多大啊嘎嘎阿萨德gas刚刚噶饭贵妇狗Afghanistan矮冬瓜 斯蒂芬是钢丝管</div></div>
+					<li class="top3"><i></i><a title="邮箱">邮箱：614422099@qq.com</a></li>
+					<li class="top3"><i></i><a title="手机版">手机版网址：m.xyblog.com</a></li>
+				</ul>
+			</div>
+			<!-- /站点信息 -->
+
+		<!-- /订阅 
+		<div class="think-toper">
+			<dl>
+				<dt>订阅<sub>Subscribe</sub></dt>
+					<dd class="rss-form">
+                        <form method="post" target="_blank" action="http://list.qq.com/cgi-bin/qf_compose_send">
+                            <input value="qf_booked_feedback" name="t" type="hidden">
+                            <input value="2180b1ddf37dd53f17d439b44f3ea544584a7b48ed73e2e5" name="id" type="hidden">
+                            <input class="text" placeholder="请输入邮件地址..." name="to" id="to" type="text">
+                            <input class="submit" value="订阅" type="submit"></form>
+                    </dd>
+					<dd>
+                        <a class="rss" href="http://dingxiaoyu.com/Rss" target="_blank">RSS订阅</a>
+                        <a href="http://xyblog.sinaapp.com/blog/8.html" target="_blank">什么是RSS？</a>
+                    </dd>
+                </dl>
+		</div>
+        <!-- /订阅 -->
+		
+		</div>
+		<!-- /边栏 -->
+		
+	</div>
+
+<!-- 底部 -->
+	<div id="loading" class="loading-box" style="display:none;">
+		<span class="loading">加载中，请稍后...</span>
+	</div>
+
+<include file="Public:footer" />

@@ -1,0 +1,427 @@
+<include file="Public:header" />
+<!-- 主体 -->
+<div class="main cf">
+	<div class="ident">文档共享</div>
+	<!-- 左边 -->
+	<div class="wrapper">
+		<!-- 详情内容 -->
+		<div class="box detail-box">
+			<!-- 标签 -->	
+			<!-- /标签 -->
+			
+			<!-- 标题栏 -->
+			<div class="detail-hd">
+				<div class="t-head cf">
+					<!-- 标题名称 -->
+					<h2>{$blog.title}</h2>
+					<!-- /标题名称 -->
+
+					<!-- 圆形翻页按钮 -->
+					<div class="turn">
+					<notempty name="page['prev']['id']"><a class="prev" href="{:U('/Share/'.$page['prev']['id'])}" title="上一篇：{$page['prev']['title']}"></a></notempty>
+					<a class="dir" href="{:U('/Share/')}" title="返回目录"></a>
+					<notempty name="page['next']['id']"><a class="next" href="{:U('/Share/'.$page['next']['id'])}" title="下一篇：{$page['next']['title']}"></a></notempty>
+					</div>
+					<!-- /圆形翻页按钮 -->
+				</div>
+				<div class="t-foot">
+					<span>浏览：{$blog.count}</span>
+
+					<!-- 发布日期 -->
+					<span>发布日期：{$blog.createTime|toDate}</span>
+					<!-- /发布日期 -->
+					<!-- 分类 -->
+					<span>分类：{$blog.group}</span>					<!-- /分类 -->
+					<!-- 关键字 -->
+					<!-- /关键字 -->
+					<if condition="($blog.userId eq $Think.session.authId ) OR ($Think.session.admin eq 1) "><a class="edit-btn" href="{:U('/Share/edit?id='.$blog['id'])}">[编辑]</a><a class="edit-btn" href="{:U('/Share/foreverdelete?id='.$blog['id'])}">[删除]</a></if>
+				</div>
+			</div>
+			<!-- /标题栏 -->
+
+			<!-- 内容介绍 -->
+			<div class="detail-bd">
+				{$blog.content|ubb}
+				
+			<notempty name="blog['fileId']"><p class="attach">
+				<img src="__PUBLIC__/Images/common.gif" width="16" height="16" border="0" alt="附件" align="absmiddle"> 
+				<a href="{:U('Down/'.$blog['fileId'])}" title="下载">{$file.name}</a> 
+				<span class="date">( {$file.size|byte_format} 下载：{$file.downCount} 次 )</span>
+				</p></notempty>
+			</div>
+			<!-- /内容介绍 -->
+		</div>
+		<!-- /详情内容 -->
+
+		<!-- 最佳评论(只有讨论有) -->
+		
+		<!-- /最佳评论(只有讨论有) -->
+
+		<!--选项卡显隐块-->
+		<div id="tabbar" class="box tabbar">
+			<!-- 选项卡导航 -->
+			<div class="tab-nav cf">
+				
+				<span class="item selected" data-target="comment">评论（<span class="review-count"></span>）</span>
+				<!--<span class="item" data-target="similar">相关</span>-->
+			</div>
+			<!-- /选项卡导航 -->
+
+			<!-- 内容 -->
+			<div id="tab-wrap" class="tab-wrap">
+				<!-- 应用摘要 -->
+				
+				<!-- /应用摘要 -->
+
+				<!-- 评论 -->
+				
+<div class="tab-comment item-content" id="comment">
+    <!-- <div class="tab-title">
+        评论（<span class="review-count">0</span>）
+    </div> -->
+    
+    <div class="cmt-box">
+        <div class="more-comment">
+            后面还有<span id="more_count"></span>条评论，<a href="javascript:get_review();">点击查看>></a>
+        </div>
+        <form action="{:U('comment')}" method="post" class="cmt-item" id="reviewForm" autocomplete="off">
+        	<input type="hidden" name="author_id" value="{:getMemberId()}"/>
+        	<input type="hidden" name="title" value="{$blog.title}"/>
+    		<input type="hidden" value="{$blog.id}" name="blog_id" />
+        	<input type="hidden" value="0" name="review_id" />
+        	<span class="avatar">
+            <img src="{:getAvatar()}" alt="" id="my_avatar">
+            </span>
+        	<div class="comment-bd" id="review">
+        		<div class="cmt-textarea">
+					<textarea name="content" placeholder="我也来说两句..."></textarea>
+				</div>
+				<table class="hf bd"><tbody>
+				<tr>
+				<th width="54">昵 称：</th>
+				<td><input class="text" style="float: left" value="<notempty name="Think.session.loginUserName">{$Think.session.loginUserName}</notempty>" name="userName" type="text" nullmsg="请填写昵称" datatype="*1-16" errormsg="请填昵称">
+				</td>
+				<th width="54">邮 箱：</th>
+				<td><input class="text" style="float: left" value="<notempty name="Think.session.email">{$Think.session.email}</notempty>" name="email" type="text" nullmsg="请填写邮箱" datatype="e" errormsg="请填邮箱">
+				<!--<span class="Validform_checktip" width="5"  style="float: right"></span> -->
+				</td>
+				</tr></tbody></table>
+			</div>
+            <div class="comment-ft">
+				<input type="submit" class="cmt-btn" value="评论&nbsp;[&nbsp;Ctrl+Enter&nbsp;]">
+				<span class="c-tips">评论支持使用[code][/code]标签添加代码</span>
+			</div>
+            <!-- <span class="syn">同步到：<a href="#">新浪微博</a><a href="#">腾讯微博</a></span> -->
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+	    $('.think-article code').each(function(){
+	        $(this).data('think-source', (this.innerText || this.textContent).replace(/ /g, ' '));
+	    });
+	    var form = $('.cmt-item:last');
+	    //插入回复表单
+	    $('.cmt-box').delegate('.reply-btn','click',function(event){
+	        var parent = $(this).closest('.cmt-item');
+	        //写入对应回复ID
+	        form.find(':hidden[name=review_id]').val($(this).attr('reply'));
+	        var textarea = parent.append(form).find('textarea');
+	        //对回复回复的处理
+	        if($(this).attr('at-user') == 'true'){
+				var username = $(this).parent().find('.username').text();
+				textarea.text('回复 @' + username + ' : ');
+		    }else{
+		    	textarea.text('');
+			}
+	        moveEnd(textarea.get(0));
+	        event.stopPropagation();
+	    })
+	    $('.cmt-box').delegate('.cmt-item','click',function(event){
+	        $(this).has('form').length && event.stopPropagation();
+	    })
+	    //点击评论框以外的地方，重置评论表单
+	    $(document).click(function(){
+		    if(form.find(':hidden[name=review_id]').val() != 0){
+		    	$('.more-comment').after($('.cmt-box').find('form'));
+		        form.find(':hidden[name=review_id]').val(0);
+		        form.find('textarea').text('');
+			}
+	    })
+	    //快捷键提交评论
+	    $("#reviewForm").find('textarea').on("keydown", function(e){
+	    	e.stopPropagation();
+	    	if(e.ctrlKey && e.which ==13){
+	    		$('#reviewForm').submit();
+	    	}
+	    });
+	    //删除评论绑定事件
+	    $('.cmt-box').delegate('.delete-review','click',function(event){
+	    	var self = $(this);
+		    var id = self.attr('review_id');
+		    $.ThinkBox.confirm('确定删除吗？',
+				{'cancel' : function(){this.hide();},
+				 'ok' : function(){
+					this.hide();
+					$.post(
+						'/review/deleteReview',
+						{'id':id},
+						function(data){
+							if(data.status == 1){
+								$.ThinkBox.success(data.info);
+								setTimeout(function(){window.location.reload();}, 2000);
+							}else{
+								$.ThinkBox.error(data.info);
+							}
+						},
+						'json'
+					);
+				 },
+				 'drag' : true,
+				 'modal' : true
+				}
+			 );
+		});
+	})
+	
+	function parse_content(str) {
+	    str = str.replace(/\[code\]((?:.|\n|\r)+?)\[\/code\]/ig, function(_str, code){
+	        code = code.replace(/ /g, '&nbsp;').replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+	        return '<code class="prettyprint linenums lang-php">'+ code +'</code>';
+	    });
+	    str = str.replace(/&amp;/g, '&')
+	    		.replace(/(http(s?):\/\/(?:[A-za-z0-9-]+\.)+[A-za-z]{2,4}(?:[\/\?#][\/=\?%\-&~`@[\]\':+!\.#\w]*)?)/ig, 
+	            '<a href="$1" target="_blank">$1</a>'
+	        );
+	    return str.replace(/([^>])[\r\n]+/g, '$1<br>\n');
+	}
+
+	//将光标移动到textarea末尾
+	function moveEnd(obj){
+		obj.focus(); 
+	    var len = obj.value.length;
+	    if (document.selection) {
+	        var sel = obj.createTextRange(); 
+	        sel.moveStart('character',len); 
+	        sel.collapse(); 
+	        sel.select(); 
+	    } else if (typeof obj.selectionStart == 'number' && typeof obj.selectionEnd == 'number') {
+	        obj.selectionStart = obj.selectionEnd = len; 
+	    } 
+	}
+
+	//设置是否显示最佳评论
+	var author_id = $(':input[name=author_id]').val();
+	function setReviewPosStr(data,id,user_id,pos){
+		var a = '<a class="reply-btn" href="javascript:;" reply="'+id+'">回复<i></i></a>';
+		if(data.is_admin || (data.self_user_id == user_id && data.self_user_id!=0)){
+			a += '<a class="fr delete-review" review_id="'+id+'" href="javascript:void(0);">删除</a>';
+		}
+		return a;
+	}
+	
+	//评论加载
+    var page = 1;
+    function get_review(){
+        $.get(
+            '{:U("review")}',
+            {
+                'record' : $(':input[name=blog_id]').val(), 
+                'num' : 10, 
+				'page' : page,
+                'userId': $(':input[name=author_id]').val(),
+            },
+            function(data){
+            	//是否登录做对应展示
+        		if(data.avatar != ""){
+            		$('#my_avatar').attr('src', data.avatar);
+        			$('#reviewForm').show();
+        		}else{
+        			$('#my_avatar').attr('src', '/Public/Images/44_44.png');
+        			$('.login-tip').show();
+        		}
+                $.isNumeric(data.count) && $('.review-count').text(data.count);
+                $('#comment_count').text(data.count);
+                $('.c-comment > .cib').text(data.count);
+                if(data.list && (typeof data.list == 'object')){
+                    $.each(data.list, function(i, v){
+                        var html = '<div class="cmt-item review_item_list">'+
+                            '<span class="avatar" user_id="'+v.user_id+'">'+
+                                '<img src="'+ v.avatar+'" />'+
+                            '</span> '+
+                            '<div class="comment-hd cf">';
+							html += setReviewPosStr(data,v.id,v.user_id,v.pos);
+                            html += '<span class="username">' + v.username + v.ico + '</span>' + 
+                            '<span class="commment-time">' + v.review_time + '</span>'+
+                            '</div>'+
+                            '<div class="comment-bd" id="' + v.id + '">'+
+                            '<div class="cmt-txt">'+parse_content(v.content) + '</div>'
+                            '</div>'+
+                        '</div>';
+                        $('.more-comment').before(html);
+                    });
+                    page = page+1;
+                }
+                if(data.review && (typeof data.review == 'object')){
+                    $.each(data.review, function(i, v){
+                        var html = '<div class="cmt-item reply-item" id="' + v.id + '">'+
+                            '<span class="avatar" user_id="'+v.user_id+'">'+
+                                '<img src="'+ v.avatar+'" />'+
+                            '</span>'+
+							 '<div class="comment-hd cf"><a class="reply-btn" href="javascript:;" reply="'+v.review_id+'" at-user="true">回复<i></i></a>';
+                        if(v.pos != 3 && (data.is_admin || data.self_user_id == v.user_id)){
+                        	//html += '<a class="fr delete-review" review_id="'+v.id+'" href="javascript:void(0);">删除</a>';
+                		}
+                        html += '<span class="username">' + v.username + v.ico + '</span>' + 
+                            '<span class="commment-time">' + v.review_time + '</span>'+
+                            '</div>'+
+                            '<div class="comment-bd">'+
+                            '<div>' + parse_content(v.content) + '</div>'+
+                            '</div>'
+                        '</div>';
+                        $('#' + v.review_id).after(html);
+                    });
+                }
+                var review_count = data.count;
+                if($('.review_item_list').length < review_count){
+                    $('#more_count').text(review_count - $('.review_item_list').length);
+                    $('.more-comment').show();
+                }else{
+                    $('.more-comment').hide();
+                }
+                /* 代码高亮 */
+                prettyPrint();
+                $('#comment code').each(function(){
+                    $(this).data('think-source', this.innerText || this.textContent);
+                });
+                
+                $('#comment code').each(function(){
+                    var self = $(this);
+                    var copy = $('<div><span>复制代码</span></div>')
+                        .addClass('think-copy')
+                        .appendTo(self)
+                        .zclip({
+                            'path':'/Public/Js/ZeroClipboard/ZeroClipboard.swf',
+                            'afterCopy' : function(){
+                                $.ThinkBox.success('复制成功');
+                            },
+                            'copy': function(){
+                                return $(this).closest('code').data('think-source');
+                            }
+                        });
+                });
+                
+            },
+            'json'
+        );
+        
+    }
+    get_review();
+
+    $('.cmt-textarea textarea').keyup(function(){
+        var self = $(this);
+        var speed = Math.max(self.get(0).scrollHeight, 48);
+        self.height(speed);
+
+    });
+    
+</script>
+				<!-- /评论 --> 
+
+				<!-- 同类推荐 -->
+				<div class="tab-similar item-content" id="similar">
+					<!-- <div class="tab-title">同类推荐</div> -->
+					<ul class="similar-list">
+						<li>
+						<div class="info">
+						<span>麦当苗儿<i class="approve ap-1" title="认证用户"></i></span>
+						<span class="time">07-08</span>
+						</div>
+						<a href="/code/234.html">javascript文件中获取当前文件路径</a>
+			
+						</li>
+					</ul>
+				</div>
+				<!-- /同类推荐 -->
+			</div>
+			<!-- /内容 -->
+		</div>
+		<!--/选项卡显隐块-->
+	</div>
+	<!-- /左边 -->
+
+	<!-- 边栏 -->
+	<div class="sidebar">
+
+		<!-- 发布者信息 -->
+		
+			<div class="box promulgator">
+				<div class="avatar"><img src="{$blog.userId|getAvatar}" /></div>
+				<div class="name">
+					<span class="send"><i class="icon-send"></i></span>
+					{$blog.userId|getUserName}					<i class="approve ap-2" title="明星用户"></i>
+				</div>
+				<span class="mr">注册时间</span>
+				<span>2013年</span>
+			</div>
+		
+		<!-- /发布者信息 -->
+
+		<!-- 分享到 -->
+		
+			<div class="box share2">
+				<div class="bshare-custom icon-medium-plus">
+					<a title="分享到QQ空间" class="bshare-qzone"></a>
+					<a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+					<a title="分享到QQ好友" class="bshare-qqim" href="javascript:void(0);"></a>
+					<a title="分享到开心网" class="bshare-kaixin001" href="javascript:void(0);"></a>
+					<a title="分享到人人网" class="bshare-renren" href="javascript:void(0);"></a>
+				</div>
+			</div>
+		
+		<!-- /分享到 -->
+
+		
+	<!-- 热点推荐 -->
+<div class="box ranking hot-rec">
+	<div class="index-hd">
+		<div class="title"> 
+			<i class="t-icon"></i><em>热点推荐</em>
+		</div>
+	</div>
+	<ul class="bd ellipsis">
+	<empty name="count"><li>暂无热点推荐</li><else />
+	<volist name="count" id="top2">
+		<li <elt name="i" value="3">class="top3"</elt>><i>{$i}</i><a title="{$top2.title}" href="{:U('/Share/'.$top2['id'])}">{$top2.title}</a></li>
+	</volist></empty>
+	</ul>
+</div>
+<!-- /热点推荐 -->
+		
+	</div>
+	<!-- /边栏 -->
+</div>
+<!-- 主体 -->
+
+
+<script type="text/javascript">
+$(function(){
+	//选项卡切换效果
+	$(".tab-nav .item").click(function(){
+		$(".tab-nav .item").removeClass("selected");
+		$(".item-content").hide();
+		$("#" + $(this).addClass("selected").data("target")).show();
+	});
+	$(".tab-nav .item").first().click();
+
+	var tabTop = $("#tabbar").offset().top - 70;
+	$(".sn-wrap .c-cmt").click(
+	    function(){ $('html,body').animate({scrollTop:tabTop},700);
+	})
+})
+</script>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=3&amp;lang=zh"></script>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+<div id="Qrcode" class="Qrcode"></div>
+<include file="Public:footer" />

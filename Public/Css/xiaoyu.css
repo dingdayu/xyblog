@@ -1,0 +1,145 @@
+/*
+ * 说明：学习Css
+ * 联系：614422099@qq.com
+*/
+.Qrcode{ float: right; position: fixed !important; top: 74px; right: 15px; }
+.enter textarea {
+    border: 0 none;
+    height: 180px;
+    padding: 0;
+    resize: none;
+    width: 100%;
+	border: 1px solid #CCCCCC;
+}
+.think-toper {
+    background: none repeat scroll 0% 0% rgb(241, 241, 241);
+    color: rgb(68, 68, 68);
+    padding: 6px;
+    margin-bottom: 10px;
+	font-size: 16px;
+	font-family: Century Gothic,微软雅黑,幼圆,Arial,Verdana;
+}
+.think-toper dl {
+    margin-bottom: 8px;
+}
+.think-toper dt {
+    font-size: 30px;
+    padding: 6px;
+    border-bottom: 1px solid silver;
+}
+dl, dt, form, dd {
+    padding: 0px;
+    margin: 0px;
+    outline: medium none;
+}
+select, input, textarea {
+    outline: medium none;
+    font-family: Century Gothic,微软雅黑,幼圆,Arial,Verdana;
+    font-size: 16px;
+    color: rgb(50, 50, 50);
+}
+.think-toper dd {
+    line-height: 2em;
+    opacity: 0.9;
+    margin-top: 12px;
+}
+.search-form .submit2 {
+    cursor: pointer;
+}
+.think-toper dt sub {
+    font-size: 18px;
+    margin-left: 8px;
+    opacity: 0.6;
+    vertical-align: bottom;
+}
+.ident {
+    position: fixed !important;
+    left: 25px;
+    top: 60px;
+    opacity: 0.2;
+    width: 102px;
+    font-size: 92px;
+    z-index: -1;
+    color: rgb(51, 51, 51);
+}
+.think-weixin {
+    background-color: rgb(241, 241, 241);
+    padding: 6px;
+}
+.think-weixin .head {
+    height: 36px;
+    line-height: 36px;
+    border-bottom: 1px solid rgb(192, 192, 192);
+}
+.think-weixin .body {
+    padding: 12px 6px 6px;
+    text-align: center;
+}
+.footerxy {
+    clear: both;
+    overflow: hidden;
+    padding: 6px 0px;
+    height: 24px;
+    line-height: 24px;
+    background: none repeat scroll 0% 0% rgb(255, 255, 255);
+    font-size: 14px;
+    color: rgb(102, 102, 102);
+    border-top: 1px solid rgb(221, 221, 221);
+	margin-top: 10px;
+}
+.wp {
+    max-width: 980px !important;
+    width: auto !important;
+    padding: 0px 12px;
+    margin: 0px auto;
+}
+.footerxy .wp {
+	float: none;
+	text-align: center;
+}
+.footerxy .links {
+    float: right;
+}
+.hf {
+	margin-top: 10px;
+}
+
+.pic-area .big-pic {
+    border: 1px solid #DBDBDB;
+    height: 213px;
+    margin-bottom: 10px;
+    padding: 13px;
+}
+.big-pic img {
+    max-height: 213px;
+    max-width: 427px;
+    vertical-align: top;
+	float: Left;
+	margin: 0px 15px 15px 15px;
+	 border: 1px solid #DBDBDB;
+}
+.big-pic {
+    max-height: 213px;
+    max-width: 427px;
+    vertical-align: top;
+	float: Left;
+	margin: 0px 15px 15px 15px;
+}
+.guanyu {
+	padding: 0px 12px;
+	margin-bottom: 10px;
+}
+.share2 {
+    color: #999999;
+    height: 44px;
+    line-height: 1.8;
+    padding: 10px 10px 10px 20px;
+    position: relative;
+}
+/*关注我们*/
+.think-toper .attent dd{ text-align: center; }
+.think-toper .attent .tencen,.think-toper .attent .sina{ display: inline-block; width: 77px; padding-left: 40px; height: 36px; line-height: 36px; background: url(../Images/ico_share.png) no-repeat #93C9E0;; }
+.think-toper .attent .tencen{ float: left; background-position: 0 -72px; }
+.think-toper .attent .sina{ float: right; background-position: 0 0; }
+.think-toper .attent  a:hover{ text-decoration: none; background-color: #76BAD7; }
+.think-toper .rss{ display: inline-block; margin-right: 18px; padding-left: 22px; background: url(./bg_image_26.jpg) no-repeat 0 8px; }

@@ -1,0 +1,113 @@
+<include file="Public:header" />
+
+<div data-role="page" id="home">
+	<div data-role="header" data-position="fixed">
+	<a href="#home" data-icon="delete">首页</a>
+	<h1>小雨 博客 首页 - Powered by Xiaoyu</h1>
+	<a href="#erweima">二维码</a> 
+	</div><!-- /header -->
+	<div data-role="navbar" data-grid="c">
+    <ul>
+		<li><a href="#home" class="ui-btn-active">首页</a></li>
+        <li><a href="#blog">博客</a></li>
+        <li><a href="#share">文档</a></li>
+        <li><a href="#project">项目</a></li>
+    </ul>
+	</div><!-- /navbar -->
+	
+	<div data-role="content">
+		<ul data-role="listview" data-count-theme="c" data-inset="true">
+			<li><a href="#">Inbox <span class="ui-li-count">12</span></a></li>
+			<li><a href="#">Outbox <span class="ui-li-count">0</span></a></li>
+			<li><a href="#">Drafts <span class="ui-li-count">4</span></a></li>
+			<li><a href="#">Sent <span class="ui-li-count">328</span></a></li>
+			<li><a href="#">Trash <span class="ui-li-count">62</span></a></li>
+		</ul>
+	</div><!-- /content -->
+	<div data-role="footer" data-position="fixed">
+		<h4>Copyright 2013 Xiaoyu</h4>
+	</div><!-- /jqm-footer -->
+</div>
+
+<div data-role="page" id="blog">
+	<div data-role="header" data-position="fixed">
+	<a data-rel="back" data-icon="arrow-l">后退</a>
+	<h1>博客 - Powered by Xiaoyu</h1>
+	<a href="#erweima">二维码</a>
+	</div><!-- /header -->
+	<div data-role="navbar" data-grid="c">
+    <ul>
+		<li><a href="#home">首页</a></li>
+        <li><a href="#blog" class="ui-btn-active">博客</a></li>
+        <li><a href="#share">文档</a></li>
+        <li><a href="#project">项目</a></li>
+    </ul>
+	</div><!-- /navbar -->
+
+	<div data-role="content">
+	<empty name="blog"><strong>暂无博客</strong><else />
+	<ul data-role="listview" data-count-theme="c" data-inset="true">
+	<volist name="blog" id="blog2">
+		<li><a href="{:U('Blog/'.$top2['id'])}">{$blog2.title} <span class="ui-li-count">{$blog2.count}次点击</span></a></li>
+	</volist></ul></empty>
+	</div><!-- /content -->
+	<div data-role="footer" data-position="fixed">
+		<h4>Copyright 2013 Xiaoyu</h4>
+	</div><!-- /jqm-footer -->
+</div>
+
+<div data-role="page" id="share">
+	<div data-role="header" data-position="fixed">
+	<a data-rel="back" data-icon="arrow-l">后退</a>
+	<h1>文档 - Powered by Xiaoyu</h1>
+	<a href="#erweima">二维码</a>
+	</div><!-- /header -->
+	<div data-role="navbar" data-grid="c">
+    <ul>
+		<li><a href="#home">首页</a></li>
+        <li><a href="#blog">博客</a></li>
+        <li><a href="#share" class="ui-btn-active">文档</a></li>
+        <li><a href="#project">项目</a></li>
+    </ul>
+	</div><!-- /navbar -->
+
+	<div data-role="content">
+	<empty name="share"><strong>暂无文档</strong><else />
+	<ul data-role="listview" data-count-theme="c" data-inset="true">
+	<volist name="share" id="share2">
+		<li><a href="{:U('Blog/'.$top2['id'])}">{$share2.title} <span class="ui-li-count">{$share2.count}次点击</span></a></li>
+	</volist></ul></empty>
+	</div><!-- /content -->
+	<div data-role="footer" data-position="fixed">
+		<h4>Copyright 2013 Xiaoyu</h4>
+	</div><!-- /jqm-footer -->
+</div>
+
+<div data-role="page" id="project">
+	<div data-role="header" data-position="fixed">
+	<a data-rel="back" data-icon="arrow-l">后退</a>
+	<h1>项目 - Powered by Xiaoyu</h1>
+	<a href="#erweima">二维码</a>
+	</div><!-- /header -->
+	<div data-role="navbar" data-grid="c">
+    <ul>
+		<li><a href="#home">首页</a></li>
+        <li><a href="#blog">博客</a></li>
+        <li><a href="#share">文档</a></li>
+        <li><a href="#project" class="ui-btn-active">项目</a></li>
+    </ul>
+	</div><!-- /navbar -->
+
+	<div data-role="content">
+	<empty name="project"><strong>暂无项目</strong><else />
+	<ul data-role="listview" data-count-theme="c" data-inset="true">
+	<volist name="project" id="project2">
+		<li><a href="{:U('Blog/'.$top2['id'])}">{$project2.title} <span class="ui-li-count">{$project2.count}次点击</span></a></li>
+	</volist></ul></empty>
+	</div><!-- /content -->
+	<div data-role="footer" data-position="fixed">
+		<h4>Copyright 2013 Xiaoyu</h4>
+	</div><!-- /jqm-footer -->
+</div>
+
+<include file="Public:footer" />
