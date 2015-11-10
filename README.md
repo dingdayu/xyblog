@@ -1,4 +1,0 @@
-xyblog
-======
-
-xyblog.sinaapp.com
