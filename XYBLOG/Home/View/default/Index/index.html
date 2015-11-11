@@ -1,7 +1,7 @@
-<extend name="Public/base"/>
+<extend name="Public/base" />
 
 <block name="content">
-	<block class="contaier wp">
+	<div class="contaier wp">
 		<div class="ident">小雨作品</div>
 		<div class="home-wrap cf">
 			<div style="max-width: 684px;" class="home-left">
@@ -17,7 +17,7 @@
 				<div>
 				<table width="680" height="189" border="0">
 				<tr>
-				<td width="175" rowspan="5" align="center" valign="middle"><img src="../Public/Images/tou.gif" title="Dy API">&nbsp;</td>
+				<td width="175" rowspan="5" align="center" valign="middle"><img src="__Public__/Images/tou.gif" title="Dy API">&nbsp;</td>
 				<td height="46" align="left" valign="bottom">昵称： 小雨</td>
 				</tr>
                 <tr>
@@ -118,7 +118,12 @@
 					<dl>
 						<dt>捐赠<sub>Donate</sub></dt>
 						<dd>
-							<a href="http://me.alipay.com/dingdayu" target="_blank">捐赠我们</a>
+							<form style="text-align:center;" method="post" action="https://shenghuo.alipay.com/send/payment/fill.htm" target="_blank">
+								<input type="hidden" value="13298181006" name="optEmail">
+								<input type="hidden" value="10" name="payAmount">
+								<input type="hidden" name="title" placeholder="付款说明">
+								<input type="image" value="给我付款" src="images/alipay.png" name="pay">
+							</form>
 							<a href="#" target="_blank">捐赠列表</a>
 						</dd>
 					</dl>
@@ -165,4 +170,5 @@
 			</div>
 		</div>
 		<div id="Qrcode" class="Qrcode"></div>
+	</div>
 </block>
