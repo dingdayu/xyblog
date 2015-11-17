@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2015-11-17 16:35:34
+-- Generation Time: 2015-11-17 16:56:04
 -- 服务器版本： 10.1.8-MariaDB
 -- PHP Version: 5.6.14
 
@@ -207,17 +207,17 @@ INSERT INTO `dy_blogs` (`id`, `title`, `url`, `content`, `tag`, `description`, `
 CREATE TABLE IF NOT EXISTS `dy_comment` (
   `id` int(11) unsigned NOT NULL COMMENT '评论id',
   `user_name` varchar(60) NOT NULL COMMENT '评论者昵称',
-  `userId` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论者ID',
+  `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论者ID',
   `email` varchar(100) NOT NULL COMMENT '评论者邮箱',
   `url` varchar(200) NOT NULL COMMENT '留言人主页',
   `ip` varchar(40) NOT NULL COMMENT '评论ip',
   `content` varchar(1000) NOT NULL COMMENT '评论内容',
-  `createTime` int(11) unsigned NOT NULL COMMENT '提交时间',
-  `updateTime` int(11) unsigned NOT NULL COMMENT '修改时间',
+  `create_time` int(11) unsigned NOT NULL COMMENT '提交时间',
+  `update_time` int(11) unsigned NOT NULL COMMENT '修改时间',
   `type` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '评论类型',
-  `fromId` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论来自哪里',
+  `from_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论来自哪里',
   `pid` smallint(6) unsigned NOT NULL COMMENT '评论套窃继承',
-  `isTop` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否置顶',
+  `is_top` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否置顶',
   `sort` smallint(6) unsigned NOT NULL COMMENT '排序',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否显示'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

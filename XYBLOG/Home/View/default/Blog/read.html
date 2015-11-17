@@ -1,0 +1,152 @@
+<extend name="Public/base" />
+
+<block name="content">
+<div class="contaier wp">
+    <div class="think-article">
+        <div class="tahead">
+		<div class="ident">博客</div>
+            <h1>{$blog.title}</h1>
+            <p class="info">
+                <span class="date">{$blog.create_time|time_format}</span>
+                <span class="author">{$blog.uid|getUserName}</span>
+				<span class="cate">[ ThinkPHP ]</span>
+                <a class="review" href="#review">评论</a>
+				<eq name="$blog['userId']" value="$Think['session']['authId']"><!-- <a class="cate" href="{:U('Admin/Blog/edit/','id='.$blog['id'])}">编辑</a> --> </eq>
+            </p>
+            <p class="page">
+                <a class="prev" href="{:U('Blog/'.$page['prev']['id'])}" title="上一篇：{$page['prev'].title}"><span>上一篇</span></a>
+                <a class="dir" href="#" title="返回目录">返回</a>
+                <a class="next" href="{:U('Blog/'.$page['next']['id'])}" title="下一篇：{$page['prev'].title}"><span>下一篇</span></a>
+			</p>
+        </div>
+        <div class="tabody">
+		{$blog.content}
+        </div>
+		<div class="tafoot ">
+            <span class="page">
+                <a class="prev" href="{:U('Blog/'.$page['prev']['id'])}" title="上一篇：{$page['prev'].title}"><span>上一篇</span></a>
+                <a class="dir" href="{:U('Home/Blog/index')}" title="返回目录">返回</a>
+                <a class="next" href="{:U('Blog/'.$page['next']['id'])}" title="下一篇：{$page['prev'].title}"><span>下一篇</span></a>
+			</span>
+            <span class="share">
+                <b>分享到：</b>
+                <a href="javascript:;" class="sina">新浪微博</a>
+                <a href="javascript:;" class="tencent">腾讯微博</a>
+            </span>
+        </div>
+    </div>
+	<div class="think-relation">
+		<div class="trhead">
+			<strong>相关</strong>
+		</div>
+		<ul>
+			<empty name="trh"><li> Sorry ，没有相关内容</li></empty>
+
+			<volist name="trh" id="trhead">
+				<li><a href="{:U('Blog/'.$key)}">{$trhead}</a></li>
+			</volist>
+		</ul>
+	</div>
+
+		<div class="think-review">
+			<div class="trhead">
+			<a name="review"></a>
+			<strong>评论：</strong>
+			<empty name="list">
+			</div>
+				本篇文章暂无评论。
+			<else />
+			共<span class="review-count">{$count}</span>条
+			</div>
+				<div class="trbody">
+					<div class="review-users">
+					<volist name="list" id="data">
+					<eq name="data.pid" value="0"><div class="item" id="{$data.id}"></eq>
+					<a id="{$data.id}"></a>
+					<a class="avatar" href="#">
+					<img src="../Public/Images/36_36.png"></a>
+					<span class="name">{$data.user_name}</span>
+						<span class="date">{$data.create_time|time_format}</span>
+						<br>
+						{$data.content}
+						<a class="reply-link" href="javascript:;" reply="{$data.id}">回复</a>
+						</div>
+						<notempty name="data.pcomment"><volist name="data.pcomment" id="pdata"><div class="item reply" id="{$pdata.id}">
+							<a id="{$pdata.id}"></a>
+							<a class="avatar" href="#">
+							<img src="../Public/Images/36_36.png"></a>
+							<span class="name">{$pdata.user_name}</span>
+							<span class="date">{$pdata.create_time|time_format}</span>
+							<br>
+							{$pdata.content}</div></volist></notempty>
+					
+					</volist>
+
+					</div>
+				</div>
+			<div style="display: block;" class="review-more">
+				{$show}
+			</div>
+			</empty>
+        <div style="display: block;" class="review-form cf">
+            <form action="{:U('Home/Blog/comment')}" method="post">
+                <span class="textarea"><textarea name="content"></textarea></span>
+ 
+				<input type="hidden" name="type" value="3" />
+				<input type="hidden" name="fromId" value="{$blog.id}" />
+				<input value="0" name="pid" type="hidden">
+				<input type="hidden" name="userId" value="{$Think.session.authId}" />
+				<table>
+                <tbody>
+					<tr>
+                    <th>昵 称</th>
+                        <td><input value="<notempty name="Think.session.loginUserName">{$Think.session.loginUserName}</notempty>" class="text" name="userName" type="text"></td>
+
+                    <th>邮 箱</th>
+                        <td><input value="<notempty name="Think.session.email">{$Think.session.email}</notempty>" class="text" name="email" type="text"></td>
+                    <th>主 页:</th>
+                        <td><input value="" class="text" name="url" type="text"></td>
+					</tr>
+				</tbody></table>
+                <input class="submit" value="评论" type="submit">
+
+                <span class="strleng">请文明用语</span>
+                <!-- <span class="syn">同步到：<a href="#">新浪微博</a><a href="#">腾讯微博</a></span> -->
+            </form>
+        </div>
+    </div>
+	<div id="Qrcode" class="Qrcode"></div>
+</div>
+		<script charset="utf-8" src="__PUBLIC__/Js/editor/kindeditor-all-min.js"></script>
+		<script charset="utf-8" src="__PUBLIC__/Js/editor/lang/zh_CN.js"></script>
+<script type="text/javascript">
+	$(function() {
+		var editor = KindEditor.create('textarea[name="content"]');
+	});
+</script>
+<script type="text/javascript">
+	var form = $('.review-form');
+    //插入回复表单
+    $('.review-users').delegate('.reply-link','click',function(event){
+		KindEditor.remove('textarea[name="content"]');
+        var parent = $(this).closest('.item');
+        //写入对应回复ID
+        form.find(':hidden[name=pid]').val($(this).attr('reply'));
+        parent.append(form).find('textarea').focus();
+		
+        event.stopPropagation();
+		var editor = KindEditor.create('textarea[name="content"]');
+    })
+    $('.review-users').delegate('.item','click',function(event){
+		KindEditor.remove('textarea[name="content"]');
+        $(this).has('form').length && event.stopPropagation();
+		var editor = KindEditor.create('textarea[name="content"]');
+    })
+    $(document).click(function(){
+		KindEditor.remove('textarea[name="content"]');
+        $('.review-more').after($('.review-users').find('.review-form'));
+        form.find(':hidden[name=pid]').val(0);
+		var editor = KindEditor.create('textarea[name="content"]');
+    })
+</script>
+</block>

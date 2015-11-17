@@ -15,7 +15,7 @@ class IndexController extends Controller
         $last = $Blogs->order('create_time')->limit(10)->where('status=1')->getField('id,title,create_time');
         //$comm = $Comment->order('createTime')->limit(10)->where('status=1')->getField('id,userName,fromId,createTime');
         foreach ($last as $k => $v) {
-            $last[$k]['pcount'] = $Comment->where('status=1 and type=3 and fromId='.$v['id'])->count();
+            $last[$k]['pcount'] = $Comment->where('status=1 and type=3 and from_id='.$v['id'])->count();
         }
 
         $this->assign('last',$last);// 最新日志数据赋值
