@@ -1,22 +1,23 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.8.1
+-- version 4.4.15
 -- http://www.phpmyadmin.net
 --
--- 主机: w.rdc.sae.sina.com.cn:3307
--- 生成日期: 2015 年 11 月 10 日 17:47
--- 服务器版本: 5.5.27
--- PHP 版本: 5.3.3
+-- Host: 127.0.0.1
+-- Generation Time: 2015-11-17 16:35:34
+-- 服务器版本： 10.1.8-MariaDB
+-- PHP Version: 5.6.14
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- 数据库: `app_xyblog`
+-- Database: `blog`
 --
 
 -- --------------------------------------------------------
@@ -29,9 +30,7 @@ CREATE TABLE IF NOT EXISTS `dy_access` (
   `role_id` smallint(6) unsigned NOT NULL COMMENT '角色id',
   `node_id` smallint(6) unsigned NOT NULL COMMENT '节点id',
   `level` tinyint(1) NOT NULL,
-  `module` varchar(50) DEFAULT NULL,
-  KEY `groupId` (`role_id`),
-  KEY `nodeId` (`node_id`)
+  `module` varchar(50) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -167,28 +166,27 @@ INSERT INTO `dy_access` (`role_id`, `node_id`, `level`, `module`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `dy_blogs` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '日志id',
+  `id` int(11) unsigned NOT NULL COMMENT '日志id',
   `title` varchar(50) NOT NULL COMMENT '日志标题',
   `url` varchar(50) NOT NULL COMMENT '友好url',
   `content` varchar(4000) NOT NULL COMMENT '日志内容',
   `tag` varchar(500) NOT NULL COMMENT '关键词（标签）',
   `description` varchar(500) NOT NULL COMMENT '描述',
   `ip` varchar(40) NOT NULL COMMENT 'ip',
-  `createTime` int(11) unsigned DEFAULT NULL COMMENT '发表时间',
-  `updateTime` int(11) unsigned DEFAULT NULL COMMENT '最后更新时间',
-  `isTop` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否置顶',
+  `create_time` int(11) unsigned DEFAULT NULL COMMENT '发表时间',
+  `update_time` int(11) unsigned DEFAULT NULL COMMENT '最后更新时间',
+  `is_top` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否置顶',
   `pwd` varchar(60) DEFAULT NULL COMMENT '查看密码',
   `count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '浏览数量',
-  `userId` int(11) unsigned DEFAULT NULL COMMENT '发表用户id',
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否启用',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+  `uid` int(11) unsigned DEFAULT NULL COMMENT '发表用户id',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否启用'
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `dy_blogs`
 --
 
-INSERT INTO `dy_blogs` (`id`, `title`, `url`, `content`, `tag`, `description`, `ip`, `createTime`, `updateTime`, `isTop`, `pwd`, `count`, `userId`, `status`) VALUES
+INSERT INTO `dy_blogs` (`id`, `title`, `url`, `content`, `tag`, `description`, `ip`, `create_time`, `update_time`, `is_top`, `pwd`, `count`, `uid`, `status`) VALUES
 (1, '世界你好', 'first', '<p>你好，世界。</p><p><br /></p><p>by Xy Blog。</p><p>2013年5月16日 20:11:55</p><p>localhost<br /></p>', '小雨,blog,你好，世界。', '', '', 1368628954, 1368879136, 0, '', 0, 1, 1),
 (2, '更新日志', 'change log', '<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	2013年5月15日 &nbsp;\r\n</p>\r\n<blockquote>\r\n	<p>\r\n		完成项目目录，配置TP框架\r\n	</p>\r\n</blockquote>\r\n<p>\r\n	2013年5月16日 &nbsp;\r\n</p>\r\n<blockquote>\r\n	<p>\r\n		移植后台模版，设计博客数据库\r\n	</p>\r\n</blockquote>\r\n<p>\r\n	2013年5月17日 &nbsp;\r\n</p>\r\n<blockquote>\r\n	<p>\r\n		设计博客浏览页，移植TP官网模版\r\n	</p>\r\n</blockquote>\r\n<p>\r\n	2013年5月18日 &nbsp;\r\n</p>\r\n<blockquote>\r\n	<p>\r\n		上传云空间（SAE,BAE）,进行第一次修改，完善数据库link表，修复html的HEAD描述和关键词\r\n	</p>\r\n</blockquote>\r\n<p>\r\n	2013年5月19日\r\n</p>\r\n<blockquote>\r\n	<p>\r\n		0:14:34 &nbsp; &nbsp;前台留言初步完成。\r\n	</p>\r\n	<p>\r\n		13:03:51 &nbsp; &nbsp;后台留言管理初步完成\r\n	</p>\r\n	<p>\r\n		17:24:27 &nbsp; &nbsp;增加反馈管理\r\n	</p>\r\n	<p>\r\n		17:24:34 &nbsp; &nbsp;日志，留言，反馈 删除修复\r\n	</p>\r\n</blockquote>\r\n<p>\r\n	2013年5月20日\r\n</p>\r\n<blockquote>\r\n	<p>\r\n		修复SAE云平台部署\r\n	</p>\r\n</blockquote>\r\n<p>\r\n	2013-05-21\r\n</p>\r\n<blockquote>\r\n	<p>\r\n		13:10:55 &nbsp; &nbsp;完成留言列表，留言审核\r\n	</p>\r\n</blockquote>\r\n<p>\r\n	2013-05-22\r\n</p>\r\n<blockquote>\r\n	<p>\r\n		0:14:06 &nbsp; &nbsp;完成后台留言管理，完成评论以及评论管理\r\n	</p>\r\n	<p>\r\n		20:22:36 &nbsp; 完成Home分组下的二维码生成，增加测试账户\r\n	</p>\r\n	<p>\r\n		23:37:33 &nbsp; 开放后台测试\r\n	</p>\r\n</blockquote>\r\n<p>\r\n	2013-05-24\r\n</p>\r\n<blockquote>\r\n	<p>\r\n		完成二级评论的实现，已在博客页和留言页实现\r\n	</p>\r\n	<p>\r\n		优化后台显示\r\n	</p>\r\n</blockquote>\r\n<p>\r\n	2013-05-25\r\n</p>\r\n<blockquote>\r\n	<p>\r\n		13:39:44 &nbsp; &nbsp;完成留言邮箱提醒，二级评论邮箱提醒，修复id错误时提醒\r\n	</p>\r\n</blockquote>\r\n<p>\r\n	2013-05-26\r\n</p>\r\n<blockquote>\r\n	<p>\r\n		0:33:51 &nbsp; &nbsp;完成数据库配置部分，及其生效部分，现已实现：博客开关，回复审核，邮箱通知开关\r\n	</p>\r\n	<p>\r\n		0:52:49 &nbsp; &nbsp;修复博客评论邮件通知内容里的链接地址，留言部分新增主页项\r\n	</p>\r\n</blockquote>\r\n<p>\r\n	2013-06-15\r\n</p>\r\n<blockquote>\r\n	<p>\r\n		15:23:10 &nbsp; &nbsp;完成博客初级配置部分，邮件配置部分\r\n	</p>\r\n	<p>\r\n		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;完成rss生成，完成百度和谷歌的ping服务\r\n	</p>\r\n</blockquote>\r\n<p>\r\n	2013-06-2-\r\n</p>\r\n<blockquote>\r\n	<p>\r\n		22:00:00&nbsp;&nbsp;&nbsp; 更新在线编辑器（换为：<a href="http://www.kindsoft.net/" target="_blank">kindsoft.net</a>）\r\n	</p>\r\n	<p>\r\n		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 完成Home分组的投稿\r\n	</p>\r\n</blockquote>\r\n<p>\r\n	小雨\r\n</p>', '日志,小雨,blog,xyblog', '', '', 1368628954, 1371787019, 1, NULL, 0, 1, 1),
 (9, '开源地址', '', '<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	GIThub地址：<a target="_blank" href="https://github.com/dingdayu/xyblog">https://github.com/dingdayu/xyblog</a>\r\n</p>\r\n<p>\r\n	CSDN code：<a target="_blank" href="https://code.csdn.net/dingdayu/xyblog">https://code.csdn.net/dingdayu/xyblog</a>\r\n</p>\r\n<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	测试链接：<a target="_blank" href="http://xyblog.sinaapp.com/">http://xyblog.sinaapp.com/</a>\r\n</p>\r\n<p>\r\n	<br />\r\n</p>', '', '', '171.11.106.58', 1371787748, NULL, 1, NULL, 0, 1, 1),
@@ -207,7 +205,7 @@ INSERT INTO `dy_blogs` (`id`, `title`, `url`, `content`, `tag`, `description`, `
 --
 
 CREATE TABLE IF NOT EXISTS `dy_comment` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '评论id',
+  `id` int(11) unsigned NOT NULL COMMENT '评论id',
   `user_name` varchar(60) NOT NULL COMMENT '评论者昵称',
   `userId` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论者ID',
   `email` varchar(100) NOT NULL COMMENT '评论者邮箱',
@@ -221,14 +219,8 @@ CREATE TABLE IF NOT EXISTS `dy_comment` (
   `pid` smallint(6) unsigned NOT NULL COMMENT '评论套窃继承',
   `isTop` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否置顶',
   `sort` smallint(6) unsigned NOT NULL COMMENT '排序',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否显示',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- 转存表中的数据 `dy_comment`
---
-
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否显示'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -237,16 +229,15 @@ CREATE TABLE IF NOT EXISTS `dy_comment` (
 --
 
 CREATE TABLE IF NOT EXISTS `dy_config` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '功能设置id',
+  `id` int(11) unsigned NOT NULL COMMENT '功能设置id',
   `name` varchar(64) NOT NULL COMMENT '功能名称',
   `value` varchar(64) NOT NULL COMMENT '功能设置',
   `remark` varchar(255) NOT NULL COMMENT '备注',
   `type` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '配置分类',
   `group` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '配置分组',
   `status` tinyint(1) unsigned NOT NULL COMMENT '启用',
-  `update_time` int(11) unsigned NOT NULL COMMENT '最后修改时间',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+  `update_time` int(11) unsigned NOT NULL COMMENT '最后修改时间'
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `dy_config`
@@ -279,21 +270,15 @@ INSERT INTO `dy_config` (`id`, `name`, `value`, `remark`, `type`, `group`, `stat
 --
 
 CREATE TABLE IF NOT EXISTS `dy_group` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '分组id',
+  `id` int(11) NOT NULL COMMENT '分组id',
   `title` varchar(64) NOT NULL COMMENT '分组名',
   `type` tinyint(2) unsigned NOT NULL COMMENT '分组分类',
   `createTime` int(11) unsigned NOT NULL COMMENT '创建时间',
   `lastTime` int(11) unsigned NOT NULL COMMENT '最后使用时间',
   `status` tinyint(1) NOT NULL COMMENT '状态',
   `count` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '已使用次数',
-  `remark` varchar(100) NOT NULL COMMENT '备注',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='分组表' AUTO_INCREMENT=1 ;
-
---
--- 转存表中的数据 `dy_group`
---
-
+  `remark` varchar(100) NOT NULL COMMENT '备注'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='分组表';
 
 -- --------------------------------------------------------
 
@@ -315,11 +300,6 @@ CREATE TABLE IF NOT EXISTS `dy_link` (
   `createTime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='链接表';
 
---
--- 转存表中的数据 `dy_link`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -327,7 +307,7 @@ CREATE TABLE IF NOT EXISTS `dy_link` (
 --
 
 CREATE TABLE IF NOT EXISTS `dy_menu` (
-  `id` smallint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `id` smallint(3) unsigned NOT NULL,
   `name` varchar(25) NOT NULL,
   `group` varchar(20) NOT NULL COMMENT '分组名',
   `model` varchar(20) NOT NULL COMMENT '模块名',
@@ -339,9 +319,8 @@ CREATE TABLE IF NOT EXISTS `dy_menu` (
   `sort` smallint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `show` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '导航类型',
-  `remark` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  `remark` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `dy_menu`
@@ -361,7 +340,7 @@ INSERT INTO `dy_menu` (`id`, `name`, `group`, `model`, `action`, `title`, `creat
 --
 
 CREATE TABLE IF NOT EXISTS `dy_node` (
-  `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT COMMENT '节点id',
+  `id` smallint(6) unsigned NOT NULL COMMENT '节点id',
   `name` varchar(20) NOT NULL COMMENT '节点名',
   `title` varchar(50) DEFAULT NULL COMMENT '节点标题',
   `status` tinyint(1) DEFAULT '0' COMMENT '启用',
@@ -369,13 +348,8 @@ CREATE TABLE IF NOT EXISTS `dy_node` (
   `sort` smallint(6) unsigned DEFAULT NULL,
   `pid` smallint(6) unsigned NOT NULL COMMENT 'pid',
   `level` tinyint(1) unsigned NOT NULL COMMENT '节点权限',
-  `group_id` tinyint(3) unsigned DEFAULT '0' COMMENT '分组id',
-  PRIMARY KEY (`id`),
-  KEY `level` (`level`),
-  KEY `pid` (`pid`),
-  KEY `status` (`status`),
-  KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='节点表' AUTO_INCREMENT=48 ;
+  `group_id` tinyint(3) unsigned DEFAULT '0' COMMENT '分组id'
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COMMENT='节点表';
 
 --
 -- 转存表中的数据 `dy_node`
@@ -437,17 +411,14 @@ INSERT INTO `dy_node` (`id`, `name`, `title`, `status`, `remark`, `sort`, `pid`,
 --
 
 CREATE TABLE IF NOT EXISTS `dy_role` (
-  `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT COMMENT '角色id',
+  `id` smallint(6) unsigned NOT NULL COMMENT '角色id',
   `name` varchar(20) NOT NULL COMMENT '角色名',
   `pid` smallint(6) DEFAULT NULL COMMENT 'pid',
   `status` tinyint(1) unsigned DEFAULT NULL COMMENT '是否启用',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   `create_time` int(11) unsigned NOT NULL COMMENT '创建时间',
-  `update_time` int(11) unsigned NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  KEY `parentId` (`pid`),
-  KEY `status` (`status`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='角色表' AUTO_INCREMENT=3 ;
+  `update_time` int(11) unsigned NOT NULL COMMENT '更新时间'
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 --
 -- 转存表中的数据 `dy_role`
@@ -465,9 +436,7 @@ INSERT INTO `dy_role` (`id`, `name`, `pid`, `status`, `remark`, `create_time`, `
 
 CREATE TABLE IF NOT EXISTS `dy_role_user` (
   `role_id` mediumint(9) unsigned DEFAULT NULL COMMENT '角色id',
-  `user_id` char(32) DEFAULT NULL COMMENT '用户id',
-  KEY `group_id` (`role_id`),
-  KEY `user_id` (`user_id`)
+  `user_id` char(32) DEFAULT NULL COMMENT '用户id'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='角色用户表';
 
 --
@@ -486,13 +455,12 @@ INSERT INTO `dy_role_user` (`role_id`, `user_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `dy_survey` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '调查id',
+  `id` int(11) unsigned NOT NULL COMMENT '调查id',
   `type` tinyint(2) unsigned NOT NULL COMMENT '调查类型',
   `beId` int(11) unsigned NOT NULL COMMENT '相关id',
   `value` int(5) unsigned NOT NULL COMMENT '得到的值',
-  `remark` varchar(200) NOT NULL COMMENT '备注',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1797 ;
+  `remark` varchar(200) NOT NULL COMMENT '备注'
+) ENGINE=MyISAM AUTO_INCREMENT=1797 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `dy_survey`
@@ -2303,20 +2271,14 @@ INSERT INTO `dy_survey` (`id`, `type`, `beId`, `value`, `remark`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `dy_tag` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '标签id',
+  `id` int(11) unsigned NOT NULL COMMENT '标签id',
   `value` varchar(64) NOT NULL COMMENT '标签的值',
   `createTime` int(11) unsigned NOT NULL COMMENT '创建的时间',
   `lastTime` int(11) NOT NULL COMMENT '最后一次使用时间',
   `status` tinyint(1) NOT NULL COMMENT '状态',
   `count` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '权重',
-  `remark` varchar(100) NOT NULL COMMENT '备注',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='标签表' AUTO_INCREMENT=1 ;
-
---
--- 转存表中的数据 `dy_tag`
---
-
+  `remark` varchar(100) NOT NULL COMMENT '备注'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='标签表';
 
 -- --------------------------------------------------------
 
@@ -2325,7 +2287,7 @@ CREATE TABLE IF NOT EXISTS `dy_tag` (
 --
 
 CREATE TABLE IF NOT EXISTS `dy_upload` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `id` int(11) NOT NULL COMMENT 'ID',
   `name` varchar(255) NOT NULL COMMENT '上传文件名',
   `author` varchar(255) NOT NULL COMMENT '作者',
   `type` varchar(255) DEFAULT NULL COMMENT '文件类型',
@@ -2344,17 +2306,8 @@ CREATE TABLE IF NOT EXISTS `dy_upload` (
   `updateTime` int(12) unsigned DEFAULT NULL COMMENT '附件更新时间',
   `downloadTime` int(11) unsigned NOT NULL COMMENT '最后下载时间',
   `status` tinyint(1) NOT NULL COMMENT '是否启用',
-  `isTop` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否置顶',
-  PRIMARY KEY (`id`),
-  KEY `module` (`module`),
-  KEY `recordId` (`recordId`),
-  KEY `userId` (`userId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- 转存表中的数据 `dy_upload`
---
-
+  `isTop` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否置顶'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2363,7 +2316,7 @@ CREATE TABLE IF NOT EXISTS `dy_upload` (
 --
 
 CREATE TABLE IF NOT EXISTS `dy_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `username` varchar(64) NOT NULL COMMENT '用户名',
   `nickname` varchar(50) NOT NULL COMMENT '昵称',
   `password` char(32) NOT NULL COMMENT '密码',
@@ -2376,9 +2329,8 @@ CREATE TABLE IF NOT EXISTS `dy_user` (
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '注册时间',
   `create_ip` varchar(40) DEFAULT NULL COMMENT '注册ip',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最后更新时间',
-  `status` tinyint(1) DEFAULT '1' COMMENT '启用',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `status` tinyint(1) DEFAULT '1' COMMENT '启用'
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `dy_user`
@@ -2387,3 +2339,159 @@ CREATE TABLE IF NOT EXISTS `dy_user` (
 INSERT INTO `dy_user` (`id`, `username`, `nickname`, `password`, `last_login_time`, `last_login_ip`, `login_count`, `email`, `qq`, `remark`, `create_time`, `create_ip`, `update_time`, `status`) VALUES
 (1, 'admin', '管理员', 'e10adc3949ba59abbe56e057f20f883e', 1419391830, '1.192.118.214', 68, '614422099@qq.com', 614422099, '', 1362651445, '127.0.0.1', 0, 1),
 (2, 'test', '测试', 'e10adc3949ba59abbe56e057f20f883e', 1437465710, '125.122.114.23', 140, 'xyblog@dingxiaoyu.com', 0, '', 0, NULL, 1372266444, 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `dy_access`
+--
+ALTER TABLE `dy_access`
+  ADD KEY `groupId` (`role_id`),
+  ADD KEY `nodeId` (`node_id`);
+
+--
+-- Indexes for table `dy_blogs`
+--
+ALTER TABLE `dy_blogs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `dy_comment`
+--
+ALTER TABLE `dy_comment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `dy_config`
+--
+ALTER TABLE `dy_config`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `dy_group`
+--
+ALTER TABLE `dy_group`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `dy_menu`
+--
+ALTER TABLE `dy_menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `dy_node`
+--
+ALTER TABLE `dy_node`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `level` (`level`),
+  ADD KEY `pid` (`pid`),
+  ADD KEY `status` (`status`),
+  ADD KEY `name` (`name`);
+
+--
+-- Indexes for table `dy_role`
+--
+ALTER TABLE `dy_role`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `parentId` (`pid`),
+  ADD KEY `status` (`status`);
+
+--
+-- Indexes for table `dy_role_user`
+--
+ALTER TABLE `dy_role_user`
+  ADD KEY `group_id` (`role_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `dy_survey`
+--
+ALTER TABLE `dy_survey`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `dy_tag`
+--
+ALTER TABLE `dy_tag`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `dy_upload`
+--
+ALTER TABLE `dy_upload`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `module` (`module`),
+  ADD KEY `recordId` (`recordId`),
+  ADD KEY `userId` (`userId`);
+
+--
+-- Indexes for table `dy_user`
+--
+ALTER TABLE `dy_user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `dy_blogs`
+--
+ALTER TABLE `dy_blogs`
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '日志id',AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `dy_comment`
+--
+ALTER TABLE `dy_comment`
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '评论id';
+--
+-- AUTO_INCREMENT for table `dy_config`
+--
+ALTER TABLE `dy_config`
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '功能设置id',AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `dy_group`
+--
+ALTER TABLE `dy_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '分组id';
+--
+-- AUTO_INCREMENT for table `dy_menu`
+--
+ALTER TABLE `dy_menu`
+  MODIFY `id` smallint(3) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `dy_node`
+--
+ALTER TABLE `dy_node`
+  MODIFY `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT COMMENT '节点id',AUTO_INCREMENT=48;
+--
+-- AUTO_INCREMENT for table `dy_role`
+--
+ALTER TABLE `dy_role`
+  MODIFY `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT COMMENT '角色id',AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `dy_survey`
+--
+ALTER TABLE `dy_survey`
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '调查id',AUTO_INCREMENT=1797;
+--
+-- AUTO_INCREMENT for table `dy_tag`
+--
+ALTER TABLE `dy_tag`
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '标签id';
+--
+-- AUTO_INCREMENT for table `dy_upload`
+--
+ALTER TABLE `dy_upload`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID';
+--
+-- AUTO_INCREMENT for table `dy_user`
+--
+ALTER TABLE `dy_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

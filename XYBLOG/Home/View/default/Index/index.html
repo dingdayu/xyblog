@@ -27,10 +27,10 @@
 				  <td align="left" valign="middle">邮箱： 614422099@qq.com</td>
 				  </tr>
 				<tr>
-				  <td height="30" align="left" valign="middle">QQ： 614422099</td>
+				  <td height="30" align="left" valign="middle">Q Q： 614422099</td>
 				  </tr>
 				<tr>
-				  <td height="46" align="left" valign="top">手机： 15036436657</td>
+				  <td height="46" align="left" valign="top">手机： 13298181006</td>
 				  </tr>
 				</table>
 			  </div>
@@ -55,7 +55,7 @@
 					<!--
 					<a href="{:U('Blog/'.$data['id'])}" target="_blank">{$data}</a> <span class="num">(评论数量)</span> 作者 <span class="date">11-29 </span>
 					-->
-					<a href="{:U('Blog/'.$key)}" target="_blank">{$data['title']}</a> <span class="num"> ({$data.pcount}) </span> <span class="date">{$data.createTime|toDate} </span>
+					<a href="{:U('Blog/'.$key)}" target="_blank">{$data['title']}</a> <span class="num"> ({$data.pcount}) </span> <span class="date">{$data.create_time|time_format} </span>
 				</div>
 				</volist>
 					<div class="think-more">
@@ -100,11 +100,6 @@
 							</ul>
 						</dd>
 					</dl>
-
-					<!-- <div class="think-7year">
-						<a class="blessing-link" href="#">Thinkphp7周年,7年相伴，奉献传承</a>
-						<div class="blessing-total">已收到 <span>3</span><span>2</span><span>5</span><span>4</span><span>3</span> 条祝福</div>
-					</div>-->
 				</div>
 				<!--/显眼模块-->
 
