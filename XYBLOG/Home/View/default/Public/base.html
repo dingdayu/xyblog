@@ -25,14 +25,7 @@
 <div class="header">
     <div class="header-wrap wp cf">
         <h3 class="think-logo"><img src="__Public__/images/app.png" title="Dy API" align="bottom" height="60" width="60">Xy Blog</h3>
-        <ul class="think-navg">
-            <li class="title"><a class="show" href="/">主页</a></li>
-            <volist name="headMenu" id="data">
-                <li class="title"><a class="show" href="{:U($data['group'].'/'.$data['model'].'/'.$data['action'])}">{$data['title']}</a></li>
-            </volist>
-            <li class="title"><a class="show" target="_blank" href="http://xyapi.sinaapp.com/">小雨API</a></li>
-            <li class="title"><a class="show" target="_blank" href="http://614422099.qzone.qq.com">QQ空间</a></li>
-        </ul>
+        {:W('Menu/header',array(5,'thinkphp'))}
         <script type="text/javascript">
             jQuery(function(){
                 //导航选中
