@@ -45,16 +45,14 @@ class BlogController extends Controller
     }
 
     public function read(){
-        $Blogs = M('Blogs');
+        $Blogs = D('Blogs');
 
         $id = I('id');//安全获取id值
         $I = I();
         if(empty($id)) $id=$I[2];
-        $blog = $Blogs->where('status=1 and id='.$id)->select();
-        $blog = $blog['0'];
-        //echo $id;
+        $blog = $Blogs->where('status=1 and id='.$id)->relation(true)->find();
         //dump($blog);
-        //exit;
+        //echo $id;
         if(empty($blog)){
             $this->error('请检查您的链接!');
         }

@@ -1,0 +1,81 @@
+<extend name="Public/base" />
+
+<block name="content">
+		<script charset="utf-8" src="__Public__/Js/editor/kindeditor-all-min.js"></script>
+		<script charset="utf-8" src="__Public__/Js/editor/lang/zh_CN.js"></script>
+<script type="text/javascript">
+    //实例化编辑器
+		var editor;
+		KindEditor.ready(function(K) {
+			K.create('textarea[name="content"]', {
+				minWidth : 580,
+				minHeight : 200,
+				items : ['source', 'preview', '|', 'undo', 'redo', '|', 'template', 'code', '|', 'justifyleft', 'justifycenter', 'justifyright',
+				'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript','superscript', 'clearhtml','|','table','|', 'fullscreen', '/',
+				'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'multiimage','flash', 'media', 'insertfile',  'hr', 'emoticons', 'baidumap','anchor', 'link', 'unlink',]
+			});
+		});
+	function getPid(i){
+		pid=document.getElementById('pid');
+		pid.value=i;
+	}
+</script>
+
+<div class="contaier wp">
+    <div class="think-add">
+	<div class="ident">投稿</div>
+        <div class="body think-form">
+            <form action="{:U('Home/Blog/add')}" method="post">
+                <table>
+                    <tbody>
+					<tr>
+                        <th>昵　　称</th>
+                        <td><input value="<notempty name="Think.session.loginUserName">{$Think.session.loginUserName}</notempty>" class="text" name="userName" type="text"></td>
+                    </tr>
+					<tr>
+                        <th>邮　　箱</th>
+                        <td><input value="<notempty name="Think.session.email">{$Think.session.email}</notempty>" class="text" name="email" type="text"></td>
+                    </tr>
+					<tr>
+                        <th>标    题</th>
+                        <td><input value="" class="text" name="title" type="text"></td>
+                    </tr>
+					<tr>
+						<th>内　　容</th>
+						<td>
+							<div class="enter">
+								<textarea name="content"></textarea>
+							</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <td>
+							<input type="hidden" name="userId" value="{$Think.session.authId}" />
+                            <input class="submit" value="提交" type="submit">
+                        </td>
+                    </tr>
+                </tbody></table>
+            </form>
+        </div>
+    </div>
+	<div class="home-right">
+	<div class="think-fast">
+		<dl>
+			<dt>投稿提醒<sub>TouGAO</sub></dt>
+			<dd>本站暂不提供投稿。</dd>
+		</dl>
+		<dl>
+			<dt>投稿分类<sub>TouGAOType</sub></dt>
+			<dd>请选择您要投稿到本站哪个分类。</dd>
+		</dl>
+		<dl>
+			<dt>快捷键<sub>Keyboard</sub></dt>
+			<dd>选中文字内容后使用键盘快捷键<br>CTRL+B ：字体加粗<br>CTRL+Y ：重新执行上次操作<br>CTRL+Z ：撤销上一次操作</dd>
+		</dl>
+
+	</div>
+	</div>
+	<div id="Qrcode" class="Qrcode"></div>
+</div>
+</block>

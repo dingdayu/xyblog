@@ -1,0 +1,61 @@
+<extend name="Public/base" />
+
+<block name="content">
+<div class="contaier wp">
+    <div class="channel-left">
+        <div class="ident">博客</div>
+        <div class="think-search cf">
+            <form action="" method="post">
+                <input class="text" name="name" placeholder="搜索暂不提供" type="text"><input class="submit" value="搜索" type="submit">
+                <input name="type" value="6" type="hidden">
+                <input value="0" name="time" type="hidden">
+            </form>
+        </div>
+        <div class="think-cate">
+            <ul class="think-item">
+			<volist name="list" id="data">
+            <li>
+                <div class="left">
+                    [ <span class="sort">未分类 - </span>
+					<span class="lang">PHP</span> ]
+                </div>
+                <div class="middle">
+                    <span class="title">
+						<eq name="data.isTop" value="1"><span style="color:red">[ 置顶 ]</span></eq>
+						
+						<a href="{:U('Blog/'.$data['id'])}">
+						<eq name="data.is_top" value="1"><b style="color:#56AEF4">{$data.title}</b></eq>
+						<eq name="data.is_top" value="0">{$data.title}</eq>
+						</a>
+						<!--
+						<img src="%E4%BB%A3%E7%A0%81_files/common.gif" alt="附件" style="margin-top:10px" align="" border="0" height="16" width="16">
+						 <span class="down"> [ 696.21 KB <a class="" href="http://www.thinkphp.cn/download/249.html" title="下载">下载：712</a> ]</span>
+						-->
+					</span>
+                    <span class="comment"><a href="{:U('Blog/'.$data['id'])}#review">({$data.pcount})</a></span>
+                    <span class="author">{$data.uid|getUserName}</span>
+                </div>
+                <div class="right">
+                    <span class="date">{$data.create_time|time_format}</span>
+                </div>
+            </li>
+			</volist>
+            </ul>
+        </div>
+		
+        <div class="think-page">
+			{$page}
+		</div>
+    </div>
+    <div class="channel-right">
+        <a href="{:U('Home/Blog/tougao')}" class="upload-link"><strong>投稿</strong>本站</a>
+        <div class="think-sort">
+            <ul class="cf">
+                <li class="selected"><a href="#">全部(82)</a></li>
+                <li><a href="#">分类功能暂未开通</a></li>
+			</ul>
+        </div>
+    </div>
+	<div id="Qrcode" class="Qrcode"></div>
+</div>
+</block>
