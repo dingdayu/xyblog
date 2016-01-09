@@ -12,6 +12,21 @@
     <meta name="author" content="霡霂,小雨,614422099@qq.com" />
     <meta name="generator" content="Xiaoyu  Api 3" />
     <meta name="Copyright" content="www.dingxiaoyu.com,版权所有,Copyright (c) 2013 dingxiaoyu.com" />
+
+    <script type="text/javascript">
+        var CDN_DOMAIN = document.domain;//  window.location.host;
+        (function(){
+            var ThinkPHP = window.Think = {
+                "ROOT"   : "__ROOT__", //当前网站地址
+                "APP"    : "__APP__", //当前项目地址
+                "PUBLIC" : "__PUBLIC__", //项目公共目录地址
+                "DEEP"   : "{:C('URL_PATHINFO_DEPR')}", //PATHINFO分割符
+                "MODEL"  : ["{:C('URL_MODEL')}", "{:C('URL_CASE_INSENSITIVE')}", "{:C('URL_HTML_SUFFIX')}"],
+                "VAR"    : ["{:C('VAR_MODULE')}", "{:C('VAR_CONTROLLER')}", "{:C('VAR_ACTION')}"]
+            }
+        })();
+    </script>
+
     <link rel="stylesheet" type="text/css" href="__Public__/css/prettify.css">
     <link rel="shortcut icon" href="__Public__/Images/favicon.gif" type="image/gif" />
     <load href='__Public__/css/concision.css' />
@@ -19,6 +34,7 @@
     <load href="__Public__/js/Jquery/jquery.min.js" />
     <load href="__Public__/js/Jquery/jquery.qrcode.min.js" />
     <load href="__Public__/js/Jquery/jquery.form.js" />
+    <block name="style"></block>
 </head>
 
 <body>
@@ -99,6 +115,7 @@
     </div>
 </div>
 
+<block name="script"></block>
 <div style="display:none">
     <script src="http://s4.cnzz.com/stat.php?id=4224582&web_id=4224582&show=pic2" language="JavaScript"></script>
     <script type="text/javascript">
