@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <title>AdminDesigns - A Responsive HTML5 Admin UI Framework</title>
+    <meta name="keywords" content="HTML5 Bootstrap 3 Admin Template UI Theme" />
+    <meta name="description" content="AdminDesigns - A Responsive HTML5 Admin UI Framework">
+    <meta name="author" content="AdminDesigns">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font CSS (Via CDN)
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700'>
+    -->
+
+    <block name="style"></block>
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="__Public__/skin/default_skin/css/theme.css">
+
+    <!-- Admin Forms CSS -->
+    <link rel="stylesheet" type="text/css" href="__Public__/admin-tools/admin-forms/css/admin-forms.min.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="__Public__/img/favicon.ico">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="ecommerce-page">
+
+<!-- Start: Theme Preview Pane -->
+<include file="base/theme_options" />
+<!-- End: Theme Preview Pane -->
+
+<!-- Start: Main -->
+<div id="main">
+
+    <!-- Start: Header -->
+    <header class="navbar navbar-fixed-top">
+        <div class="navbar-branding">
+            <a class="navbar-brand" href="dashboard.html">
+                <b>XY</b>BLOG
+            </a>
+            <span id="toggle_sidemenu_l" class="ad ad-lines"></span>
+        </div>
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <a class="sidebar-menu-toggle" href="ecommerce_dashboard.html#">
+                    <span class="ad ad-ruby fs18"></span>
+                </a>
+            </li>
+            <li>
+                <a class="topbar-menu-toggle" href="ecommerce_dashboard.html#">
+                    <span class="ad ad-wand fs16"></span>
+                </a>
+            </li>
+            <li class="hidden-xs">
+                <a class="request-fullscreen toggle-active" href="ecommerce_dashboard.html#">
+                    <span class="ad ad-screen-full fs18"></span>
+                </a>
+            </li>
+        </ul>
+        <form class="navbar-form navbar-left navbar-search" role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="搜索……" value="">
+            </div>
+        </form>
+
+        <ul class="nav navbar-nav navbar-right">
+            <!--通知-->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="ecommerce_dashboard.html#">
+                    <span class="ad ad-radio-tower fs18"></span>
+                    <span class="badge badge-hero badge-danger">1</span>
+                </a>
+                <ul class="dropdown-menu media-list w350 animated animated-shorter fadeIn" role="menu">
+                    <li class="dropdown-header">
+                        <span class="dropdown-title"> 通知</span>
+                        <span class="label label-warning">01</span>
+                    </li>
+                    <li class="media">
+                        <a class="media-left" href="ecommerce_dashboard.html#"> <img src="__Public__/img/avatars/5.jpg" class="mw40" alt="avatar"> </a>
+                        <div class="media-body">
+                            <h5 class="media-heading">Article
+                                <small class="text-muted">- 08/16/22</small>
+                            </h5> Last Updated 36 days ago by
+                            <a class="text-system" href="ecommerce_dashboard.html#"> Max </a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <!--语言设置-->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="ecommerce_dashboard.html#">
+                    <span class="flag-xs flag-us"></span> 中文
+                </a>
+                <ul class="dropdown-menu pv5 animated animated-short flipInX" role="menu">
+                    <li>
+                        <a href="javascript:void(0);">
+                            <span class="flag-xs flag-in mr10"></span> Hindu </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);">
+                            <span class="flag-xs flag-tr mr10"></span> Turkish </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);">
+                            <span class="flag-xs flag-es mr10"></span> Spanish </a>
+                    </li>
+                </ul>
+            </li>
+            <!--在线状态-->
+            <li class="menu-divider hidden-xs">
+                <i class="fa fa-circle"></i>
+            </li>
+            <!--个人中心-->
+            <li class="dropdown">
+                <a href="ecommerce_dashboard.html#" class="dropdown-toggle fw600 p15" data-toggle="dropdown">
+                    <img src="__Public__/img/avatars/1.jpg" alt="avatar" class="mw30 br64 mr15"> John.Smith
+                    <span class="caret caret-tp hidden-xs"></span>
+                </a>
+                <!--状态设置-->
+                <ul class="dropdown-menu list-group dropdown-persist w250" role="menu">
+                    <li class="dropdown-header clearfix">
+                        <div class="pull-left ml10">
+                            <select id="user-status">
+                                <optgroup label="Current Status:">
+                                    <option value="1-1">离线</option>
+                                    <option value="1-2">隐身</option>
+                                    <option value="1-3" selected="selected">在线</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <div class="pull-right mr10">
+                            <select id="user-role">
+                                <optgroup label="Logged in As:">
+                                    <option value="1-1">用户</option>
+                                    <option value="1-2">编辑</option>
+                                    <option value="1-3" selected="selected">管理员</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item">
+                        <a href="ecommerce_dashboard.html#" class="animated animated-short fadeInUp">
+                            <span class="fa fa-envelope"></span> 消息
+                            <span class="label label-warning">2</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="ecommerce_dashboard.html#" class="animated animated-short fadeInUp">
+                            <span class="fa fa-user"></span> 个人中心
+                            <span class="label label-warning">6</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="ecommerce_dashboard.html#" class="animated animated-short fadeInUp">
+                            <span class="fa fa-gear"></span> 站点设置 </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="ecommerce_dashboard.html#" class="animated animated-short fadeInUp">
+                            <span class="fa fa-power-off"></span> 退出 </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </header>
+    <!-- End: Header -->
+
+    <!-- Start: Sidebar -->
+    {:W('Sidebar/left')}
+
+    <block name="content"></block>
+
+    <!-- Start: Right Sidebar -->
+    {:W('Sidebar/right')}
+    <!-- End: Right Sidebar -->
+
+</div>
+<!-- End: Main -->
+
+<!-- BEGIN: PAGE SCRIPTS -->
+
+<!-- jQuery -->
+<script src="__PUBLIC__/vendor/jquery/jquery-1.11.1.min.js"></script>
+<script src="__PUBLIC__/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
+
+<!-- Theme Javascript -->
+<script src="__Public__/js/utility/utility.js"></script>
+<script src="__Public__/js/demo/demo.js"></script>
+<script src="__Public__/js/main.js"></script>
+
+<block name="script">
+    <!-- HighCharts Plugin -->
+    <script src="__PUBLIC__/vendor/plugins/highcharts/highcharts.js"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+
+            "use strict";
+
+            // Init Theme Core
+            Core.init();
+
+            // Init Demo JS
+            Demo.init();
+
+            var highColors = [bgSystem, bgSuccess, bgWarning, bgPrimary];
+
+            // Chart data
+            var seriesData = [{
+                name: 'Phones',
+                data: [5.0, 9, 17, 22, 19, 11.5, 5.2, 9.5, 11.3, 15.3, 19.9, 24.6]
+            }, {
+                name: 'Notebooks',
+                data: [2.9, 3.2, 4.7, 5.5, 8.9, 12.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+            }, {
+                name: 'Desktops',
+                data: [15, 19, 22.7, 29.3, 22.0, 17.0, 23.8, 19.1, 22.1, 14.1, 11.6, 7.5]
+            }, {
+                name: 'Music Players',
+                data: [11, 6, 5, 15, 17.0, 22.0, 30.8, 24.1, 14.1, 11.1, 9.6, 6.5]
+            }];
+
+            var ecomChart = $('#ecommerce_chart1');
+
+            if (ecomChart.length) {
+                ecomChart.highcharts({
+                    credits: false,
+                    colors: highColors,
+                    chart: {
+                        backgroundColor: 'transparent',
+                        className: 'br-r',
+                        type: 'line',
+                        zoomType: 'x',
+                        panning: true,
+                        panKey: 'shift',
+                        marginTop: 45,
+                        marginRight: 1,
+                    },
+                    title: {
+                        text: null
+                    },
+                    xAxis: {
+                        gridLineColor: '#EEE',
+                        lineColor: '#EEE',
+                        tickColor: '#EEE',
+                        categories: ['Jan', 'Feb', 'Mar', 'Apr',
+                            'May', 'Jun', 'Jul', 'Aug',
+                            'Sep', 'Oct', 'Nov', 'Dec'
+                        ]
+                    },
+                    yAxis: {
+                        min: 0,
+                        tickInterval: 5,
+                        gridLineColor: '#EEE',
+                        title: {
+                            text: null,
+                        }
+                    },
+                    plotOptions: {
+                        spline: {
+                            lineWidth: 3,
+                        },
+                        area: {
+                            fillOpacity: 0.2
+                        }
+                    },
+                    legend: {
+                        enabled: true,
+                        floating: false,
+                        align: 'right',
+                        verticalAlign: 'top',
+                    },
+                    series: seriesData
+                });
+            }
+
+
+        });
+    </script>
+    <!-- END: PAGE SCRIPTS -->
+</block>
+
+
+</body>
+
+</html>
