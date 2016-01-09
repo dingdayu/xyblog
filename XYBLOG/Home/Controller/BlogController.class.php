@@ -22,8 +22,7 @@ class BlogController extends Controller
         $show       = $Page->show();// 分页显示输出
 
         // 进行分页数据查询 注意limit方法的参数要使用Page类的属性
-        $list = $Blogs->order('is_top desc, create_time desc
-        ')->limit($Page->firstRow.','.$Page->listRows)->getField('id,title,create_time,is_top,uid');
+        $list = $Blogs->order('is_top desc, create_time asc')->limit($Page->firstRow.','.$Page->listRows)->getField('id,title,create_time,is_top,uid');
 
         foreach ($list as $k => $v) {
             $list[$k]['pcount'] = $Comment->where('status=1 and type=3 and from_id='.$v['id'])->count();
@@ -46,16 +45,14 @@ class BlogController extends Controller
     }
 
     public function read(){
-        $Blogs = M('Blogs');
+        $Blogs = D('Blogs');
 
         $id = I('id');//安全获取id值
         $I = I();
         if(empty($id)) $id=$I[2];
-        $blog = $Blogs->where('status=1 and id='.$id)->select();
-        $blog = $blog['0'];
-        //echo $id;
+        $blog = $Blogs->where('status=1 and id='.$id)->relation(true)->find();
         //dump($blog);
-        //exit;
+        //echo $id;
         if(empty($blog)){
             $this->error('请检查您的链接!');
         }
