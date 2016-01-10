@@ -16,34 +16,34 @@ namespace Admin\Controller;
 use Think\Model;
 
 /**
- * ÓÃ»§×éÄ£ĞÍÀà
+ * ç”¨æˆ·ç»„æ¨¡å‹ç±»
  * Class AuthGroupModel
- * @author ÖìÑÇ½Ü <zhuyajie@topthink.net>
+ * @author æœ±äºšæ° <zhuyajie@topthink.net>
  */
 class AuthGroupModel
 {
-    const TYPE_ADMIN                = 1;                   // ¹ÜÀíÔ±ÓÃ»§×éÀàĞÍ±êÊ¶
+    const TYPE_ADMIN                = 1;                   // ç®¡ç†å‘˜ç”¨æˆ·ç»„ç±»å‹æ ‡è¯†
     const MEMBER                    = 'member';
     const UCENTER_MEMBER            = 'ucenter_member';
-    const AUTH_GROUP_ACCESS         = 'auth_group_access'; // ¹ØÏµ±í±íÃû
-    const AUTH_EXTEND               = 'auth_extend';       // ¶¯Ì¬È¨ÏŞÀ©Õ¹ĞÅÏ¢±í
-    const AUTH_GROUP                = 'auth_group';        // ÓÃ»§×é±íÃû
-    const AUTH_EXTEND_CATEGORY_TYPE = 1;              // ·ÖÀàÈ¨ÏŞ±êÊ¶
-    const AUTH_EXTEND_MODEL_TYPE    = 2; //·ÖÀàÈ¨ÏŞ±êÊ¶
+    const AUTH_GROUP_ACCESS         = 'auth_group_access'; // å…³ç³»è¡¨è¡¨å
+    const AUTH_EXTEND               = 'auth_extend';       // åŠ¨æ€æƒé™æ‰©å±•ä¿¡æ¯è¡¨
+    const AUTH_GROUP                = 'auth_group';        // ç”¨æˆ·ç»„è¡¨å
+    const AUTH_EXTEND_CATEGORY_TYPE = 1;              // åˆ†ç±»æƒé™æ ‡è¯†
+    const AUTH_EXTEND_MODEL_TYPE    = 2; //åˆ†ç±»æƒé™æ ‡è¯†
 
     protected $_validate = array(
-        array('title','require', '±ØĞëÉèÖÃÓÃ»§×é±êÌâ', Model::MUST_VALIDATE ,'regex',Model::MODEL_INSERT),
-        //array('title','require', '±ØĞëÉèÖÃÓÃ»§×é±êÌâ', Model::EXISTS_VALIDATE  ,'regex',Model::MODEL_INSERT),
-        array('description','0,80', 'ÃèÊö×î¶à80×Ö·û', Model::VALUE_VALIDATE , 'length'  ,Model::MODEL_BOTH ),
-        // array('rules','/^(\d,?)+(?<!,)$/', '¹æÔòÊı¾İ²»ºÏ·¨', Model::VALUE_VALIDATE , 'regex'  ,Model::MODEL_BOTH ),
+        array('title','require', 'å¿…é¡»è®¾ç½®ç”¨æˆ·ç»„æ ‡é¢˜', Model::MUST_VALIDATE ,'regex',Model::MODEL_INSERT),
+        //array('title','require', 'å¿…é¡»è®¾ç½®ç”¨æˆ·ç»„æ ‡é¢˜', Model::EXISTS_VALIDATE  ,'regex',Model::MODEL_INSERT),
+        array('description','0,80', 'æè¿°æœ€å¤š80å­—ç¬¦', Model::VALUE_VALIDATE , 'length'  ,Model::MODEL_BOTH ),
+        // array('rules','/^(\d,?)+(?<!,)$/', 'è§„åˆ™æ•°æ®ä¸åˆæ³•', Model::VALUE_VALIDATE , 'regex'  ,Model::MODEL_BOTH ),
     );
 
     /**
-     * ·µ»ØÓÃ»§×éÁĞ±í
-     * Ä¬ÈÏ·µ»ØÕı³£×´Ì¬µÄ¹ÜÀíÔ±ÓÃ»§×éÁĞ±í
-     * @param array $where   ²éÑ¯Ìõ¼ş,¹©where()·½·¨Ê¹ÓÃ
+     * è¿”å›ç”¨æˆ·ç»„åˆ—è¡¨
+     * é»˜è®¤è¿”å›æ­£å¸¸çŠ¶æ€çš„ç®¡ç†å‘˜ç”¨æˆ·ç»„åˆ—è¡¨
+     * @param array $where   æŸ¥è¯¢æ¡ä»¶,ä¾›where()æ–¹æ³•ä½¿ç”¨
      *
-     * @author ÖìÑÇ½Ü <zhuyajie@topthink.net>
+     * @author æœ±äºšæ° <zhuyajie@topthink.net>
      */
     public function getGroups($where=array()){
         $map = array('status'=>1,'type'=>self::TYPE_ADMIN,'module'=>'admin');
@@ -52,10 +52,10 @@ class AuthGroupModel
     }
 
     /**
-     * °ÑÓÃ»§Ìí¼Óµ½ÓÃ»§×é,Ö§³ÖÅúÁ¿Ìí¼ÓÓÃ»§µ½ÓÃ»§×é
-     * @author ÖìÑÇ½Ü <zhuyajie@topthink.net>
+     * æŠŠç”¨æˆ·æ·»åŠ åˆ°ç”¨æˆ·ç»„,æ”¯æŒæ‰¹é‡æ·»åŠ ç”¨æˆ·åˆ°ç”¨æˆ·ç»„
+     * @author æœ±äºšæ° <zhuyajie@topthink.net>
      *
-     * Ê¾Àı: °Ñuid=1µÄÓÃ»§Ìí¼Óµ½group_idÎª1,2µÄ×é `AuthGroupModel->addToGroup(1,'1,2');`
+     * ç¤ºä¾‹: æŠŠuid=1çš„ç”¨æˆ·æ·»åŠ åˆ°group_idä¸º1,2çš„ç»„ `AuthGroupModel->addToGroup(1,'1,2');`
      */
     public function addToGroup($uid,$gid){
         $uid = is_array($uid)?implode(',',$uid):trim($uid,',');
@@ -63,7 +63,7 @@ class AuthGroupModel
 
         $Access = M(self::AUTH_GROUP_ACCESS);
         if( isset($_REQUEST['batch']) ){
-            //Îªµ¥¸öÓÃ»§ÅúÁ¿Ìí¼ÓÓÃ»§×éÊ±,ÏÈÉ¾³ı¾ÉÊı¾İ
+            //ä¸ºå•ä¸ªç”¨æˆ·æ‰¹é‡æ·»åŠ ç”¨æˆ·ç»„æ—¶,å…ˆåˆ é™¤æ—§æ•°æ®
             $del = $Access->where( array('uid'=>array('in',$uid)) )->delete();
         }
 
@@ -72,9 +72,9 @@ class AuthGroupModel
         $add = array();
         if( $del!==false ){
             foreach ($uid_arr as $u){
-                //ÅĞ¶ÏÓÃ»§idÊÇ·ñºÏ·¨
+                //åˆ¤æ–­ç”¨æˆ·idæ˜¯å¦åˆæ³•
                 if(M('Member')->getFieldByUid($u,'uid') == false){
-                    $this->error = "±àºÅÎª{$u}µÄÓÃ»§²»´æÔÚ£¡";
+                    $this->error = "ç¼–å·ä¸º{$u}çš„ç”¨æˆ·ä¸å­˜åœ¨ï¼";
                     return false;
                 }
                 foreach ($gid as $g){
@@ -87,8 +87,8 @@ class AuthGroupModel
         }
         if ($Access->getDbError()) {
             if( count($uid_arr)==1 && count($gid)==1 ){
-                //µ¥¸öÌí¼ÓÊ±¶¨ÖÆ´íÎóÌáÊ¾
-                $this->error = "²»ÄÜÖØ¸´Ìí¼Ó";
+                //å•ä¸ªæ·»åŠ æ—¶å®šåˆ¶é”™è¯¯æç¤º
+                $this->error = "ä¸èƒ½é‡å¤æ·»åŠ ";
             }
             return false;
         }else{
@@ -97,10 +97,10 @@ class AuthGroupModel
     }
 
     /**
-     * ·µ»ØÓÃ»§ËùÊôÓÃ»§×éĞÅÏ¢
-     * @param  int    $uid ÓÃ»§id
-     * @return array  ÓÃ»§ËùÊôµÄÓÃ»§×é array(
-     *                                         array('uid'=>'ÓÃ»§id','group_id'=>'ÓÃ»§×éid','title'=>'ÓÃ»§×éÃû³Æ','rules'=>'ÓÃ»§×éÓµÓĞµÄ¹æÔòid,¶à¸ö,ºÅ¸ô¿ª'),
+     * è¿”å›ç”¨æˆ·æ‰€å±ç”¨æˆ·ç»„ä¿¡æ¯
+     * @param  int    $uid ç”¨æˆ·id
+     * @return array  ç”¨æˆ·æ‰€å±çš„ç”¨æˆ·ç»„ array(
+     *                                         array('uid'=>'ç”¨æˆ·id','group_id'=>'ç”¨æˆ·ç»„id','title'=>'ç”¨æˆ·ç»„åç§°','rules'=>'ç”¨æˆ·ç»„æ‹¥æœ‰çš„è§„åˆ™id,å¤šä¸ª,å·éš”å¼€'),
      *                                         ...)
      */
     static public function getUserGroup($uid){
@@ -119,16 +119,16 @@ class AuthGroupModel
     }
 
     /**
-     * ·µ»ØÓÃ»§ÓµÓĞ¹ÜÀíÈ¨ÏŞµÄÀ©Õ¹Êı¾İidÁĞ±í
+     * è¿”å›ç”¨æˆ·æ‹¥æœ‰ç®¡ç†æƒé™çš„æ‰©å±•æ•°æ®idåˆ—è¡¨
      *
-     * @param int     $uid  ÓÃ»§id
-     * @param int     $type À©Õ¹Êı¾İ±êÊ¶
-     * @param int     $session  ½á¹û»º´æ±êÊ¶
+     * @param int     $uid  ç”¨æˆ·id
+     * @param int     $type æ‰©å±•æ•°æ®æ ‡è¯†
+     * @param int     $session  ç»“æœç¼“å­˜æ ‡è¯†
      * @return array
      *
      *  array(2,4,8,13)
      *
-     * @author ÖìÑÇ½Ü <xcoolcc@gmail.com>
+     * @author æœ±äºšæ° <xcoolcc@gmail.com>
      */
     static public function getAuthExtend($uid,$type,$session){
         if ( !$type ) {
@@ -153,14 +153,14 @@ class AuthGroupModel
     }
 
     /**
-     * ·µ»ØÓÃ»§ÓµÓĞ¹ÜÀíÈ¨ÏŞµÄ·ÖÀàidÁĞ±í
+     * è¿”å›ç”¨æˆ·æ‹¥æœ‰ç®¡ç†æƒé™çš„åˆ†ç±»idåˆ—è¡¨
      *
-     * @param int     $uid  ÓÃ»§id
+     * @param int     $uid  ç”¨æˆ·id
      * @return array
      *
      *  array(2,4,8,13)
      *
-     * @author ÖìÑÇ½Ü <zhuyajie@topthink.net>
+     * @author æœ±äºšæ° <zhuyajie@topthink.net>
      */
     static public function getAuthCategories($uid){
         return self::getAuthExtend($uid,self::AUTH_EXTEND_CATEGORY_TYPE,'AUTH_CATEGORY');
@@ -169,14 +169,14 @@ class AuthGroupModel
 
 
     /**
-     * »ñÈ¡ÓÃ»§×éÊÚÈ¨µÄÀ©Õ¹ĞÅÏ¢Êı¾İ
+     * è·å–ç”¨æˆ·ç»„æˆæƒçš„æ‰©å±•ä¿¡æ¯æ•°æ®
      *
-     * @param int     $gid  ÓÃ»§×éid
+     * @param int     $gid  ç”¨æˆ·ç»„id
      * @return array
      *
      *  array(2,4,8,13)
      *
-     * @author ÖìÑÇ½Ü <xcoolcc@gmail.com>
+     * @author æœ±äºšæ° <xcoolcc@gmail.com>
      */
     static public function getExtendOfGroup($gid,$type){
         if ( !is_numeric($type) ) {
@@ -186,14 +186,14 @@ class AuthGroupModel
     }
 
     /**
-     * »ñÈ¡ÓÃ»§×éÊÚÈ¨µÄ·ÖÀàidÁĞ±í
+     * è·å–ç”¨æˆ·ç»„æˆæƒçš„åˆ†ç±»idåˆ—è¡¨
      *
-     * @param int     $gid  ÓÃ»§×éid
+     * @param int     $gid  ç”¨æˆ·ç»„id
      * @return array
      *
      *  array(2,4,8,13)
      *
-     * @author ÖìÑÇ½Ü <zhuyajie@topthink.net>
+     * @author æœ±äºšæ° <zhuyajie@topthink.net>
      */
     static public function getCategoryOfGroup($gid){
         return self::getExtendOfGroup($gid,self::AUTH_EXTEND_CATEGORY_TYPE);
@@ -201,12 +201,12 @@ class AuthGroupModel
 
 
     /**
-     * ÅúÁ¿ÉèÖÃÓÃ»§×é¿É¹ÜÀíµÄÀ©Õ¹È¨ÏŞÊı¾İ
+     * æ‰¹é‡è®¾ç½®ç”¨æˆ·ç»„å¯ç®¡ç†çš„æ‰©å±•æƒé™æ•°æ®
      *
-     * @param int|string|array $gid   ÓÃ»§×éid
-     * @param int|string|array $cid   ·ÖÀàid
+     * @param int|string|array $gid   ç”¨æˆ·ç»„id
+     * @param int|string|array $cid   åˆ†ç±»id
      *
-     * @author ÖìÑÇ½Ü <xcoolcc@gmail.com>
+     * @author æœ±äºšæ° <xcoolcc@gmail.com>
      */
     static public function addToExtend($gid,$cid,$type){
         $gid = is_array($gid)?implode(',',$gid):trim($gid,',');
@@ -235,12 +235,12 @@ class AuthGroupModel
     }
 
     /**
-     * ÅúÁ¿ÉèÖÃÓÃ»§×é¿É¹ÜÀíµÄ·ÖÀà
+     * æ‰¹é‡è®¾ç½®ç”¨æˆ·ç»„å¯ç®¡ç†çš„åˆ†ç±»
      *
-     * @param int|string|array $gid   ÓÃ»§×éid
-     * @param int|string|array $cid   ·ÖÀàid
+     * @param int|string|array $gid   ç”¨æˆ·ç»„id
+     * @param int|string|array $cid   åˆ†ç±»id
      *
-     * @author ÖìÑÇ½Ü <zhuyajie@topthink.net>
+     * @author æœ±äºšæ° <zhuyajie@topthink.net>
      */
     static public function addToCategory($gid,$cid){
         return self::addToExtend($gid,$cid,self::AUTH_EXTEND_CATEGORY_TYPE);
@@ -248,21 +248,21 @@ class AuthGroupModel
 
 
     /**
-     * ½«ÓÃ»§´ÓÓÃ»§×éÖĞÒÆ³ı
-     * @param int|string|array $gid   ÓÃ»§×éid
-     * @param int|string|array $cid   ·ÖÀàid
-     * @author ÖìÑÇ½Ü <xcoolcc@gmail.com>
+     * å°†ç”¨æˆ·ä»ç”¨æˆ·ç»„ä¸­ç§»é™¤
+     * @param int|string|array $gid   ç”¨æˆ·ç»„id
+     * @param int|string|array $cid   åˆ†ç±»id
+     * @author æœ±äºšæ° <xcoolcc@gmail.com>
      */
     public function removeFromGroup($uid,$gid){
         return M(self::AUTH_GROUP_ACCESS)->where( array( 'uid'=>$uid,'group_id'=>$gid) )->delete();
     }
 
     /**
-     * »ñÈ¡Ä³¸öÓÃ»§×éµÄÓÃ»§ÁĞ±í
+     * è·å–æŸä¸ªç”¨æˆ·ç»„çš„ç”¨æˆ·åˆ—è¡¨
      *
-     * @param int $group_id   ÓÃ»§×éid
+     * @param int $group_id   ç”¨æˆ·ç»„id
      *
-     * @author ÖìÑÇ½Ü <zhuyajie@topthink.net>
+     * @author æœ±äºšæ° <zhuyajie@topthink.net>
      */
     static public function memberInGroup($group_id){
         $prefix   = C('DB_PREFIX');
@@ -279,11 +279,11 @@ class AuthGroupModel
     }
 
     /**
-     * ¼ì²éidÊÇ·ñÈ«²¿´æÔÚ
-     * @param array|string $gid  ÓÃ»§×éidÁĞ±í
-     * @author ÖìÑÇ½Ü <zhuyajie@topthink.net>
+     * æ£€æŸ¥idæ˜¯å¦å…¨éƒ¨å­˜åœ¨
+     * @param array|string $gid  ç”¨æˆ·ç»„idåˆ—è¡¨
+     * @author æœ±äºšæ° <zhuyajie@topthink.net>
      */
-    public function checkId($modelname,$mid,$msg = 'ÒÔÏÂid²»´æÔÚ:'){
+    public function checkId($modelname,$mid,$msg = 'ä»¥ä¸‹idä¸å­˜åœ¨:'){
         if(is_array($mid)){
             $count = count($mid);
             $ids   = implode(',',$mid);
@@ -304,20 +304,20 @@ class AuthGroupModel
     }
 
     /**
-     * ¼ì²éÓÃ»§×éÊÇ·ñÈ«²¿´æÔÚ
-     * @param array|string $gid  ÓÃ»§×éidÁĞ±í
-     * @author ÖìÑÇ½Ü <zhuyajie@topthink.net>
+     * æ£€æŸ¥ç”¨æˆ·ç»„æ˜¯å¦å…¨éƒ¨å­˜åœ¨
+     * @param array|string $gid  ç”¨æˆ·ç»„idåˆ—è¡¨
+     * @author æœ±äºšæ° <zhuyajie@topthink.net>
      */
     public function checkGroupId($gid){
-        return $this->checkId('AuthGroup',$gid, 'ÒÔÏÂÓÃ»§×éid²»´æÔÚ:');
+        return $this->checkId('AuthGroup',$gid, 'ä»¥ä¸‹ç”¨æˆ·ç»„idä¸å­˜åœ¨:');
     }
 
     /**
-     * ¼ì²é·ÖÀàÊÇ·ñÈ«²¿´æÔÚ
-     * @param array|string $cid  À¸Ä¿·ÖÀàidÁĞ±í
-     * @author ÖìÑÇ½Ü <zhuyajie@topthink.net>
+     * æ£€æŸ¥åˆ†ç±»æ˜¯å¦å…¨éƒ¨å­˜åœ¨
+     * @param array|string $cid  æ ç›®åˆ†ç±»idåˆ—è¡¨
+     * @author æœ±äºšæ° <zhuyajie@topthink.net>
      */
     public function checkCategoryId($cid){
-        return $this->checkId('Category',$cid, 'ÒÔÏÂ·ÖÀàid²»´æÔÚ:');
+        return $this->checkId('Category',$cid, 'ä»¥ä¸‹åˆ†ç±»idä¸å­˜åœ¨:');
     }
 }

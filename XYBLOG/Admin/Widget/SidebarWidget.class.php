@@ -21,9 +21,7 @@ class SidebarWidget extends Controller
     public function left(){
         //$this->assign('menu','1');
 
-
         $this->display('Widget:sidebar_left');
-        //$this->display();
     }
 
     public function right()

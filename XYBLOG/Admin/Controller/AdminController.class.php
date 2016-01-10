@@ -11,56 +11,56 @@
 // | DATE: 2015/11/23 13:42
 // +----------------------------------------------------------------------
 namespace Admin\Controller;
+
 use Think\Controller;
 use Admin\Model\AuthGroupModel;
+
 /**
- * ºóÌ¨Ê×Ò³¿ØÖÆÆ÷
- * @author Âóµ±Ãç¶ù <zuojiazi@vip.qq.com>
+ * åå°é¦–é¡µæ§åˆ¶å™¨
  */
 class AdminController extends Controller {
 
     /**
-     * ºóÌ¨¿ØÖÆÆ÷³õÊ¼»¯
+     * åå°æ§åˆ¶å™¨åˆå§‹åŒ–
      */
     protected function _initialize(){
-        // »ñÈ¡µ±Ç°ÓÃ»§ID
+        // è·å–å½“å‰ç”¨æˆ·ID
         if(defined('UID')) return ;
         define('UID',is_login());
-        if( !UID ){// »¹Ã»µÇÂ¼ Ìø×ªµ½µÇÂ¼Ò³Ãæ
+        if( !UID ){// è¿˜æ²¡ç™»å½• è·³è½¬åˆ°ç™»å½•é¡µé¢
             $this->redirect('Public/login');
         }
-        /* ¶ÁÈ¡Êı¾İ¿âÖĞµÄÅäÖÃ */
+        /* è¯»å–æ•°æ®åº“ä¸­çš„é…ç½® */
         if(!APP_DEBUG)$config =   S('DB_CONFIG_DATA');
         if(!$config){
             $config =   api('Config/lists');
             S('DB_CONFIG_DATA',$config);
         }
-        C($config); //Ìí¼ÓÅäÖÃ
-        self::initWeChat();
+        C($config); //æ·»åŠ é…ç½®
 
-        // ÊÇ·ñÊÇ³¬¼¶¹ÜÀíÔ±
+        // æ˜¯å¦æ˜¯è¶…çº§ç®¡ç†å‘˜
         define('IS_ROOT',   is_administrator());
         if(!IS_ROOT && C('ADMIN_ALLOW_IP')){
-            // ¼ì²éIPµØÖ··ÃÎÊ
+            // æ£€æŸ¥IPåœ°å€è®¿é—®
             if(!in_array(get_client_ip(),explode(',',C('ADMIN_ALLOW_IP')))){
-                $this->error('403:½ûÖ¹·ÃÎÊ');
+                $this->error('403:ç¦æ­¢è®¿é—®');
             }
         }
-        // ¼ì²âÏµÍ³È¨ÏŞ
+        // æ£€æµ‹ç³»ç»Ÿæƒé™
         if(!IS_ROOT){
             $access =   $this->accessControl();
             if ( false === $access ) {
-                $this->error('403:½ûÖ¹·ÃÎÊ');
+                $this->error('403:ç¦æ­¢è®¿é—®');
             }elseif(null === $access ){
-                //¼ì²â·ÃÎÊÈ¨ÏŞ
+                //æ£€æµ‹è®¿é—®æƒé™
                 $rule  = strtolower(MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME);
                 if ( !$this->checkRule($rule,array('in','1,2')) ){
-                    $this->error('Î´ÊÚÈ¨·ÃÎÊ!');
+                    $this->error('æœªæˆæƒè®¿é—®!');
                 }else{
-                    // ¼ì²â·ÖÀà¼°ÄÚÈİÓĞ¹ØµÄ¸÷Ïî¶¯Ì¬È¨ÏŞ
+                    // æ£€æµ‹åˆ†ç±»åŠå†…å®¹æœ‰å…³çš„å„é¡¹åŠ¨æ€æƒé™
                     $dynamic    =   $this->checkDynamic();
                     if( false === $dynamic ){
-                        $this->error('Î´ÊÚÈ¨·ÃÎÊ!');
+                        $this->error('æœªæˆæƒè®¿é—®!');
                     }
                 }
             }
@@ -70,10 +70,10 @@ class AdminController extends Controller {
     }
 
     /**
-     * È¨ÏŞ¼ì²â
-     * @param string  $rule    ¼ì²âµÄ¹æÔò
-     * @param int $type         1:url;2:Ö÷²Ëµ¥
-     * @param string  $mode    checkÄ£Ê½
+     * æƒé™æ£€æµ‹
+     * @param string  $rule    æ£€æµ‹çš„è§„åˆ™
+     * @param int $type         1:url;2:ä¸»èœå•
+     * @param string  $mode    checkæ¨¡å¼
      * @return boolean
      */
     final protected function checkRule($rule, $type=1, $mode='url'){
@@ -88,61 +88,61 @@ class AdminController extends Controller {
     }
 
     /**
-     * ¼ì²âÊÇ·ñÊÇĞèÒª¶¯Ì¬ÅĞ¶ÏµÄÈ¨ÏŞ
+     * æ£€æµ‹æ˜¯å¦æ˜¯éœ€è¦åŠ¨æ€åˆ¤æ–­çš„æƒé™
      * @return boolean|null
-     *      ·µ»ØtrueÔò±íÊ¾µ±Ç°·ÃÎÊÓĞÈ¨ÏŞ
-     *      ·µ»ØfalseÔò±íÊ¾µ±Ç°·ÃÎÊÎŞÈ¨ÏŞ
-     *      ·µ»Ønull£¬Ôò±íÊ¾È¨ÏŞ²»Ã÷
+     *      è¿”å›trueåˆ™è¡¨ç¤ºå½“å‰è®¿é—®æœ‰æƒé™
+     *      è¿”å›falseåˆ™è¡¨ç¤ºå½“å‰è®¿é—®æ— æƒé™
+     *      è¿”å›nullï¼Œåˆ™è¡¨ç¤ºæƒé™ä¸æ˜
      *
-     * @author ÖìÑÇ½Ü  <xcoolcc@gmail.com>
+     * @author æœ±äºšæ°  <xcoolcc@gmail.com>
      */
     protected function checkDynamic(){}
 
 
     /**
-     * action·ÃÎÊ¿ØÖÆ,ÔÚ **µÇÂ½³É¹¦** ºóÖ´ĞĞµÄµÚÒ»ÏîÈ¨ÏŞ¼ì²âÈÎÎñ
-     * ÑÏÖØÄ£¿éÊÇ·ñ½ûÖ¹·ÃÎÊ»òÕßÔÊĞí¹«ÖÚ·ÃÎÊ
+     * actionè®¿é—®æ§åˆ¶,åœ¨ **ç™»é™†æˆåŠŸ** åæ‰§è¡Œçš„ç¬¬ä¸€é¡¹æƒé™æ£€æµ‹ä»»åŠ¡
+     * ä¸¥é‡æ¨¡å—æ˜¯å¦ç¦æ­¢è®¿é—®æˆ–è€…å…è®¸å…¬ä¼—è®¿é—®
      *
-     * @return boolean|null  ·µ»ØÖµ±ØĞëÊ¹ÓÃ `===` ½øĞĞÅĞ¶Ï
+     * @return boolean|null  è¿”å›å€¼å¿…é¡»ä½¿ç”¨ `===` è¿›è¡Œåˆ¤æ–­
      *
-     *   ·µ»Ø **false**, ²»ÔÊĞíÈÎºÎÈË·ÃÎÊ(³¬¹Ü³ıÍâ)
-     *   ·µ»Ø **true**, ÔÊĞíÈÎºÎ¹ÜÀíÔ±·ÃÎÊ,ÎŞĞèÖ´ĞĞ½ÚµãÈ¨ÏŞ¼ì²â
-     *   ·µ»Ø **null**, ĞèÒª¼ÌĞøÖ´ĞĞ½ÚµãÈ¨ÏŞ¼ì²â¾ö¶¨ÊÇ·ñÔÊĞí·ÃÎÊ
+     *   è¿”å› **false**, ä¸å…è®¸ä»»ä½•äººè®¿é—®(è¶…ç®¡é™¤å¤–)
+     *   è¿”å› **true**, å…è®¸ä»»ä½•ç®¡ç†å‘˜è®¿é—®,æ— éœ€æ‰§è¡ŒèŠ‚ç‚¹æƒé™æ£€æµ‹
+     *   è¿”å› **null**, éœ€è¦ç»§ç»­æ‰§è¡ŒèŠ‚ç‚¹æƒé™æ£€æµ‹å†³å®šæ˜¯å¦å…è®¸è®¿é—®
      */
     final protected function accessControl(){
         $allow = C('ALLOW_VISIT');
         $deny  = C('DENY_VISIT');
         $check = strtolower(CONTROLLER_NAME.'/'.ACTION_NAME);
         if ( !empty($deny)  && in_array_case($check,$deny) ) {
-            return false;//·Ç³¬¹Ü½ûÖ¹·ÃÎÊdenyÖĞµÄ·½·¨
+            return false;//éè¶…ç®¡ç¦æ­¢è®¿é—®denyä¸­çš„æ–¹æ³•
         }
         if ( !empty($allow) && in_array_case($check,$allow) ) {
             return true;
         }
-        return null;//ĞèÒª¼ì²â½ÚµãÈ¨ÏŞ
+        return null;//éœ€è¦æ£€æµ‹èŠ‚ç‚¹æƒé™
     }
 
     /**
-     * ¶ÔÊı¾İ±íÖĞµÄµ¥ĞĞ»ò¶àĞĞ¼ÇÂ¼Ö´ĞĞĞŞ¸Ä GET²ÎÊıidÎªÊı×Ö»ò¶ººÅ·Ö¸ôµÄÊı×Ö
+     * å¯¹æ•°æ®è¡¨ä¸­çš„å•è¡Œæˆ–å¤šè¡Œè®°å½•æ‰§è¡Œä¿®æ”¹ GETå‚æ•°idä¸ºæ•°å­—æˆ–é€—å·åˆ†éš”çš„æ•°å­—
      *
-     * @param string $model Ä£ĞÍÃû³Æ,¹©Mº¯ÊıÊ¹ÓÃµÄ²ÎÊı
-     * @param array  $data  ĞŞ¸ÄµÄÊı¾İ
-     * @param array  $where ²éÑ¯Ê±µÄwhere()·½·¨µÄ²ÎÊı
-     * @param array  $msg   Ö´ĞĞÕıÈ·ºÍ´íÎóµÄÏûÏ¢ array('success'=>'','error'=>'', 'url'=>'','ajax'=>false)
-     *                     urlÎªÌø×ªÒ³Ãæ,ajaxÊÇ·ñajax·½Ê½(Êı×ÖÔòÎªµ¹Êı¼ÆÊ±ÃëÊı)
+     * @param string $model æ¨¡å‹åç§°,ä¾›Må‡½æ•°ä½¿ç”¨çš„å‚æ•°
+     * @param array  $data  ä¿®æ”¹çš„æ•°æ®
+     * @param array  $where æŸ¥è¯¢æ—¶çš„where()æ–¹æ³•çš„å‚æ•°
+     * @param array  $msg   æ‰§è¡Œæ­£ç¡®å’Œé”™è¯¯çš„æ¶ˆæ¯ array('success'=>'','error'=>'', 'url'=>'','ajax'=>false)
+     *                     urlä¸ºè·³è½¬é¡µé¢,ajaxæ˜¯å¦ajaxæ–¹å¼(æ•°å­—åˆ™ä¸ºå€’æ•°è®¡æ—¶ç§’æ•°)
      *
-     * @author ÖìÑÇ½Ü  <zhuyajie@topthink.net>
+     * @author æœ±äºšæ°  <zhuyajie@topthink.net>
      */
     final protected function editRow ( $model ,$data, $where , $msg ){
         $id    = array_unique((array)I('id',0));
         $id    = is_array($id) ? implode(',',$id) : $id;
-        //Èç´æÔÚid×Ö¶Î£¬Ôò¼ÓÈë¸ÃÌõ¼ş
+        //å¦‚å­˜åœ¨idå­—æ®µï¼Œåˆ™åŠ å…¥è¯¥æ¡ä»¶
         $fields = M($model)->getDbFields();
         if(in_array('id',$fields) && !empty($id)){
             $where = array_merge( array('id' => array('in', $id )) ,(array)$where );
         }
 
-        $msg   = array_merge( array( 'success'=>'²Ù×÷³É¹¦£¡', 'error'=>'²Ù×÷Ê§°Ü£¡', 'url'=>'' ,'ajax'=>IS_AJAX) , (array)$msg );
+        $msg   = array_merge( array( 'success'=>'æ“ä½œæˆåŠŸï¼', 'error'=>'æ“ä½œå¤±è´¥ï¼', 'url'=>'' ,'ajax'=>IS_AJAX) , (array)$msg );
         if( M($model)->where($where)->save($data)!==false ) {
             $this->success($msg['success'],$msg['url'],$msg['ajax']);
         }else{
@@ -151,140 +151,140 @@ class AdminController extends Controller {
     }
 
     /**
-     * ½ûÓÃÌõÄ¿
-     * @param string $model Ä£ĞÍÃû³Æ,¹©Dº¯ÊıÊ¹ÓÃµÄ²ÎÊı
-     * @param array  $where ²éÑ¯Ê±µÄ where()·½·¨µÄ²ÎÊı
-     * @param array  $msg   Ö´ĞĞÕıÈ·ºÍ´íÎóµÄÏûÏ¢,¿ÉÒÔÉèÖÃËÄ¸öÔªËØ array('success'=>'','error'=>'', 'url'=>'','ajax'=>false)
-     *                     urlÎªÌø×ªÒ³Ãæ,ajaxÊÇ·ñajax·½Ê½(Êı×ÖÔòÎªµ¹Êı¼ÆÊ±ÃëÊı)
+     * ç¦ç”¨æ¡ç›®
+     * @param string $model æ¨¡å‹åç§°,ä¾›Då‡½æ•°ä½¿ç”¨çš„å‚æ•°
+     * @param array  $where æŸ¥è¯¢æ—¶çš„ where()æ–¹æ³•çš„å‚æ•°
+     * @param array  $msg   æ‰§è¡Œæ­£ç¡®å’Œé”™è¯¯çš„æ¶ˆæ¯,å¯ä»¥è®¾ç½®å››ä¸ªå…ƒç´  array('success'=>'','error'=>'', 'url'=>'','ajax'=>false)
+     *                     urlä¸ºè·³è½¬é¡µé¢,ajaxæ˜¯å¦ajaxæ–¹å¼(æ•°å­—åˆ™ä¸ºå€’æ•°è®¡æ—¶ç§’æ•°)
      *
-     * @author ÖìÑÇ½Ü  <zhuyajie@topthink.net>
+     * @author æœ±äºšæ°  <zhuyajie@topthink.net>
      */
-    protected function forbid ( $model , $where = array() , $msg = array( 'success'=>'×´Ì¬½ûÓÃ³É¹¦£¡', 'error'=>'×´Ì¬½ûÓÃÊ§°Ü£¡')){
+    protected function forbid ( $model , $where = array() , $msg = array( 'success'=>'çŠ¶æ€ç¦ç”¨æˆåŠŸï¼', 'error'=>'çŠ¶æ€ç¦ç”¨å¤±è´¥ï¼')){
         $data    =  array('status' => 0);
         $this->editRow( $model , $data, $where, $msg);
     }
 
     /**
-     * »Ö¸´ÌõÄ¿
-     * @param string $model Ä£ĞÍÃû³Æ,¹©Dº¯ÊıÊ¹ÓÃµÄ²ÎÊı
-     * @param array  $where ²éÑ¯Ê±µÄwhere()·½·¨µÄ²ÎÊı
-     * @param array  $msg   Ö´ĞĞÕıÈ·ºÍ´íÎóµÄÏûÏ¢ array('success'=>'','error'=>'', 'url'=>'','ajax'=>false)
-     *                     urlÎªÌø×ªÒ³Ãæ,ajaxÊÇ·ñajax·½Ê½(Êı×ÖÔòÎªµ¹Êı¼ÆÊ±ÃëÊı)
+     * æ¢å¤æ¡ç›®
+     * @param string $model æ¨¡å‹åç§°,ä¾›Då‡½æ•°ä½¿ç”¨çš„å‚æ•°
+     * @param array  $where æŸ¥è¯¢æ—¶çš„where()æ–¹æ³•çš„å‚æ•°
+     * @param array  $msg   æ‰§è¡Œæ­£ç¡®å’Œé”™è¯¯çš„æ¶ˆæ¯ array('success'=>'','error'=>'', 'url'=>'','ajax'=>false)
+     *                     urlä¸ºè·³è½¬é¡µé¢,ajaxæ˜¯å¦ajaxæ–¹å¼(æ•°å­—åˆ™ä¸ºå€’æ•°è®¡æ—¶ç§’æ•°)
      *
-     * @author ÖìÑÇ½Ü  <zhuyajie@topthink.net>
+     * @author æœ±äºšæ°  <zhuyajie@topthink.net>
      */
-    protected function resume (  $model , $where = array() , $msg = array( 'success'=>'×´Ì¬»Ö¸´³É¹¦£¡', 'error'=>'×´Ì¬»Ö¸´Ê§°Ü£¡')){
+    protected function resume (  $model , $where = array() , $msg = array( 'success'=>'çŠ¶æ€æ¢å¤æˆåŠŸï¼', 'error'=>'çŠ¶æ€æ¢å¤å¤±è´¥ï¼')){
         $data    =  array('status' => 1);
         $this->editRow(   $model , $data, $where, $msg);
     }
 
     /**
-     * »¹Ô­ÌõÄ¿
-     * @param string $model Ä£ĞÍÃû³Æ,¹©Dº¯ÊıÊ¹ÓÃµÄ²ÎÊı
-     * @param array  $where ²éÑ¯Ê±µÄwhere()·½·¨µÄ²ÎÊı
-     * @param array  $msg   Ö´ĞĞÕıÈ·ºÍ´íÎóµÄÏûÏ¢ array('success'=>'','error'=>'', 'url'=>'','ajax'=>false)
-     *                     urlÎªÌø×ªÒ³Ãæ,ajaxÊÇ·ñajax·½Ê½(Êı×ÖÔòÎªµ¹Êı¼ÆÊ±ÃëÊı)
+     * è¿˜åŸæ¡ç›®
+     * @param string $model æ¨¡å‹åç§°,ä¾›Då‡½æ•°ä½¿ç”¨çš„å‚æ•°
+     * @param array  $where æŸ¥è¯¢æ—¶çš„where()æ–¹æ³•çš„å‚æ•°
+     * @param array  $msg   æ‰§è¡Œæ­£ç¡®å’Œé”™è¯¯çš„æ¶ˆæ¯ array('success'=>'','error'=>'', 'url'=>'','ajax'=>false)
+     *                     urlä¸ºè·³è½¬é¡µé¢,ajaxæ˜¯å¦ajaxæ–¹å¼(æ•°å­—åˆ™ä¸ºå€’æ•°è®¡æ—¶ç§’æ•°)
      * @author huajie  <banhuajie@163.com>
      */
-    protected function restore (  $model , $where = array() , $msg = array( 'success'=>'×´Ì¬»¹Ô­³É¹¦£¡', 'error'=>'×´Ì¬»¹Ô­Ê§°Ü£¡')){
+    protected function restore (  $model , $where = array() , $msg = array( 'success'=>'çŠ¶æ€è¿˜åŸæˆåŠŸï¼', 'error'=>'çŠ¶æ€è¿˜åŸå¤±è´¥ï¼')){
         $data    = array('status' => 1);
         $where   = array_merge(array('status' => -1),$where);
         $this->editRow(   $model , $data, $where, $msg);
     }
 
     /**
-     * ÌõÄ¿¼ÙÉ¾³ı
-     * @param string $model Ä£ĞÍÃû³Æ,¹©Dº¯ÊıÊ¹ÓÃµÄ²ÎÊı
-     * @param array  $where ²éÑ¯Ê±µÄwhere()·½·¨µÄ²ÎÊı
-     * @param array  $msg   Ö´ĞĞÕıÈ·ºÍ´íÎóµÄÏûÏ¢ array('success'=>'','error'=>'', 'url'=>'','ajax'=>false)
-     *                     urlÎªÌø×ªÒ³Ãæ,ajaxÊÇ·ñajax·½Ê½(Êı×ÖÔòÎªµ¹Êı¼ÆÊ±ÃëÊı)
+     * æ¡ç›®å‡åˆ é™¤
+     * @param string $model æ¨¡å‹åç§°,ä¾›Då‡½æ•°ä½¿ç”¨çš„å‚æ•°
+     * @param array  $where æŸ¥è¯¢æ—¶çš„where()æ–¹æ³•çš„å‚æ•°
+     * @param array  $msg   æ‰§è¡Œæ­£ç¡®å’Œé”™è¯¯çš„æ¶ˆæ¯ array('success'=>'','error'=>'', 'url'=>'','ajax'=>false)
+     *                     urlä¸ºè·³è½¬é¡µé¢,ajaxæ˜¯å¦ajaxæ–¹å¼(æ•°å­—åˆ™ä¸ºå€’æ•°è®¡æ—¶ç§’æ•°)
      *
-     * @author ÖìÑÇ½Ü  <zhuyajie@topthink.net>
+     * @author æœ±äºšæ°  <zhuyajie@topthink.net>
      */
-    protected function delete ( $model , $where = array() , $msg = array( 'success'=>'É¾³ı³É¹¦£¡', 'error'=>'É¾³ıÊ§°Ü£¡')) {
+    protected function delete ( $model , $where = array() , $msg = array( 'success'=>'åˆ é™¤æˆåŠŸï¼', 'error'=>'åˆ é™¤å¤±è´¥ï¼')) {
         $data['status']         =   -1;
         $this->editRow(   $model , $data, $where, $msg);
     }
 
     /**
-     * ÉèÖÃÒ»Ìõ»òÕß¶àÌõÊı¾İµÄ×´Ì¬
+     * è®¾ç½®ä¸€æ¡æˆ–è€…å¤šæ¡æ•°æ®çš„çŠ¶æ€
      */
     public function setStatus($Model=CONTROLLER_NAME){
 
         $ids    =   I('request.ids');
         $status =   I('request.status');
         if(empty($ids)){
-            $this->error('ÇëÑ¡ÔñÒª²Ù×÷µÄÊı¾İ');
+            $this->error('è¯·é€‰æ‹©è¦æ“ä½œçš„æ•°æ®');
         }
 
         $map['id'] = array('in',$ids);
         switch ($status){
             case -1 :
-                $this->delete($Model, $map, array('success'=>'É¾³ı³É¹¦','error'=>'É¾³ıÊ§°Ü'));
+                $this->delete($Model, $map, array('success'=>'åˆ é™¤æˆåŠŸ','error'=>'åˆ é™¤å¤±è´¥'));
                 break;
             case 0  :
-                $this->forbid($Model, $map, array('success'=>'½ûÓÃ³É¹¦','error'=>'½ûÓÃÊ§°Ü'));
+                $this->forbid($Model, $map, array('success'=>'ç¦ç”¨æˆåŠŸ','error'=>'ç¦ç”¨å¤±è´¥'));
                 break;
             case 1  :
-                $this->resume($Model, $map, array('success'=>'ÆôÓÃ³É¹¦','error'=>'ÆôÓÃÊ§°Ü'));
+                $this->resume($Model, $map, array('success'=>'å¯ç”¨æˆåŠŸ','error'=>'å¯ç”¨å¤±è´¥'));
                 break;
             default :
-                $this->error('²ÎÊı´íÎó');
+                $this->error('å‚æ•°é”™è¯¯');
                 break;
         }
     }
 
     /**
-     * »ñÈ¡¿ØÖÆÆ÷²Ëµ¥Êı×é,¶ş¼¶²Ëµ¥ÔªËØÎ»ÓÚÒ»¼¶²Ëµ¥µÄ'_child'ÔªËØÖĞ
-     * @author ÖìÑÇ½Ü  <xcoolcc@gmail.com>
+     * è·å–æ§åˆ¶å™¨èœå•æ•°ç»„,äºŒçº§èœå•å…ƒç´ ä½äºä¸€çº§èœå•çš„'_child'å…ƒç´ ä¸­
+     * @author æœ±äºšæ°  <xcoolcc@gmail.com>
      */
     final public function getMenus($controller=CONTROLLER_NAME){
         $menus  =   session('ADMIN_MENU_LIST.'.$controller);
         if(empty($menus)){
-            // »ñÈ¡Ö÷²Ëµ¥
+            // è·å–ä¸»èœå•
             $where['pid']   =   0;
             $where['hide']  =   0;
-            if(!C('DEVELOP_MODE')){ // ÊÇ·ñ¿ª·¢ÕßÄ£Ê½
+            if(!C('DEVELOP_MODE')){ // æ˜¯å¦å¼€å‘è€…æ¨¡å¼
                 $where['is_dev']    =   0;
             }
             $menus['main']  =   M('Menu')->where($where)->order('sort asc')->field('id,title,url')->select();
-            $menus['child'] =   array(); //ÉèÖÃ×Ó½Úµã
+            $menus['child'] =   array(); //è®¾ç½®å­èŠ‚ç‚¹
             foreach ($menus['main'] as $key => $item) {
-                // ÅĞ¶ÏÖ÷²Ëµ¥È¨ÏŞ
+                // åˆ¤æ–­ä¸»èœå•æƒé™
                 if ( !IS_ROOT && !$this->checkRule(strtolower(MODULE_NAME.'/'.$item['url']),AuthRuleModel::RULE_MAIN,null) ) {
                     unset($menus['main'][$key]);
-                    continue;//¼ÌĞøÑ­»·
+                    continue;//ç»§ç»­å¾ªç¯
                 }
                 if(strtolower(CONTROLLER_NAME.'/'.ACTION_NAME)  == strtolower($item['url'])){
                     $menus['main'][$key]['class']='current';
                 }
             }
 
-            // ²éÕÒµ±Ç°×Ó²Ëµ¥
+            // æŸ¥æ‰¾å½“å‰å­èœå•
             $pid = M('Menu')->where("pid !=0 AND url like '%{$controller}/".ACTION_NAME."%'")->getField('pid');
             if($pid){
-                // ²éÕÒµ±Ç°Ö÷²Ëµ¥
+                // æŸ¥æ‰¾å½“å‰ä¸»èœå•
                 $nav =  M('Menu')->find($pid);
                 if($nav['pid']){
                     $nav    =   M('Menu')->find($nav['pid']);
                 }
                 foreach ($menus['main'] as $key => $item) {
-                    // »ñÈ¡µ±Ç°Ö÷²Ëµ¥µÄ×Ó²Ëµ¥Ïî
+                    // è·å–å½“å‰ä¸»èœå•çš„å­èœå•é¡¹
                     if($item['id'] == $nav['id']){
                         $menus['main'][$key]['class']='current';
-                        //Éú³ÉchildÊ÷
+                        //ç”Ÿæˆchildæ ‘
                         $groups = M('Menu')->where(array('group'=>array('neq',''),'pid' =>$item['id']))->distinct(true)->getField("group",true);
-                        //»ñÈ¡¶ş¼¶·ÖÀàµÄºÏ·¨url
+                        //è·å–äºŒçº§åˆ†ç±»çš„åˆæ³•url
                         $where          =   array();
                         $where['pid']   =   $item['id'];
                         $where['hide']  =   0;
-                        if(!C('DEVELOP_MODE')){ // ÊÇ·ñ¿ª·¢ÕßÄ£Ê½
+                        if(!C('DEVELOP_MODE')){ // æ˜¯å¦å¼€å‘è€…æ¨¡å¼
                             $where['is_dev']    =   0;
                         }
                         $second_urls = M('Menu')->where($where)->getField('id,url');
 
                         if(!IS_ROOT){
-                            // ¼ì²â²Ëµ¥È¨ÏŞ
+                            // æ£€æµ‹èœå•æƒé™
                             $to_check_urls = array();
                             foreach ($second_urls as $key=>$to_check_url) {
                                 if( stripos($to_check_url,MODULE_NAME)!==0 ){
@@ -296,12 +296,12 @@ class AdminController extends Controller {
                                     $to_check_urls[] = $to_check_url;
                             }
                         }
-                        // °´ÕÕ·Ö×éÉú³É×Ó²Ëµ¥Ê÷
+                        // æŒ‰ç…§åˆ†ç»„ç”Ÿæˆå­èœå•æ ‘
                         foreach ($groups as $g) {
                             $map = array('group'=>$g);
                             if(isset($to_check_urls)){
                                 if(empty($to_check_urls)){
-                                    // Ã»ÓĞÈÎºÎÈ¨ÏŞ
+                                    // æ²¡æœ‰ä»»ä½•æƒé™
                                     continue;
                                 }else{
                                     $map['url'] = array('in', $to_check_urls);
@@ -309,7 +309,7 @@ class AdminController extends Controller {
                             }
                             $map['pid']     =   $item['id'];
                             $map['hide']    =   0;
-                            if(!C('DEVELOP_MODE')){ // ÊÇ·ñ¿ª·¢ÕßÄ£Ê½
+                            if(!C('DEVELOP_MODE')){ // æ˜¯å¦å¼€å‘è€…æ¨¡å¼
                                 $map['is_dev']  =   0;
                             }
                             $menuList = M('Menu')->where($map)->field('id,pid,title,url,tip')->order('sort asc')->select();
@@ -324,13 +324,13 @@ class AdminController extends Controller {
     }
 
     /**
-     * ·µ»ØºóÌ¨½ÚµãÊı¾İ
-     * @param boolean $tree    ÊÇ·ñ·µ»Ø¶àÎ¬Êı×é½á¹¹(Éú³É²Ëµ¥Ê±ÓÃµ½),Îªfalse·µ»ØÒ»Î¬Êı×é(Éú³ÉÈ¨ÏŞ½ÚµãÊ±ÓÃµ½)
+     * è¿”å›åå°èŠ‚ç‚¹æ•°æ®
+     * @param boolean $tree    æ˜¯å¦è¿”å›å¤šç»´æ•°ç»„ç»“æ„(ç”Ÿæˆèœå•æ—¶ç”¨åˆ°),ä¸ºfalseè¿”å›ä¸€ç»´æ•°ç»„(ç”Ÿæˆæƒé™èŠ‚ç‚¹æ—¶ç”¨åˆ°)
      * @retrun array
      *
-     * ×¢Òâ,·µ»ØµÄÖ÷²Ëµ¥½ÚµãÊı×éÖĞÓĞ'controller'ÔªËØ,ÒÔ¹©Çø·Ö×Ó½ÚµãºÍÖ÷½Úµã
+     * æ³¨æ„,è¿”å›çš„ä¸»èœå•èŠ‚ç‚¹æ•°ç»„ä¸­æœ‰'controller'å…ƒç´ ,ä»¥ä¾›åŒºåˆ†å­èŠ‚ç‚¹å’Œä¸»èŠ‚ç‚¹
      *
-     * @author ÖìÑÇ½Ü <xcoolcc@gmail.com>
+     * @author æœ±äºšæ° <xcoolcc@gmail.com>
      */
     final protected function returnNodes($tree = true){
         static $tree_nodes = array();
@@ -365,23 +365,23 @@ class AdminController extends Controller {
 
 
     /**
-     * Í¨ÓÃ·ÖÒ³ÁĞ±íÊı¾İ¼¯»ñÈ¡·½·¨
+     * é€šç”¨åˆ†é¡µåˆ—è¡¨æ•°æ®é›†è·å–æ–¹æ³•
      *
-     *  ¿ÉÒÔÍ¨¹ıurl²ÎÊı´«µİwhereÌõ¼ş,ÀıÈç:  index.html?name=asdfasdfasdfddds
-     *  ¿ÉÒÔÍ¨¹ıurl¿ÕÖµÅÅĞò×Ö¶ÎºÍ·½Ê½,ÀıÈç: index.html?_field=id&_order=asc
-     *  ¿ÉÒÔÍ¨¹ıurl²ÎÊırÖ¸¶¨Ã¿Ò³Êı¾İÌõÊı,ÀıÈç: index.html?r=5
+     *  å¯ä»¥é€šè¿‡urlå‚æ•°ä¼ é€’whereæ¡ä»¶,ä¾‹å¦‚:  index.html?name=asdfasdfasdfddds
+     *  å¯ä»¥é€šè¿‡urlç©ºå€¼æ’åºå­—æ®µå’Œæ–¹å¼,ä¾‹å¦‚: index.html?_field=id&_order=asc
+     *  å¯ä»¥é€šè¿‡urlå‚æ•°ræŒ‡å®šæ¯é¡µæ•°æ®æ¡æ•°,ä¾‹å¦‚: index.html?r=5
      *
-     * @param sting|Model  $model   Ä£ĞÍÃû»òÄ£ĞÍÊµÀı
-     * @param array        $where   where²éÑ¯Ìõ¼ş(ÓÅÏÈ¼¶: $where>$_REQUEST>Ä£ĞÍÉè¶¨)
-     * @param array|string $order   ÅÅĞòÌõ¼ş,´«ÈënullÊ±Ê¹ÓÃsqlÄ¬ÈÏÅÅĞò»òÄ£ĞÍÊôĞÔ(ÓÅÏÈ¼¶×î¸ß);
-     *                              ÇëÇó²ÎÊıÖĞÈç¹ûÖ¸¶¨ÁË_orderºÍ_fieldÔò¾İ´ËÅÅĞò(ÓÅÏÈ¼¶µÚ¶ş);
-     *                              ·ñÔòÊ¹ÓÃ$order²ÎÊı(Èç¹û$order²ÎÊı,ÇÒÄ£ĞÍÒ²Ã»ÓĞÉè¶¨¹ıorder,ÔòÈ¡Ö÷¼ü½µĞò);
+     * @param sting|Model  $model   æ¨¡å‹åæˆ–æ¨¡å‹å®ä¾‹
+     * @param array        $where   whereæŸ¥è¯¢æ¡ä»¶(ä¼˜å…ˆçº§: $where>$_REQUEST>æ¨¡å‹è®¾å®š)
+     * @param array|string $order   æ’åºæ¡ä»¶,ä¼ å…¥nullæ—¶ä½¿ç”¨sqlé»˜è®¤æ’åºæˆ–æ¨¡å‹å±æ€§(ä¼˜å…ˆçº§æœ€é«˜);
+     *                              è¯·æ±‚å‚æ•°ä¸­å¦‚æœæŒ‡å®šäº†_orderå’Œ_fieldåˆ™æ®æ­¤æ’åº(ä¼˜å…ˆçº§ç¬¬äºŒ);
+     *                              å¦åˆ™ä½¿ç”¨$orderå‚æ•°(å¦‚æœ$orderå‚æ•°,ä¸”æ¨¡å‹ä¹Ÿæ²¡æœ‰è®¾å®šè¿‡order,åˆ™å–ä¸»é”®é™åº);
      *
-     * @param boolean      $field   µ¥±íÄ£ĞÍÓÃ²»µ½¸Ã²ÎÊı,ÒªÓÃÔÚ¶à±íjoinÊ±Îªfield()·½·¨Ö¸¶¨²ÎÊı
-     * @author ÖìÑÇ½Ü <xcoolcc@gmail.com>
+     * @param boolean      $field   å•è¡¨æ¨¡å‹ç”¨ä¸åˆ°è¯¥å‚æ•°,è¦ç”¨åœ¨å¤šè¡¨joinæ—¶ä¸ºfield()æ–¹æ³•æŒ‡å®šå‚æ•°
+     * @author æœ±äºšæ° <xcoolcc@gmail.com>
      *
      * @return array|false
-     * ·µ»ØÊı¾İ¼¯
+     * è¿”å›æ•°æ®é›†
      */
     protected function lists ($model,$where=array(),$order='',$field=true){
         $options    =   array();
@@ -395,7 +395,7 @@ class AdminController extends Controller {
 
         $pk         =   $model->getPk();
         if($order===null){
-            //orderÖÃ¿Õ
+            //orderç½®ç©º
         }else if ( isset($REQUEST['_order']) && isset($REQUEST['_field']) && in_array(strtolower($REQUEST['_order']),array('desc','asc')) ) {
             $options['order'] = '`'.$REQUEST['_field'].'` '.$REQUEST['_order'];
         }elseif( $order==='' && empty($options['order']) && !empty($pk) ){
@@ -434,14 +434,14 @@ class AdminController extends Controller {
     }
 
     /**
-     * ´¦ÀíÎÄµµÁĞ±íÏÔÊ¾
-     * @param array $list ÁĞ±íÊı¾İ
-     * @param integer $model_id Ä£ĞÍid
+     * å¤„ç†æ–‡æ¡£åˆ—è¡¨æ˜¾ç¤º
+     * @param array $list åˆ—è¡¨æ•°æ®
+     * @param integer $model_id æ¨¡å‹id
      */
     protected function parseDocumentList($list,$model_id=null){
         $model_id = $model_id ? $model_id : 1;
         $attrList = get_model_attribute($model_id,false,'id,name,type,extra');
-        // ¶ÔÁĞ±íÊı¾İ½øĞĞÏÔÊ¾´¦Àí
+        // å¯¹åˆ—è¡¨æ•°æ®è¿›è¡Œæ˜¾ç¤ºå¤„ç†
         if(is_array($list)){
             foreach ($list as $k=>$data){
                 foreach($data as $key=>$val){
@@ -449,14 +449,14 @@ class AdminController extends Controller {
                         $extra      =   $attrList[$key]['extra'];
                         $type       =   $attrList[$key]['type'];
                         if('select'== $type || 'checkbox' == $type || 'radio' == $type || 'bool' == $type) {
-                            // Ã¶¾Ù/¶àÑ¡/µ¥Ñ¡/²¼¶ûĞÍ
+                            // æšä¸¾/å¤šé€‰/å•é€‰/å¸ƒå°”å‹
                             $options    =   parse_field_attr($extra);
                             if($options && array_key_exists($val,$options)) {
                                 $data[$key]    =   $options[$val];
                             }
-                        }elseif('date'==$type){ // ÈÕÆÚĞÍ
+                        }elseif('date'==$type){ // æ—¥æœŸå‹
                             $data[$key]    =   date('Y-m-d',$val);
-                        }elseif('datetime' == $type){ // Ê±¼äĞÍ
+                        }elseif('datetime' == $type){ // æ—¶é—´å‹
                             $data[$key]    =   date('Y-m-d H:i',$val);
                         }
                     }
@@ -466,55 +466,5 @@ class AdminController extends Controller {
             }
         }
         return $list;
-    }
-
-    /**
-     * ÏòÓÃ»§ÍÆËÍÄ£°åÏûÏ¢
-     * @param $data = array(
-     *                  'first'=>array('value'=>'ÄúºÃ£¬ÄúÒÑ³É¹¦Ïû·Ñ¡£', 'color'=>'#0A0A0A')
-     *                  'keynote1'=>array('value'=>'ÇÉ¿ËÁ¦', 'color'=>'#CCCCCC')
-     *                  'keynote2'=>array('value'=>'39.8Ôª', 'color'=>'#CCCCCC')
-     *                  'keynote3'=>array('value'=>'2014Äê9ÔÂ16ÈÕ', 'color'=>'#CCCCCC')
-     *                  'keynote3'=>array('value'=>'»¶Ó­ÔÙ´Î¹ºÂò¡£', 'color'=>'#173177')
-     * );
-     * @param $touser ½ÓÊÕ·½µÄOpenId¡£
-     * @param $templateId Ä£°åId¡£ÔÚ¹«ÖÚÆ½Ì¨ÏßÉÏÄ£°å¿âÖĞÑ¡ÓÃÄ£°å»ñµÃID
-     * @param $url URL
-     * @param string $topcolor ¶¥²¿ÑÕÉ«£¬ ¿ÉÒÔÎª¿Õ¡£Ä¬ÈÏÊÇºìÉ«
-     * @return array("errcode"=>0, "errmsg"=>"ok", "msgid"=>200228332} "errcode"ÊÇ0Ôò±íÊ¾Ã»ÓĞ³ö´í
-     *
-     * ×¢Òâ£ºÍÆËÍºóÓÃ»§µ½µ×ÊÇ·ñ³É¹¦½ÓÊÜ£¬Î¢ĞÅ»áÏò¹«ÖÚºÅÍÆËÍÒ»¸öÏûÏ¢¡£
-     */
-    public function sendTempMessage($data, $touser, $templateId, $url, $topcolor='#FF0000'){
-        vendor('XYWeChat.XYWeChat');
-        $ret = \XYWeChat\TemplateMessage::sendTemplateMessage($data, $touser, $templateId, $url, $topcolor='#FF0000');
-        return $ret;
-    }
-
-
-    public function initWeChat(){
-        /*
-         * ·şÎñÆ÷ÅäÖÃ£¬ÏêÇéÇë²Î¿¼@link http://mp.weixin.qq.com/wiki/index.php?title=½ÓÈëÖ¸ÄÏ
-         */
-        define("WECHAT_URL", 'http://crop.xyser.com/');
-        define('WECHAT_TOKEN', 'dingdayu');
-        define('ENCODING_AES_KEY', "MqAuKoex6FyT5No0OcpRyCicThGs0P1vz4mJ2gwvvkF");
-
-        /*
-         * ¿ª·¢ÕßÅäÖÃ
-         */
-        define("WECHAT_APPID", 'wx730b0df822ae366c');
-        define("WECHAT_APPSECRET", '6cf5f26fa09975bca5cfd501083bc34a');
-    }
-
-    public function get_club_id(){
-        $club_id = session('user_extend.corp_id');
-        if(empty($club_id)){
-            $uid = session('user_auth.uid');
-            $result = M('User')->where("uid = '{$uid}'")->getField('extend');
-            session('user_extend', json_decode($result,true));
-            $club_id = session('user_extend.corp_id');
-        }
-        return $club_id;
     }
 }

@@ -18,9 +18,9 @@ class IndexController extends Controller
             $last[$k]['pcount'] = $Comment->where('status=1 and type=3 and from_id='.$v['id'])->count();
         }
 
-        $this->assign('last',$last);// ×îĞÂÈÕÖ¾Êı¾İ¸³Öµ
-        $this->assign('top',$list);// ÖÃ¶¥Êı¾İ¸³Öµ
-        //$this->assign('comm',$comm);// ÖÃ¶¥Êı¾İ¸³Öµ
+        $this->assign('last',$last);// æœ€æ–°æ—¥å¿—æ•°æ®èµ‹å€¼
+        $this->assign('top',$list);// ç½®é¡¶æ•°æ®èµ‹å€¼
+        //$this->assign('comm',$comm);// ç½®é¡¶æ•°æ®èµ‹å€¼
         //dump($last);
         $this->display();
     }

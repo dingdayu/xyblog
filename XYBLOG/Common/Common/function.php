@@ -17,11 +17,11 @@
  */
 
 //用户密码加密
-function password_encrypt($pass,$md5 = 0){
-    if($md5 == 1){
-        return 'p1_'.md5(sha1 ($pass).'corp.xyser.com');
+function password_encrypt($pass,$md5 = false){
+    if($md5){
+        return 'p1_'.md5(sha1 ($pass).'xyblog');
     }else{
-        return 'p1_'.md5(sha1 (md5($pass)).'corp.xyser.com');
+        return 'p1_'.md5(sha1 (md5($pass)).'xyblog');
     }
 
 }
