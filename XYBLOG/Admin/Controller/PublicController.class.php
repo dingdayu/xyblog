@@ -30,7 +30,7 @@ class PublicController extends Controller
             $User = D('User');
             if($User->login($username, $password)){ //登录用户
                 //TODO:跳转到登录前页面
-                $this->success('登录成功！', U('Index/index'));
+                $this->success('登录成功！', U('Index/index'), 5);
             } else {
                 $this->error($User->getError());
             }
@@ -49,5 +49,21 @@ class PublicController extends Controller
                 $this->display();
             }
         }
+    }
+
+    /* 退出登录 */
+    public function logout(){
+        if(is_login()){
+            D('User')->logout();
+            session('[destroy]');
+            $this->success('退出成功！', U('login'));
+        } else {
+            $this->redirect('login');
+        }
+    }
+
+    public function verify(){
+        $verify = new \Think\Verify();
+        $verify->entry(1);
     }
 }

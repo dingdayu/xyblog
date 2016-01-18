@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<title>跳转提示</title>
+	<meta name="keywords" content="HTML5 Bootstrap 3 Admin Template UI Theme" />
+	<meta name="description" content="AdminDesigns - A Responsive HTML5 Admin UI Framework">
+	<meta name="author" content="AdminDesigns">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Font CSS (Via CDN)
+	<link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700'>
+	-->
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="__Public__/skin/default_skin/css/theme.css">
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="__Public__/img/favicon.ico">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body class="external-page external-alt sb-l-c sb-r-c">
+<!-- Start: Main -->
+<div id="main" class="animated fadeIn">
+	<!-- Start: Content-Wrapper -->
+	<section id="content_wrapper">
+		<!-- Begin: Content -->
+		<section id="content">
+			<div class="center-block mt70" style="max-width: 625px">
+				<!-- Login Logo + Meta -->
+				<div class="row table-layout">
+					<div class="col-xs-7 pln">
+						<h2 class="text-dark mbn confirmation-header">
+                            <?php if($status == 1) { ?>
+                            <i class="fa fa-check text-success"></i>
+                            操作成功
+                            <?php }else{ ?>
+                            <i class="fa fa-times text-danger"></i>
+                            错误提示
+                            <?php }?>
+                        </h2>
+					</div>
+
+					<div class="col-xs-5 text-right va-b">
+						<div class="meta-links alt">
+							<a href="http://www.dingxiaoyu.com" class="">dingdayu</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Confirmation Panel -->
+				<div class="panel mt15">
+					<div class="panel-body pt30 p25 pb15">
+						<p class="lead">
+                            <?php
+                            if($status == 1) {
+                                echo ($message);
+                            }else{
+                                echo ($error);
+                            }
+                         ?>
+                        </p>
+						<hr class="alt short mv25">
+						<p class="lh25 text-muted fs15">
+                            <b id="wait"><?php echo($waitSecond); ?></b> 秒后自动跳转。
+                        </p>
+						<p class="text-right mt20">
+                            <a id="href" href="<?php echo($jumpUrl); ?>" class="btn btn-primary btn-rounded ph40" type="button">继续</a>
+                        </p>
+					</div>
+				</div>
+
+				<!-- Registration Links -->
+				<div class="login-links mt30">
+					<p><a href="pages_confirmation.html#" class="active">需要帮助?</a></p>
+					<p> ©Xiaoyu 2012 - 2016 <a href="http://www.dingxiaoyu.com">dingxiaoyu.com</a></p>
+				</div>
+			</div>
+		</section>
+		<!-- End: Content -->
+	</section>
+	<!-- End: Content-Wrapper -->
+</div>
+<!-- End: Main -->
+
+<!-- BEGIN: PAGE SCRIPTS -->
+<!-- jQuery -->
+<script src="__PUBLIC__/vendor/jquery/jquery-1.11.1.min.js"></script>
+<script src="__PUBLIC__/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
+<!-- Theme Javascript -->
+<script src="__Public__/js/utility/utility.js"></script>
+<script src="__Public__/js/demo/demo.js"></script>
+<script src="__Public__/js/main.js"></script>
+<!-- Page Javascript -->
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		"use strict";
+		// Init Theme Core
+		Core.init();
+		// Init Demo JS
+		Demo.init();
+
+        //页面自动跳转
+        var wait = document.getElementById('wait'),href = document.getElementById('href').href;
+        var interval = setInterval(function(){
+            var time = --wait.innerHTML;
+            if(time <= 0) {
+                location.href = href;
+                clearInterval(interval);
+            };
+        }, 1000);
+	});
+</script>
+<!-- END: PAGE SCRIPTS -->
+</body>
+</html>
