@@ -30,7 +30,7 @@ class PublicController extends Controller
             $User = D('User');
             if($User->login($username, $password)){ //登录用户
                 //TODO:跳转到登录前页面
-                $this->success('登录成功！', U('Index/index'), 5);
+                $this->success('登录成功！', U('Index/index'));
             } else {
                 $this->error($User->getError());
             }
