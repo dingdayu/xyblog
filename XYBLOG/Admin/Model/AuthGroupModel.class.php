@@ -12,7 +12,8 @@
 // +----------------------------------------------------------------------
 
 
-namespace Admin\Controller;
+namespace Admin\Model;
+
 use Think\Model;
 
 /**
@@ -20,7 +21,7 @@ use Think\Model;
  * Class AuthGroupModel
  * @author 朱亚杰 <zhuyajie@topthink.net>
  */
-class AuthGroupModel
+class AuthGroupModel extends Model
 {
     const TYPE_ADMIN                = 1;                   // 管理员用户组类型标识
     const MEMBER                    = 'member';
@@ -70,7 +71,7 @@ class AuthGroupModel
         $uid_arr = explode(',',$uid);
         $uid_arr = array_diff($uid_arr,array(C('USER_ADMINISTRATOR')));
         $add = array();
-        if( $del!==false ){
+        if( $del !== false ){
             foreach ($uid_arr as $u){
                 //判断用户id是否合法
                 if(M('Member')->getFieldByUid($u,'uid') == false){
