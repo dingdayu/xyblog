@@ -118,7 +118,7 @@
 
                             </fieldset>
 
-                            <button id="mix-reset2">Clear All</button>
+                            <button id="mix-reset2">清除</button>
                         </form>
 
                     </div>
@@ -127,10 +127,10 @@
                 <div id="mix-container">
 
                     <div class="fail-message">
-                        <span>No items were found matching the selected filters</span>
+                        <span>没有找到匹配选定的过滤器的项目</span>
                     </div>
 
-                    <div class="mix label1 folder1">
+                    <div class="mix label1 folder1 circle">
                         <div class="panel p6 pbn">
                             <div class="of-h">
                                 <img src="__Public__/img/stock/1.jpg" class="img-responsive" title="lost_typewritter.jpg">
@@ -148,7 +148,7 @@
                         </div>
                     </div>
 
-                    <div class="mix label2 folder2">
+                    <div class="mix label2 folder2 circle">
                         <div class="panel p6 pbn">
                             <div class="of-h">
                                 <img src="__Public__/img/stock/2.jpg" class="img-responsive" title="stairs-to_soul.jpg">
@@ -184,7 +184,7 @@
                         </div>
                     </div>
 
-                    <div class="mix label1 folder1">
+                    <div class="mix label1 folder1 circle">
                         <div class="panel p6 pbn">
                             <div class="of-h">
                                 <img src="__Public__/img/stock/4.jpg" class="img-responsive" title="cool_cup.jpg">
@@ -357,35 +357,36 @@
 
             <aside class="tray tray-right tray320">
 
-                <h4 class="tray-title"> Upload New Image </h4>
+                <h4 class="tray-title"> 上传图片 </h4>
 
                 <!-- Image Upload Field -->
                 <div class="fileupload fileupload-new admin-form mt20" data-provides="fileupload">
                     <div class="section mb10">
-                        <label for="name2" class="field prepend-icon">
-                            <input type="text" name="name2" id="name2" class="event-name gui-input br-light light" placeholder="Title">
-                            <label for="name2" class="field-icon">
+                        <label for="file_name" class="field prepend-icon">
+                            <input type="text" name="name2" id="file_name" class="event-name gui-input br-light light" placeholder="文件名">
+                            <label for="file_name" class="field-icon">
                                 <i class="fa fa-pencil"></i>
                             </label>
                         </label>
                     </div>
                     <div class="section mb10">
                         <label class="field prepend-icon">
-                            <textarea class="gui-textarea br-light h-80 bg-light" id="comment" name="comment" placeholder="Description"></textarea>
+                            <textarea class="gui-textarea br-light h-80 bg-light" id="comment" name="comment" placeholder="填写描述"></textarea>
                             <label for="comment" class="field-icon">
                                 <i class="fa fa-comments"></i>
                             </label>
-                <span class="input-footer hidden">
-                  <strong>Hint:</strong>Don't be negative or off topic! just be awesome...</span>
+                            <span class="input-footer hidden">
+                                <strong>Hint:</strong>Don't be negative or off topic! just be awesome...
+                            </span>
                         </label>
                     </div>
                     <div class="row">
                         <div class="col-xs-4">
-                <span class="button btn-system btn-file btn-block ph5">
-                  <span class="fileupload-new">Select image</span>
-                  <span class="fileupload-exists">Change File</span>
-                  <input type="file">
-                </span>
+                        <span class="button btn-system btn-file btn-block ph5">
+                          <span class="fileupload-new">选择图片</span>
+                          <span class="fileupload-exists">重新上传</span>
+                          <input type="file">
+                        </span>
                         </div>
                         <div class="col-xs-8 pln">
                             <label for="name2" class="field prepend-icon">
