@@ -10,7 +10,7 @@
             <div class="topbar-left">
                 <ol class="breadcrumb">
                     <li class="crumb-active">
-                        <a href="{:U('Admin/Index/index')}">博客发布</a>
+                        <a href="{:U('Admin/Index/index')}">日志发布</a>
                     </li>
                     <li class="crumb-icon">
                         <a href="{:U('Admin/Index/index')}">
@@ -18,9 +18,9 @@
                         </a>
                     </li>
                     <li class="crumb-link">
-                        <a href="{:U('Admin/Blog/index')}">博客</a>
+                        <a href="{:U('Admin/Blog/index')}">日志</a>
                     </li>
-                    <li class="crumb-trail">发布博客</li>
+                    <li class="crumb-trail">发布日志</li>
                 </ol>
             </div>
             <div class="topbar-right">
@@ -35,7 +35,7 @@
                     </select>
                 </div>
                 <div class="ml15 ib va-m" id="toggle_sidemenu_r">
-                    <a href="admin_forms-elements.html#" class="pl5">
+                    <a href="#" class="pl5">
                         <i class="fa fa-sign-in fs22 text-primary"></i>
                         <span class="badge badge-hero badge-danger">3</span>
                     </a>
@@ -54,8 +54,8 @@
 
                     <!-- Begin: Content Header -->
                     <div class="content-header">
-                        <h2> 发布 <b>博客(日志)</b> .</h2>
-                        <p class="lead">通过发布博客文章，分享你的想法和见解。</p>
+                        <h2> 发布 <b>日志(博客)</b> .</h2>
+                        <p class="lead">通过发布日志文章，分享你的想法和见解。</p>
                     </div>
 
                     <!-- Begin: Admin Form -->
@@ -63,25 +63,15 @@
 
                         <div class="panel heading-border">
                             <div class="panel-body bg-light">
-                                <form method="post" action="admin_forms-elements.html" id="form-ui">
+                                <form method="post" action="" id="form-ui">
                                     <div class="section-divider mb40" id="spy1">
-                                        <span>Form UI Elements</span>
+                                        <span>主要内容</span>
                                     </div>
-                                    <!-- .section-divider -->
-
-                                    <!-- Basic Inputs -->
                                     <div class="row">
-                                        <div class="col-md-8">
+                                        <div class="col-md-12">
                                             <div class="section">
                                                 <label class="field">
                                                     <input type="text" name="from" id="from" class="gui-input" placeholder="Input no icon">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="section">
-                                                <label class="field">
-                                                    <input type="text" name="from" id="from" class="gui-input" placeholder="Disabled no icon" disabled>
                                                 </label>
                                             </div>
                                         </div>
@@ -89,7 +79,7 @@
 
                                     <!-- Input Icons -->
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="section">
                                                 <label class="field prepend-icon">
                                                     <input type="text" name="firstname" id="firstname" class="gui-input" placeholder="Input icon left">
@@ -99,20 +89,10 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="section">
                                                 <label class="field append-icon">
                                                     <input type="text" name="firstname" id="firstname" class="gui-input" placeholder="Input icon right">
-                                                    <label for="firstname" class="field-icon">
-                                                        <i class="fa fa-user"></i>
-                                                    </label>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="section">
-                                                <label class="field prepend-icon">
-                                                    <input type="text" name="firstname" id="firstname" class="gui-input" placeholder="Disabled with icon" disabled>
                                                     <label for="firstname" class="field-icon">
                                                         <i class="fa fa-user"></i>
                                                     </label>
@@ -1060,20 +1040,15 @@
 
             <!-- begin: .tray-right -->
             <aside class="tray tray-right tray290">
-                <h4> Admin Panels - <small>A Theme Exclusive!</small> </h4>
+                <h4>发布博客 - <small>记录生活和工作经验!</small> </h4>
                 <ul class="icon-list">
                     <li>
                         <i class="fa fa-exclamation-circle text-warning fa-lg pr10"></i>
-                        <b> Author:</b> Admin Designs
+                        <b> Author:</b> dingdayu
                     </li>
                     <li>
                         <i class="fa fa-exclamation-circle text-warning fa-lg pr10"></i>
-                        <b> License:</b> CC - Commercial 3.0
-                    </li>
-                    <li>
-                        <i class="fa fa-exclamation-circle text-warning fa-lg pr10"></i>
-                        <b> Info:</b>
-                        <a href="http://www.themeforest.net/user/AdminDesigns"> www.admindesigns.com </a>
+                        <b> License:</b><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" > CC - Commercial 3.0</a>
                     </li>
                 </ul>
 
@@ -1113,31 +1088,31 @@
                     <div id="nav-spy">
                         <ul class="nav tray-nav" data-smoothscroll="-90">
                             <li class="active">
-                                <a href="admin_forms-elements.html#spy1">
+                                <a href="#spy1">
                                     <span class="fa fa-edit fa-lg"></span> Form UI Elements</a>
                             </li>
                             <li>
-                                <a href="admin_forms-elements.html#spy2">
+                                <a href="#spy2">
                                     <span class="fa fa-flag fa-lg"></span> Input Tooltips</a>
                             </li>
                             <li>
-                                <a href="admin_forms-elements.html#spy3">
+                                <a href="a#spy3">
                                     <span class="fa fa-files-o fa-lg"></span> File Uploaders</a>
                             </li>
                             <li>
-                                <a href="admin_forms-elements.html#spy4">
+                                <a href="#spy4">
                                     <span class="fa fa-caret-square-o-right fa-lg"></span> Form Input Addons</a>
                             </li>
                             <li>
-                                <a href="admin_forms-elements.html#spy5">
+                                <a href="#spy5">
                                     <span class="fa fa-check-square-o fa-lg"></span> Radios & Checkboxes</a>
                             </li>
                             <li>
-                                <a href="admin_forms-elements.html#spy6">
+                                <a href="#spy6">
                                     <span class="fa fa-toggle-off fa-lg"></span> Input Switches</a>
                             </li>
                             <li>
-                                <a href="admin_forms-elements.html#spy7">
+                                <a href="#spy7">
                                     <span class="fa fa-star-o fa-lg"></span> Review & Rating Widgets</a>
                             </li>
                         </ul>

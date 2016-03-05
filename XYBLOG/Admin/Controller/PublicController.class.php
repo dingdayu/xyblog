@@ -17,7 +17,8 @@ use Think\Controller;
 
 class PublicController extends Controller
 {
-    public function login(){
+    public function login()
+    {
         if (IS_POST) {
             /* 检测验证码 TODO: */
             $username = I('username');

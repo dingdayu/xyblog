@@ -1,19 +1,24 @@
 <?php
 // +----------------------------------------------------------------------
-// | Copyright (c) 2016 http://www.mocentre.com All rights reserved.
+// | DINGDAYU [ WWW.XYSER.COM ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2015 http://dingxiaoyu.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( dingdayu @ XYSER )
 // +----------------------------------------------------------------------
 // | Author: dingdayu <614422099@qq.com>
 // +----------------------------------------------------------------------
-// | DATE: 2016/3/5 13:57
+// | DATE: DATE: 2016-3-6 0:43
 // +----------------------------------------------------------------------
+
 
 namespace Admin\Controller;
 
 
-class BlogController extends AdminController
+class ContactsController extends AdminController
 {
     /**
-     * æ¨¡å—åˆå§‹åŒ–
+     * Ä£¿é³õÊ¼»¯
      */
     public function _initialize()
     {
@@ -22,22 +27,13 @@ class BlogController extends AdminController
 
     public function index()
     {
-        //$this->assign('comm',$comm);// ç½®é¡¶æ•°æ®èµ‹å€¼
-        //dump($last);
-        $this->assign('page_title',"åšå®¢åˆ—è¡¨");// ç½®é¡¶æ•°æ®èµ‹å€¼
+        $this->assign('page_title',"ÁªÏµÈËÁĞ±í");// ÖÃ¶¥Êı¾İ¸³Öµ
         $this->display();
     }
 
     public function add()
     {
-
-        $this->assign('page_title',"æ·»åŠ åšå®¢");// ç½®é¡¶æ•°æ®èµ‹å€¼
-        $this->display();
-    }
-
-    public function category()
-    {
-        $this->assign('page_title',"åšå®¢åˆ†ç±»");// ç½®é¡¶æ•°æ®èµ‹å€¼
+        $this->assign('page_title',"Ìí¼ÓÁªÏµÈË");// ÖÃ¶¥Êı¾İ¸³Öµ
         $this->display();
     }
 }

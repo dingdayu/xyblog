@@ -27,8 +27,8 @@ class SidebarWidget extends Controller
                     array('title'=>'后台首页', 'url'=>U('Admin/Index/index'), 'icon'=>'glyphicon glyphicon-book', 'label'=>''),
                     array('title'=>'发布内容', 'url'=>U('Admin/Index/index'), 'icon'=>'glyphicon glyphicon-plus',
                     'sub_menu' => array(
-                        array('title'=>'新增博客', 'url'=>U('Admin/Blog/add'), 'icon'=>'glyphicon glyphicon-book', 'name' => 'index'),
-                        array('title'=>'发表微博', 'url'=>U('Admin/Device/add'), 'icon'=>'glyphicon glyphicon-bullhorn', 'name' => 'add', 'label'=>'添加'),
+                        array('title'=>'新增日志', 'url'=>U('Admin/Blog/add'), 'icon'=>'glyphicon glyphicon-book', 'name' => 'index'),
+                        array('title'=>'发表微博', 'url'=>U('Admin/Weibo/add'), 'icon'=>'glyphicon glyphicon-bullhorn', 'name' => 'add', 'label'=>'添加'),
                         array('title'=>'发布收藏', 'url'=>U('Admin/Device/add'), 'icon'=>'glyphicon glyphicon-briefcase', 'name' => 'add', 'label'=>'添加'),
                     )),
                     array('title'=>'博客列表', 'url'=>U('Admin/Device/index'), 'icon'=>'glyphicon glyphicon-book', 'label'=>'查看'),
@@ -37,32 +37,46 @@ class SidebarWidget extends Controller
             array('title'=>'内容管理',
                 'sub_menu' => array(
                     array(
-                        'title'=>'博客管理','icon'=>'glyphicon glyphicon-book', 'name' => 'Device',
+                        'title'=>'日志管理','icon'=>'glyphicon glyphicon-book', 'name' => 'Blog',
                         'sub_menu' => array(
-                            array('title'=>'博客列表', 'url'=>U('Admin/Blog/index'), 'icon'=>'fa fa-th-list', 'name' => 'index'),
-                            array('title'=>'添加博客', 'url'=>U('Admin/Blog/add'), 'icon'=>'fa fa-plus', 'name' => 'add', 'label'=>'添加'),
+                            array('title'=>'日志列表', 'url'=>U('Admin/Blog/index'), 'icon'=>'fa fa-th-list', 'name' => 'index'),
+                            array('title'=>'添加日志', 'url'=>U('Admin/Blog/add'), 'icon'=>'fa fa-plus', 'name' => 'add', 'label'=>'添加'),
                             array('title'=>'分类管理', 'url'=>U('Admin/Blog/category'), 'icon'=>'glyphicons glyphicons-filter', 'name' => 'category'),
                         ),
                     ),
                     array(
-                        'title'=>'微博管理','icon'=>'glyphicon glyphicon-bullhorn', 'name' => 'Action ',
+                        'title'=>'微博管理','icon'=>'glyphicon glyphicon-bullhorn', 'name' => 'Weibo',
                         'sub_menu' => array(
-                            array('title'=>'微博列表', 'url'=>U('Admin/Action/index'), 'icon'=>'fa fa-th-list', 'name' => 'index'),
-                            array('title'=>'发布微博', 'url'=>U('Admin/Action/add'), 'icon'=>'fa fa-plus', 'label'=>'添加', 'name' => 'add'),
+                            array('title'=>'微博列表', 'url'=>U('Admin/Weibo/index'), 'icon'=>'fa fa-th-list', 'name' => 'index'),
+                            array('title'=>'发布微博', 'url'=>U('Admin/Weibo/add'), 'icon'=>'fa fa-plus', 'label'=>'添加', 'name' => 'add'),
                         ),
                     ),
                     array(
-                        'title'=>'项目管理','icon'=>'fa fa-archive', 'name' => 'Action ',
+                        'title'=>'相册管理','icon'=>'glyphicon glyphicon-picture', 'name' => 'Photos',
+                        'sub_menu' => array(
+                            array('title'=>'相册管理', 'url'=>U('Admin/Photos/index'), 'icon'=>'glyphicons glyphicons-show_thumbnails', 'name' => 'index'),
+                            array('title'=>'相册目录', 'url'=>U('Admin/Photos/add'), 'icon'=>'glyphicons glyphicons-folder_open', 'label'=>'添加', 'name' => 'add'),
+                        ),
+                    ),
+                    array(
+                        'title'=>'项目管理','icon'=>'fa fa-archive', 'name' => 'Project',
                         'sub_menu' => array(
                             array('title'=>'项目列表', 'url'=>U('Admin/Action/index'), 'icon'=>'fa fa-th-list', 'name' => 'index'),
                             array('title'=>'添加项目', 'url'=>U('Admin/Action/add'), 'icon'=>'fa fa-plus', 'label'=>'添加', 'name' => 'add'),
                         ),
                     ),
                     array(
-                        'title'=>'收藏管理','icon'=>'glyphicon glyphicon-briefcase', 'name' => 'Action ',
+                        'title'=>'收藏管理','icon'=>'glyphicon glyphicon-briefcase', 'name' => 'Collection',
                         'sub_menu' => array(
                             array('title'=>'动作列表', 'url'=>U('Admin/Action/index'), 'icon'=>'fa fa-th-list', 'name' => 'index'),
                             array('title'=>'添加动作', 'url'=>U('Admin/Action/add'), 'icon'=>'fa fa-plus', 'label'=>'添加', 'name' => 'add'),
+                        ),
+                    ),
+                    array(
+                        'title'=>'通讯录','icon'=>'fa fa-book', 'name' => 'Contacts',
+                        'sub_menu' => array(
+                            array('title'=>'联系人列表', 'url'=>U('Admin/Contacts/index'), 'icon'=>'fa fa-th-list', 'name' => 'index'),
+                            array('title'=>'添加联系人', 'url'=>U('Admin/Contacts/add'), 'icon'=>'fa fa-plus', 'label'=>'添加', 'name' => 'add'),
                         ),
                     ),
                 ),

@@ -33,7 +33,7 @@
     <script src="__PUBLIC__/vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
 </head>
 
-<body class="ecommerce-page">
+<body class='<empty name="name">{$body_class}<else />ecommerce-page</empty>' data-spy="scroll" data-target="#nav-spy" data-offset="200">
 
 <!-- Start: Theme Preview Pane -->
 <include file="base/theme_options" />
@@ -288,8 +288,6 @@
     </script>
     <!-- END: PAGE SCRIPTS -->
 </block>
-
-
 </body>
 
 </html>

@@ -10,29 +10,29 @@
             <div class="topbar-left">
                 <ul class="nav nav-list nav-list-topbar pull-left">
                     <li class="active">
-                        <a href="ecommerce_dashboard.html">Dashboard</a>
+                        <a href="#">后台首页</a>
                     </li>
                     <li>
-                        <a href="ecommerce_products.html">Products</a>
+                        <a href="ecommerce_products.html">微博列表</a>
                     </li>
                     <li>
-                        <a href="ecommerce_orders.html">Orders</a>
+                        <a href="{:U('Admin/Blog/index')}">博客列表</a>
                     </li>
                     <li>
-                        <a href="ecommerce_customers.html">Customers</a>
+                        <a href="ecommerce_customers.html">通讯录</a>
                     </li>
                     <li>
-                        <a href="ecommerce_settings.html">Settings</a>
+                        <a href="ecommerce_settings.html">个人资料设置</a>
                     </li>
                 </ul>
             </div>
             <div class="topbar-right hidden-xs hidden-sm">
                 <a href="ecommerce_orders.html" class="btn btn-default btn-sm light fw600 ml10">
-                    <span class="fa fa-plus pr5"></span> New Order</a>
+                    <span class="fa fa-plus pr5"></span> 发布博文</a>
                 <a href="ecommerce_products.html" class="btn btn-default btn-sm light fw600 ml10">
-                    <span class="fa fa-plus pr5"></span> Add Product</a>
+                    <span class="fa fa-plus pr5"></span> 发表微博</a>
                 <a href="ecommerce_customers.html" class="btn btn-default btn-sm light fw600 ml10">
-                    <span class="fa fa-user pr5"></span> Add Customer</a>
+                    <span class="fa fa-user pr5"></span>添加通讯录</a>
             </div>
         </header>
         <!-- End: Topbar -->
@@ -49,13 +49,14 @@
                         <div class="panel panel-tile text-center br-a br-grey">
                             <div class="panel-body">
                                 <h1 class="fs30 mt5 mbn">1,426</h1>
-                                <h6 class="text-system">NEW ORDERS</h6>
+                                <h6 class="text-system">博文数量</h6>
                             </div>
                             <div class="panel-footer br-t p12">
-                  <span class="fs11">
-                    <i class="fa fa-arrow-up pr5"></i> 3% INCREASE
-                    <b>1W AGO</b>
-                  </span>
+                                <span class="fs11">
+                                    <i class="fa fa-arrow-up pr5"></i>
+                                    最近一月
+                                    <b>10篇</b>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -63,13 +64,13 @@
                         <div class="panel panel-tile text-center br-a br-grey">
                             <div class="panel-body">
                                 <h1 class="fs30 mt5 mbn">63,262</h1>
-                                <h6 class="text-success">TOTAL SALES GROSS</h6>
+                                <h6 class="text-success">阅读记录数</h6>
                             </div>
                             <div class="panel-footer br-t p12">
-                  <span class="fs11">
-                    <i class="fa fa-arrow-up pr5"></i> 2.7% INCREASE
-                    <b>1W AGO</b>
-                  </span>
+                                <span class="fs11">
+                                    <i class="fa fa-arrow-up pr5"></i> 2.7% 最近一月
+                                    <b>2000</b>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -77,13 +78,13 @@
                         <div class="panel panel-tile text-center br-a br-grey">
                             <div class="panel-body">
                                 <h1 class="fs30 mt5 mbn">248</h1>
-                                <h6 class="text-warning">PENDING SHIPMENTS</h6>
+                                <h6 class="text-warning">蜘蛛爬行</h6>
                             </div>
                             <div class="panel-footer br-t p12">
-                  <span class="fs11">
-                    <i class="fa fa-arrow-up pr5 text-success"></i> 1% INCREASE
-                    <b>1W AGO</b>
-                  </span>
+                                <span class="fs11">
+                                    <i class="fa fa-arrow-up pr5 text-success"></i> 1% 最近一月
+                                    <b>1W 次</b>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -91,13 +92,13 @@
                         <div class="panel panel-tile text-center br-a br-grey">
                             <div class="panel-body">
                                 <h1 class="fs30 mt5 mbn">6,718</h1>
-                                <h6 class="text-danger">UNIQUE VISITS</h6>
+                                <h6 class="text-danger">总评论数量</h6>
                             </div>
                             <div class="panel-footer br-t p12">
-                  <span class="fs11">
-                    <i class="fa fa-arrow-down pr5 text-danger"></i> 6% DECREASE
-                    <b>1W AGO</b>
-                  </span>
+                                <span class="fs11">
+                                <i class="fa fa-arrow-down pr5 text-danger"></i> 6% 最近一月
+                                <b>100条</b>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -106,7 +107,7 @@
                 <!-- dashboard metric chart -->
                 <div class="panel">
                     <div class="panel-heading">
-                        <span class="panel-title"> Revenue</span>
+                        <span class="panel-title"> 访客详情</span>
                     </div>
                     <div class="panel-body pn">
                         <div id="ecommerce_chart1" style="height: 300px;"></div>
@@ -116,16 +117,16 @@
                 <!-- recent activity table -->
                 <div class="panel">
                     <div class="panel-heading">
-                        <span class="panel-title hidden-xs"> Recent Activity</span>
+                        <span class="panel-title hidden-xs"> 近期发布</span>
                         <ul class="nav panel-tabs panel-tabs-merge">
                             <li class="active">
-                                <a href="ecommerce_dashboard.html#tab1_1" data-toggle="tab"> Top Sellers</a>
+                                <a href="ecommerce_dashboard.html#tab1_1" data-toggle="tab"> 博文</a>
                             </li>
                             <li>
-                                <a href="ecommerce_dashboard.html#tab1_2" data-toggle="tab"> Most Viewed</a>
+                                <a href="ecommerce_dashboard.html#tab1_2" data-toggle="tab"> 微博</a>
                             </li>
                             <li>
-                                <a href="ecommerce_dashboard.html#tab1_3" class="hidden-xs" data-toggle="tab"> New Customers</a>
+                                <a href="ecommerce_dashboard.html#tab1_3" class="hidden-xs" data-toggle="tab">项目</a>
                             </li>
                         </ul>
                     </div>
@@ -303,7 +304,7 @@
                     <div class="col-md-6">
                         <div class="panel">
                             <div class="panel-heading">
-                                <span class="panel-title">Top Geographic Sources</span>
+                                <span class="panel-title">访客类型</span>
                             </div>
                             <div class="panel-body pn">
                                 <table class="table mbn tc-med-1 tc-bold-last">
@@ -348,7 +349,7 @@
                         <!-- Search List -->
                         <div class="panel">
                             <div class="panel-heading">
-                                <span class="panel-title">Top Referals</span>
+                                <span class="panel-title">搜索引擎</span>
                             </div>
                             <div class="panel-body pn">
                                 <table class="table mbn tc-med-1 tc-bold-last">
@@ -404,16 +405,6 @@
                             <span class="fa fa-tags"></span>
                         </div>
                         <div class="timeline-desc">
-                            <b>Michael</b> Added a new item to his store:
-                            <a href="ecommerce_dashboard.html#">Ipod</a>
-                        </div>
-                        <div class="timeline-date">1:25am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-dark light">
-                            <span class="fa fa-tags"></span>
-                        </div>
-                        <div class="timeline-desc">
                             <b>Sara</b> Added a new item to his store:
                             <a href="ecommerce_dashboard.html#">Notebook</a>
                         </div>
@@ -438,36 +429,6 @@
                         <div class="timeline-date">5:25am</div>
                     </li>
                     <li class="timeline-item">
-                        <div class="timeline-icon bg-success">
-                            <span class="fa fa-usd"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Admin</b> created a new invoice for:
-                            <a href="ecommerce_dashboard.html#">Apple Inc.</a>
-                        </div>
-                        <div class="timeline-date">7:45am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-dark light">
-                            <span class="fa fa-tags"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Michael</b> Added a new item to his store:
-                            <a href="ecommerce_dashboard.html#">Ipod</a>
-                        </div>
-                        <div class="timeline-date">8:25am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-dark light">
-                            <span class="fa fa-tags"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Sara</b> Added a new item to his store:
-                            <a href="ecommerce_dashboard.html#">Watch</a>
-                        </div>
-                        <div class="timeline-date">9:35am</div>
-                    </li>
-                    <li class="timeline-item">
                         <div class="timeline-icon bg-system">
                             <span class="fa fa-fire"></span>
                         </div>
@@ -476,62 +437,6 @@
                             <a href="ecommerce_dashboard.html#">Software</a>
                         </div>
                         <div class="timeline-date">4:15am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-warning">
-                            <span class="fa fa-pencil"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Laura</b> edited her work experience</div>
-                        <div class="timeline-date">5:25am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-success">
-                            <span class="fa fa-usd"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Admin</b> created a new invoice for:
-                            <a href="ecommerce_dashboard.html#">Software</a>
-                        </div>
-                        <div class="timeline-date">4:15am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-warning">
-                            <span class="fa fa-pencil"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Laura</b> edited her work experience</div>
-                        <div class="timeline-date">5:25am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-success">
-                            <span class="fa fa-usd"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Admin</b> created a new invoice for:
-                            <a href="ecommerce_dashboard.html#">Apple Inc.</a>
-                        </div>
-                        <div class="timeline-date">7:45am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-dark light">
-                            <span class="fa fa-tags"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Michael</b> Added a new item to his store:
-                            <a href="ecommerce_dashboard.html#">Ipod</a>
-                        </div>
-                        <div class="timeline-date">8:25am</div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-icon bg-dark light">
-                            <span class="fa fa-tags"></span>
-                        </div>
-                        <div class="timeline-desc">
-                            <b>Sara</b> Added a new item to his store:
-                            <a href="ecommerce_dashboard.html#">Watch</a>
-                        </div>
-                        <div class="timeline-date">9:35am</div>
                     </li>
                 </ol>
 
@@ -627,5 +532,62 @@
             }
         });
     </script>
+
+
+    <script type="text/javascript">
+        //    Notification.requestPermission( function(status) {
+        //        var n = new Notification("欢迎光临", {body: "这里是通知内容"});
+        //    });
+
+        //console.log(456);
+        //var notification = new Notification("我的消息",{
+        //    body : '内容',
+        //    iconUrl : 'https://dn-st.b0.upaiyun.com/v4.9.x/images/49751d86.touch-icon-ipad.png',
+        //    tag : {} // 可以加一个tag
+        //});
+        //notification.show();
+
+        if (window.webkitNotifications) {
+            console.log(123);
+            if (window.webkitNotifications.checkPermission() == 0) {
+                var notification_test = window.webkitNotifications.createNotification("http://images.cnblogs.com/cnblogs_com/flyingzl/268702/r_1.jpg", '标题', '内容'+new Date().getTime());
+                notification_test.display = function() {}
+                notification_test.onerror = function() {}
+                notification_test.onclose = function() {}
+                notification_test.onclick = function() {this.cancel();}
+
+                notification_test.replaceId = 'Meteoric';
+
+                notification_test.show();
+
+                var tempPopup = window.webkitNotifications.createHTMLNotification(["http://www.baidu.com/", "http://www.soso.com"][Math.random() >= 0.5 ? 0 : 1]);
+                tempPopup.replaceId = "Meteoric_cry";
+                tempPopup.show();
+            } else {
+                window.webkitNotifications.requestPermission(notify);
+            }
+        } else {
+            console.log(456);
+            Notification.requestPermission( function(status) {
+                var notification = new Notification("我的消息",{
+                    body : '内容',
+                    iconUrl : 'https://dn-st.b0.upaiyun.com/v4.9.x/images/49751d86.touch-icon-ipad.png',
+                    tag : {} // 可以加一个tag
+                });
+            });
+            var notification = new Notification("我的消息",{
+                body : '内容',
+                iconUrl : 'https://dn-st.b0.upaiyun.com/v4.9.x/images/49751d86.touch-icon-ipad.png',
+                tag : {} // 可以加一个tag
+            });
+
+            //notification.show();
+//        setTimeout(function(stat){
+//            notification.onclose();
+//            console.log(678);
+//        },10000);
+        }
+    </script>
+
     <!-- END: PAGE SCRIPTS -->
 </block>

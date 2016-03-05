@@ -7,6 +7,8 @@ return array(
     ),
     'LOAD_EXT_CONFIG'   =>  'user',
 
+    'USER_ADMINISTRATOR'    =>  1,
+
 
     // 设置默认的模板主题
     'DEFAULT_THEME'    =>    'AdminDesigns',
