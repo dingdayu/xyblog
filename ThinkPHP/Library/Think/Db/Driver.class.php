@@ -407,18 +407,18 @@ abstract class Driver
     protected function parseSet($data)
     {
         foreach ($data as $key => $val) {
-            if (is_array($val) && 'exp' == $val[0]) {
+            if (isset($val[0]) && 'exp' == $val[0]) {
                 $set[] = $this->parseKey($key) . '=' . $val[1];
             } elseif (is_null($val)) {
                 $set[] = $this->parseKey($key) . '=NULL';
             } elseif (is_scalar($val)) {
                 // 过滤非标量数据
                 if (0 === strpos($val, ':') && in_array($val, array_keys($this->bind))) {
-                    $set[] = $this->parseKey($key) . '=' . $this->escapeString($val);
+                    $set[] = $this->parseKey($key) . '=' . $val;
                 } else {
                     $name  = count($this->bind);
-                    $set[] = $this->parseKey($key) . '=:' . $name;
-                    $this->bindParam($name, $val);
+                    $set[] = $this->parseKey($key) . '=:' . $key . '_' . $name;
+                    $this->bindParam($key . '_' . $name, $val);
                 }
             }
         }
@@ -443,7 +443,7 @@ abstract class Driver
      * @param string $key
      * @return string
      */
-    protected function parseKey(&$key)
+    protected function parseKey($key)
     {
         return $key;
     }
@@ -522,8 +522,7 @@ abstract class Driver
             }
             $tables = $array;
         } elseif (is_string($tables)) {
-            $tables = explode(',', $tables);
-            array_walk($tables, array(&$this, 'parseKey'));
+            $tables = array_map(array($this, 'parseKey'), explode(',', $tables));
         }
         return implode(',', $tables);
     }
@@ -899,7 +898,7 @@ abstract class Driver
         $this->model = $options['model'];
         $this->parseBind(!empty($options['bind']) ? $options['bind'] : array());
         foreach ($data as $key => $val) {
-            if (is_array($val) && 'exp' == $val[0]) {
+            if (isset($val[0]) && 'exp' == $val[0]) {
                 $fields[] = $this->parseKey($key);
                 $values[] = $val[1];
             } elseif (is_null($val)) {
@@ -909,11 +908,11 @@ abstract class Driver
                 // 过滤非标量数据
                 $fields[] = $this->parseKey($key);
                 if (0 === strpos($val, ':') && in_array($val, array_keys($this->bind))) {
-                    $values[] = $this->parseValue($val);
+                    $values[] = $val;
                 } else {
                     $name     = count($this->bind);
-                    $values[] = ':' . $name;
-                    $this->bindParam($name, $val);
+                    $values[] = ':' . $key . '_' . $name;
+                    $this->bindParam($key . '_' . $name, $val);
                 }
             }
         }
@@ -951,11 +950,11 @@ abstract class Driver
                     $value[] = 'NULL';
                 } elseif (is_scalar($val)) {
                     if (0 === strpos($val, ':') && in_array($val, array_keys($this->bind))) {
-                        $value[] = $this->parseValue($val);
+                        $value[] = $val;
                     } else {
                         $name    = count($this->bind);
-                        $value[] = ':' . $name;
-                        $this->bindParam($name, $val);
+                        $value[] = ':' . $key . '_' . $name;
+                        $this->bindParam($key . '_' . $name, $val);
                     }
                 }
             }
@@ -982,8 +981,8 @@ abstract class Driver
             $fields = explode(',', $fields);
         }
 
-        array_walk($fields, array($this, 'parseKey'));
-        $sql = 'INSERT INTO ' . $this->parseTable($table) . ' (' . implode(',', $fields) . ') ';
+        $fields = array_map(array($this, 'parseKey'), $fields);
+        $sql    = 'INSERT INTO ' . $this->parseTable($table) . ' (' . implode(',', $fields) . ') ';
         $sql .= $this->buildSelectSql($options);
         return $this->execute($sql, !empty($options['fetch_sql']) ? true : false);
     }
