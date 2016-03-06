@@ -1,6 +1,40 @@
+/*! Bootstrap integration for DataTables' Editor
+ * ©2015 SpryMedia Ltd - datatables.net/license
+ */
 
+(function( factory ){
+	if ( typeof define === 'function' && define.amd ) {
+		// AMD
+		define( ['jquery', 'datatables.net-bs', 'datatables.net-editor'], function ( $ ) {
+			return factory( $, window, document );
+		} );
+	}
+	else if ( typeof exports === 'object' ) {
+		// CommonJS
+		module.exports = function (root, $) {
+			if ( ! root ) {
+				root = window;
+			}
 
-(function(window, document, $, DataTable) {
+			if ( ! $ || ! $.fn.dataTable ) {
+				$ = require('datatables.net-bs')(root, $).$;
+			}
+
+			if ( ! $.fn.dataTable.Editor ) {
+				require('datatables.net-editor')(root, $);
+			}
+
+			return factory( $, root, root.document );
+		};
+	}
+	else {
+		// Browser
+		factory( jQuery, window, document );
+	}
+}(function( $, window, document, undefined ) {
+'use strict';
+var DataTable = $.fn.dataTable;
+
 
 /*
  * Set the default display controller to be our bootstrap control 
@@ -38,17 +72,21 @@ $.extend( true, $.fn.dataTable.Editor.classes, {
 		"wrapper": "DTE_Footer modal-footer"
 	},
 	"form": {
-		"tag": "form-horizontal"
+		"tag": "form-horizontal",
+		"button": "btn btn-default"
 	},
 	"field": {
 		"wrapper": "DTE_Field",
 		"label":   "col-lg-4 control-label",
 		"input":   "col-lg-8 controls",
-		"error":   "error",
+		"error":   "error has-error",
 		"msg-labelInfo": "help-block",
 		"msg-info":      "help-block",
 		"msg-message":   "help-block",
-		"msg-error":     "help-block"
+		"msg-error":     "help-block",
+		"multiValue":    "well well-sm multi-value",
+		"multiInfo":     "small",
+		"multiRestore":  "well well-sm multi-restore"
 	}
 } );
 
@@ -78,13 +116,15 @@ DataTable.Editor.display.bootstrap = $.extend( true, {}, DataTable.Editor.models
 			self._dte.close('icon');
 		} );
 
-		$(document).on('click', 'div.modal-backdrop', function () {
-			self._dte.close('background');
+		$(document).on('click', 'div.modal', function (e) {
+			if ( $(e.target).hasClass('modal') && self._shown ) {
+				self._dte.background();
+			}
 		} );
 
 		dte.on( 'open.dtebs', function ( e, type ) {
 			if ( type === 'inline' || type === 'bubble' ) {
-				$('input[type=text], select', self._dom.form).addClass( 'form-control' );
+				$('div.DTE input[type=text], div.DTE select, div.DTE textarea').addClass( 'form-control' );
 			}
 		} );
 
@@ -109,7 +149,12 @@ DataTable.Editor.display.bootstrap = $.extend( true, {}, DataTable.Editor.models
 		$('div.modal-header', append).prepend( self._dom.close );
 
 		$(self._dom.content)
-			.one('shown', function () {
+			.one('shown.bs.modal', function () {
+				// Can only give elements focus when shown
+				if ( self._dte.s.setFocus ) {
+					self._dte.s.setFocus.focus();
+				}
+
 				if ( callback ) {
 					callback();
 				}
@@ -117,12 +162,14 @@ DataTable.Editor.display.bootstrap = $.extend( true, {}, DataTable.Editor.models
 			.one('hidden', function () {
 				self._shown = false;
 			})
+			.appendTo( 'body' )
 			.modal( {
-				"backdrop": "static"
-			}
-		);
+				backdrop: "static",
+				keyboard: false
+			} );
 
-		$('input[type=text], select', self._dom.content).addClass( 'form-control' );
+		$('input:not([type=checkbox]):not([type=radio]), select, textarea', self._dom.content)
+			.addClass( 'form-control' );
 	},
 
 	"close": function ( dte, callback ) {
@@ -133,7 +180,11 @@ DataTable.Editor.display.bootstrap = $.extend( true, {}, DataTable.Editor.models
 			return;
 		}
 
-		$(self._dom.content).modal('hide');
+		$(self._dom.content)
+			.one( 'hidden.bs.modal', function () {
+				$(this).detach();
+			} )
+			.modal('hide');
 
 		self._dte = dte;
 		self._shown = false;
@@ -141,6 +192,10 @@ DataTable.Editor.display.bootstrap = $.extend( true, {}, DataTable.Editor.models
 		if ( callback ) {
 			callback();
 		}
+	},
+
+	node: function ( dte ) {
+		return self._dom.content[0];
 	},
 
 
@@ -155,5 +210,5 @@ DataTable.Editor.display.bootstrap = $.extend( true, {}, DataTable.Editor.models
 self = DataTable.Editor.display.bootstrap;
 
 
-}(window, document, jQuery, jQuery.fn.dataTable));
-
+return DataTable.Editor;
+}));
