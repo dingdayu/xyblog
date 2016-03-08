@@ -10,17 +10,17 @@
             <div class="topbar-left">
                 <ol class="breadcrumb">
                     <li class="crumb-active">
-                        <a href="dashboard.html">Dashboard</a>
+                        <a href="{:U('Admin/Index/index')}">管理后台</a>
                     </li>
                     <li class="crumb-icon">
-                        <a href="dashboard.html">
+                        <a href="{:U('Admin/Index/index')}">
                             <span class="glyphicon glyphicon-home"></span>
                         </a>
                     </li>
                     <li class="crumb-link">
-                        <a href="dashboard.html">Home</a>
+                        <a href="{:U('Admin/Weibo/index')}">微博管理</a>
                     </li>
-                    <li class="crumb-trail">Dashboard</li>
+                    <li class="crumb-trail">新微博</li>
                 </ol>
             </div>
             <div class="topbar-right">
@@ -60,119 +60,121 @@
                             <h4 class="micro-header">选择消息类型</h4>
                             <div class="row" id="content-type">
                                 <div class="col-xs-4 col-sm-6">
-                                    <a class="holder-style p15 mb20 holder-active" href="#dock-image">
+                                    <a class="holder-style p15 mb20" href="#dock-image">
                                         <span class="fa fa-picture-o holder-icon"></span>
-                                        <br> Image
+                                        <br> 图片
                                     </a>
                                 </div>
                                 <div class="col-xs-4 col-sm-6">
-                                    <a class="holder-style p15 mb20" href="#dock-panel">
+                                    <a class="holder-style p15 mb20  holder-active" href="#dock-panel">
                                         <span class="fa fa-text-height holder-icon"></span>
-                                        <br> Panel
-                                    </a>
-                                </div>
-                                <div class="col-xs-4 col-sm-6">
-                                    <a class="holder-style p15 mb20" href="#dock-table">
-                                        <span class="fa fa-pencil-square-o holder-icon"></span>
-                                        <br> Table
-                                    </a>
-                                </div>
-                                <div class="col-xs-4 col-sm-6">
-                                    <a class="holder-style p15 mb20" href="#dock-form">
-                                        <span class="fa fa-map-marker holder-icon"></span>
-                                        <br> Form
+                                        <br> 图文
                                     </a>
                                 </div>
                                 <div class="col-xs-4 col-sm-6">
                                     <a class="holder-style p15 mb20" href="#dock-text">
-                                        <span class="fa fa-film holder-icon"></span>
-                                        <br> Text
+                                        <span class="fa fa-pencil-square-o holder-icon"></span>
+                                        <br> 文字
+                                    </a>
+                                </div>
+                                <div class="col-xs-4 col-sm-6">
+                                    <a class="holder-style p15 mb20" href="#dock-location">
+                                        <span class="fa fa-map-marker holder-icon"></span>
+                                        <br> 位置
                                     </a>
                                 </div>
                                 <div class="col-xs-4 col-sm-6">
                                     <a class="holder-style p15 mb20" href="#dock-video">
+                                        <span class="fa fa-film holder-icon"></span>
+                                        <br> 视频
+                                    </a>
+                                </div>
+                                <div class="col-xs-4 col-sm-6">
+                                    <a class="holder-style p15 mb20" href="#dock-url">
                                         <span class="fa fa-spinner holder-icon"></span>
-                                        <br> Video
+                                        <br> 分享
                                     </a>
                                 </div>
 
                             </div>
-                            <button id="dock-push" type="button" class="btn btn-success fs14 fw600 pv15 btn-block">Send to Admin Dock</button>
+                            <button id="dock-push" type="button" class="btn btn-success fs14 fw600 pv15 btn-block">发布</button>
                         </div>
 
                         <div class="col-xs-12 col-sm-8 br-a br-light bg-light dark va-t p10 va-m">
 
                             <div id="dock-content" class="ph20">
-                                <div id="dock-image" class="active-content">
-                                    <div class="dock-item" data-title="Tiger Image">
-                                        <img class="img-responsive center-block" src="http://farm9.staticflickr.com/8242/8558295633_f34a55c1c6_b.jpg">
+                                <div id="dock-image">
+                                    <div class="dock-item" data-title="图片分享">
+                                        <div class="admin-form">
+                                        <form method="post" action="" id="form-image">
+                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                <div class="fileupload-preview thumbnail mb20">
+                                                    <img data-src="holder.js/100%x190" alt="holder">
+                                                </div>
+                                                <div class="section">
+                                                    <label for="oneWord" class="field prepend-icon">
+                                                        <input type="text" name="oneWord" id="oneWord" class="gui-input" placeholder="一句话。">
+                                                        <label for="lastname" class="field-icon">
+                                                            <i class="fa fa-comments"></i>
+                                                        </label>
+                                                    </label>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-7 pr5">
+                                                        <input type="text" name="imgaeImgName" id="imgaeImgName" class="form-control text-center event-name br-light bg-light" placeholder="输入文件名">
+                                                        <label for="imgaeImgName" class="field-icon"></label>
+                                                    </div>
+                                                    <div class="col-xs-5">
+                                                        <span class="btn btn-system btn-file btn-block">
+                                                            <span class="fileupload-new">选择</span>
+                                                            <span class="fileupload-exists">更换</span>
+                                                            <input type="file">
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                     </div>
                                 </div>
-                                <div id="dock-panel">
-                                    <div class="dock-item" data-title="A Panel">
-                                        <div class="panel">
-                                            <div class="panel-heading">
-                          <span class="panel-icon pl5">
-                            <i class="fa fa-pencil"></i>
-                          </span>
-                                                <span class="panel-title">Panel 1</span>
+                                <div id="dock-panel" class="active-content">
+                                    <div class="dock-item" data-title="图文分享">
+                                        <div class="admin-form">
+                                        <form method="post" action="" id="form-panel">
+                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                <div class="section">
+                                                    <label for="comment" class="field prepend-icon">
+                                                        <textarea class="gui-textarea" id="desic" name="desic" placeholder="说点什么"></textarea>
+                                                        <label for="comment" class="field-icon">
+                                                            <i class="fa fa-comments"></i>
+                                                        </label>
+                                                        <span class="input-footer"><strong>Tip:</strong>你可以在下面上传配图.</span>
+                                                    </label>
+                                                </div>
+                                                <div class="section">
+                                                    <label class="field prepend-icon append-button file">
+                                                        <span class="button btn-system">选择图片</span>
+                                                        <input type="file" class="gui-file" name="panelFile" id="panelFile" onChange="document.getElementById('panelUploaderImg').value = this.value;">
+                                                        <input type="text" class="gui-input" id="panelUploaderImg" placeholder="请选择图片">
+                                                        <label class="field-icon">
+                                                            <i class="fa fa-upload"></i>
+                                                        </label>
+                                                    </label>
+                                                </div>
+                                                <div class="fileupload-preview thumbnail mb20">
+                                                    <img data-src="holder.js/100%x100" alt="holder">
+                                                </div>
                                             </div>
-                                            <div class="panel-body">
-                                                <h3 class="mtn"> Hello. </h3>
-                                                <p> I'm Example panel content </p>
-                                            </div>
-                                        </div>
+                                        </form>
+                                    </div>
                                     </div>
                                 </div>
-                                <div id="dock-table">
-                                    <div class="dock-item" data-title="Green Table">
-                                        <div class="panel">
-                                            <div class="panel-body pn">
-                                                <table class="table">
-                                                    <thead>
-                                                    <tr class="success">
-                                                        <th>#</th>
-                                                        <th>First Name</th>
-                                                        <th>
-                                                            <code>.success</code>
-                                                        </th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Mark</td>
-                                                        <td>Cell</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Jacob</td>
-                                                        <td>Cell</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>Larry</td>
-                                                        <td>Cell</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td>Sussy</td>
-                                                        <td>Cell</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="dock-form">
-                                    <div class="dock-item" data-title="Admin Form">
+                                <div id="dock-text">
+                                    <div class="dock-item" data-title="纯文字分享">
                                         <div class="admin-form">
                                             <div class="panel panel-success heading-border">
                                                 <div class="panel-heading bg-white hidden">
-                            <span class="panel-title">
-                              <i class="fa fa-rocket"></i>Leave a comment</span>
+                                                    <span class="panel-title"><i class="fa fa-rocket"></i>Leave a comment</span>
                                                 </div>
                                                 <!-- end .panel-heading section -->
 
@@ -188,7 +190,6 @@
                                                                 </label>
                                                             </div>
                                                             <!-- end section -->
-
                                                             <div class="col-md-6">
                                                                 <label for="lastname" class="field prepend-icon">
                                                                     <input type="text" name="lastname" id="lastname" class="gui-input" placeholder="Last name...">
@@ -198,10 +199,8 @@
                                                                 </label>
                                                             </div>
                                                             <!-- end section -->
-
                                                         </div>
                                                         <!-- end section row section -->
-
                                                         <div class="section row">
                                                             <div class="col-md-6">
                                                                 <label for="email" class="field prepend-icon">
@@ -212,7 +211,6 @@
                                                                 </label>
                                                             </div>
                                                             <!-- end section -->
-
                                                             <div class="col-md-6">
                                                                 <label for="website" class="field prepend-icon">
                                                                     <input type="url" name="website" id="lastname" class="gui-input" placeholder="Website url...">
@@ -232,8 +230,7 @@
                                                                 <label for="comment" class="field-icon">
                                                                     <i class="fa fa-comments"></i>
                                                                 </label>
-                                  <span class="input-footer">
-                                    <strong>DO NOT:</strong>Be negative or off topic. We expect a great comment.</span>
+                                                                <span class="input-footer"><strong>DO NOT:</strong>Be negative or off topic. We expect a great comment.</span>
                                                             </label>
                                                         </div>
                                                         <!-- end section -->
@@ -251,13 +248,92 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="dock-text">
+                                <div id="dock-location">
+                                    <div class="dock-item" data-title="位置分享">
+                                        <div class="admin-form">
+                                            <div class="panel panel-success heading-border">
+                                                <div class="panel-heading bg-white hidden">
+                                                    <span class="panel-title"><i class="fa fa-rocket"></i>Leave a comment</span>
+                                                </div>
+                                                <!-- end .panel-heading section -->
+
+                                                <form method="post" action="http://admindesigns.com/" id="comment">
+                                                    <div class="panel-body p25 pb15">
+                                                        <div class="section row">
+                                                            <div class="col-md-6">
+                                                                <label for="firstname" class="field prepend-icon">
+                                                                    <input type="text" name="firstname" id="firstname" class="gui-input" placeholder="First name...">
+                                                                    <label for="firstname" class="field-icon">
+                                                                        <i class="fa fa-user"></i>
+                                                                    </label>
+                                                                </label>
+                                                            </div>
+                                                            <!-- end section -->
+                                                            <div class="col-md-6">
+                                                                <label for="lastname" class="field prepend-icon">
+                                                                    <input type="text" name="lastname" id="lastname" class="gui-input" placeholder="Last name...">
+                                                                    <label for="lastname" class="field-icon">
+                                                                        <i class="fa fa-user"></i>
+                                                                    </label>
+                                                                </label>
+                                                            </div>
+                                                            <!-- end section -->
+                                                        </div>
+                                                        <!-- end section row section -->
+                                                        <div class="section row">
+                                                            <div class="col-md-6">
+                                                                <label for="email" class="field prepend-icon">
+                                                                    <input type="email" name="email" id="email" class="gui-input" placeholder="Email address">
+                                                                    <label for="email" class="field-icon">
+                                                                        <i class="fa fa-envelope"></i>
+                                                                    </label>
+                                                                </label>
+                                                            </div>
+                                                            <!-- end section -->
+                                                            <div class="col-md-6">
+                                                                <label for="website" class="field prepend-icon">
+                                                                    <input type="url" name="website" id="lastname" class="gui-input" placeholder="Website url...">
+                                                                    <label for="website" class="field-icon">
+                                                                        <i class="fa fa-globe"></i>
+                                                                    </label>
+                                                                </label>
+                                                            </div>
+                                                            <!-- end section -->
+
+                                                        </div>
+                                                        <!-- end section row section -->
+
+                                                        <div class="section">
+                                                            <label for="comment" class="field prepend-icon">
+                                                                <textarea class="gui-textarea" id="comment" name="comment" placeholder="Your comment"></textarea>
+                                                                <label for="comment" class="field-icon">
+                                                                    <i class="fa fa-comments"></i>
+                                                                </label>
+                                                                <span class="input-footer"><strong>DO NOT:</strong>Be negative or off topic. We expect a great comment.</span>
+                                                            </label>
+                                                        </div>
+                                                        <!-- end section -->
+
+                                                    </div>
+                                                    <!-- end .form-body section -->
+
+                                                    <div class="panel-footer hidden">
+                                                        <button type="submit" class="button btn-primary">Post Comment</button>
+                                                    </div>
+                                                    <!-- end .form-footer section -->
+                                                </form>
+                                            </div>
+                                            <!-- end: .panel -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="dock-video">
                                     <div class="dock-item" data-title="Just Text">
                                         <p class="fs15 mt10 mb20 ph20"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                                         <p class="fs15 mb20 ph20"> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum </p>
                                     </div>
                                 </div>
-                                <div id="dock-video">
+                                <div id="dock-url">
                                     <div class="dock-item" data-title="Online Video">
                                         <div class="embed-responsive embed-responsive-16by9">
                                             <iframe width="100%" height="300" src="http://www.youtube.com/embed/r1ROBlsOhwc?rel=0" frameborder="0" allowfullscreen></iframe>
@@ -267,44 +343,38 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </section>
         <!-- End: Content -->
-
     </section>
-
 </block>
 
 <block name="script">
+    <!-- Cropper Image Plugin -->
+    <script src="__PUBLIC__/vendor/plugins/cropper/cropper.min.js"></script>
+
+    <!-- jQuery Zoom Plugin -->
+    <script src="__PUBLIC__/vendor/plugins/imagezoom/jquery.elevatezoom.min.js"></script>
+
+    <!-- FileUpload Plugin -->
+    <script src="__PUBLIC__/vendor/plugins/fileupload/fileupload.js"></script>
+    <script src="__PUBLIC__/vendor/plugins/holder/holder.min.js"></script>
     <script type="text/javascript">
         jQuery(document).ready(function() {
 
             "use strict";
-
-            // Init Theme Core
             Core.init();
-
-            // Init Demo JS
             Demo.init();
-
-            // Demo only javascript. no real use
             var contentType = $('#content-type');
             var Content = $('#dock-content');
-
             contentType.on('click', '.holder-style', function(e) {
                 e.preventDefault();
 
                 var This = $(this);
                 var activeContent = This.attr('href');
-
-                // Content button active
                 contentType.find('.holder-style').removeClass('holder-active');
                 This.addClass('holder-active');
-
                 Content.children('div').removeClass('active-content');
                 $(activeContent).addClass('active-content');
             });
