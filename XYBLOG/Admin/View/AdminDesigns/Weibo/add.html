@@ -107,29 +107,21 @@
                                     <div class="dock-item" data-title="图片分享">
                                         <div class="admin-form">
                                         <form method="post" action="" id="form-image">
-                                            <div class="fileupload fileupload-new" data-provides="fileupload">
-                                                <div class="fileupload-preview thumbnail mb20">
-                                                    <img data-src="holder.js/100%x190" alt="holder">
-                                                </div>
-                                                <div class="section">
-                                                    <label for="oneWord" class="field prepend-icon">
-                                                        <input type="text" name="oneWord" id="oneWord" class="gui-input" placeholder="一句话。">
-                                                        <label for="lastname" class="field-icon">
-                                                            <i class="fa fa-comments"></i>
-                                                        </label>
-                                                    </label>
+                                            <div class="fileupload fileupload-new" data-provides="fileupload"><input type="hidden">
+                                                <div class="fileupload-preview thumbnail mb20" style="line-height: 205px;">
+                                                    <img data-src="holder.js/100%x195" alt="100%x195" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNzU4IiBoZWlnaHQ9IjE5NSIgdmlld0JveD0iMCAwIDc1OCAxOTUiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iNzU4IiBoZWlnaHQ9IjE5NSIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjI4NS41NzAzMTI1IiB5PSI5Ny41IiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjM2cHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NzU4eDE5NTwvdGV4dD48L2c+PC9zdmc+" data-holder-rendered="true" style="height: 195px; width: 100%; display: block;">
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xs-7 pr5">
-                                                        <input type="text" name="imgaeImgName" id="imgaeImgName" class="form-control text-center event-name br-light bg-light" placeholder="输入文件名">
-                                                        <label for="imgaeImgName" class="field-icon"></label>
+                                                        <input type="text" name="name2" id="name2" class="form-control text-center event-name br-light bg-light" placeholder="上传文件名">
+                                                        <label for="name2" class="field-icon"></label>
                                                     </div>
                                                     <div class="col-xs-5">
-                                                        <span class="btn btn-system btn-file btn-block">
-                                                            <span class="fileupload-new">选择</span>
-                                                            <span class="fileupload-exists">更换</span>
-                                                            <input type="file">
-                                                        </span>
+                                                  <span class="btn btn-system btn-file btn-block">
+                                                    <span class="fileupload-new">选择</span>
+                                                    <span class="fileupload-exists">改变</span>
+                                                    <input type="file">
+                                                  </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -161,7 +153,7 @@
                                                         </label>
                                                     </label>
                                                 </div>
-                                                <div class="fileupload-preview thumbnail mb20">
+                                                <div class="fileupload-preview thumbnail mb20 hide">
                                                     <img data-src="holder.js/100%x100" alt="holder">
                                                 </div>
                                             </div>
@@ -336,7 +328,7 @@
                                 <div id="dock-url">
                                     <div class="dock-item" data-title="Online Video">
                                         <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe width="100%" height="300" src="http://www.youtube.com/embed/r1ROBlsOhwc?rel=0" frameborder="0" allowfullscreen></iframe>
+
                                         </div>
                                     </div>
                                 </div>
@@ -351,11 +343,6 @@
 </block>
 
 <block name="script">
-    <!-- Cropper Image Plugin -->
-    <script src="__PUBLIC__/vendor/plugins/cropper/cropper.min.js"></script>
-
-    <!-- jQuery Zoom Plugin -->
-    <script src="__PUBLIC__/vendor/plugins/imagezoom/jquery.elevatezoom.min.js"></script>
 
     <!-- FileUpload Plugin -->
     <script src="__PUBLIC__/vendor/plugins/fileupload/fileupload.js"></script>
