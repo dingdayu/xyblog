@@ -368,6 +368,28 @@
                     $('[name=Lng]').val(e.lnglat.getLng());
                     $('[name=Lat]').val(e.lnglat.getLat());
 
+                    var InglatXY = [e.lnglat.getLng(),e.lnglat.getLat()];
+                    //获取具体地址
+                    AMap.service(["AMap.Geocoder"], function() { //加载地理编码
+                        var geocoder = new AMap.Geocoder({
+                            radius: 1000,
+                            extensions: "all"
+                        });
+                        //步骤三：通过服务对应的方法回调服务返回结果，本例中通过逆地理编码方法getAddress回调结果
+                        geocoder.getAddress(new AMap.LngLat(e.lnglat.getLng(),e.lnglat.getLat()), function(status, result){
+                            //根据服务请求状态处理返回结果
+                            if(status=='error') {
+                                alert("服务请求出错啦！ ");
+                            }
+                            if(status=='no_data') {
+                                alert("无数据返回，请换个关键字试试～～");
+                            }
+                            else {
+                                console.log(result);
+                                $('[name=location-name]').val(result.regeocode.formattedAddress);
+                            }
+                        });
+                    });
                 });
                 map.plugin(["AMap.Autocomplete"],function() {
                     var auto = new AMap.Autocomplete({
@@ -382,35 +404,8 @@
                         }
                     }
                 });
-                var InglatXY = [$('[name=Lng]').val(),$('[name=Lat]').val()];
 
-                map.plugin(["AMap.Autocomplete"],function() {
-                    var auto = new AMap.Autocomplete({
-                        input: "tipinput"
-                    });
-                    AMap.event.addListener(auto, "select", select);//注册监听，当选中某条记录时会触发
-                    function select(e) {
-                        if (e.poi && e.poi.location) {
-                            map.setZoom(15);
-                            console.log(e);
-                            map.setCenter(e.poi.location);
-                        }
-                    }
-                });
-                //获取具体地址
-                map.plugin('AMap.Geocoder',function(){
-                    //实例化Geocoder
-                    geocoder = new AMap.Geocoder({
-                        radius:1000,
-                        extensions:"all"
-                    });
-                    geocoder.getAddress(InglatXY,function(status,result){
-                        if(status == "complete" && result.info == "OK"){
-                            var address = result.regeocode.formattedAddress;
-                            $('location-name').val(address);
-                        }
-                    })
-                });
+
 
             }
             initMap();
